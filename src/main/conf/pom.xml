@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>de.groupon.api</groupId>
+    <artifactId>groupon-api-log4jconf</artifactId>
+    <name>Groupon API Application Log4j Configuration</name>
+    <packaging>jar</packaging>
+    <version>2.0.0-SNAPSHOT</version>
+
+    <parent>
+        <groupId>de.citydeal.maven</groupId>
+        <artifactId>citydeal-parent</artifactId>
+        <version>4.2</version>
+    </parent>
+
+
+    <build>
+
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>enforce-property</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireProperty>
+                                    <property>zone</property>
+                                    <message>You must pass the zone as parameter! Example: -Dzone=europe</message>
+                                </requireProperty>
+                            </rules>
+                            <fail>true</fail>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.google.code.norocketscience.maven.plugins</groupId>
+                <artifactId>property-maven-plugin</artifactId>
+                <version>1.2.4</version>
+                <executions>
+                    <execution>
+                        <id>0-merge-config-global</id>
+                        <phase>generate-resources</phase>
+                        <goals><goal>merge</goal></goals>
+                        <configuration>
+                            <environment>${env}</environment>
+                            <staticFiles>
+                                <staticFile>log4j.xml</staticFile>
+                                <!-- smartdeals -->
+                                <staticFile>all_deals_workflow.json</staticFile>
+                                <staticFile>post_purchase_workflow.json</staticFile>
+                                <staticFile>data_source_settings.json</staticFile>
+                                <staticFile>odds_categories_2012_01.json</staticFile>
+                                <staticFile>odds_divisions.json</staticFile>
+                                <staticFile>root_configuration.json</staticFile>
+                            </staticFiles>
+                            <resource>
+                                <directory>${basedir}/envs</directory>
+                                <targetPath>${project.build.directory}/generated-resources-tmp/default</targetPath>
+                                <excludes><exclude>**/.svn</exclude></excludes>
+                            </resource>
+                            <addToResources>false</addToResources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>1-merge-config-zone</id>
+                        <phase>generate-resources</phase>
+                        <goals><goal>merge</goal></goals>
+                        <configuration>
+                            <environment>${env}</environment>
+                            <staticFiles>
+                                <staticFile>${zone}/log4j.xml</staticFile>
+                                <!-- smartdeals -->
+                                <staticFile>${zone}/all_deals_workflow.json</staticFile>
+                                <staticFile>${zone}/post_purchase_workflow.json</staticFile>
+                                <staticFile>${zone}/data_source_settings.json</staticFile>
+                                <staticFile>${zone}/odds_categories_2012_01.json</staticFile>
+                                <staticFile>${zone}/odds_divisions.json</staticFile>
+                                <staticFile>${zone}/root_configuration.json</staticFile>
+                            </staticFiles>
+                            <resource>
+                                <directory>${basedir}/envs</directory>
+                                <targetPath>${project.build.directory}/generated-resources-tmp</targetPath>
+                                <excludes><exclude>**/.svn</exclude></excludes>
+                            </resource>
+                            <addToResources>false</addToResources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>2-merge-config-global-with-zone</id>
+                        <phase>generate-resources</phase>
+                        <goals><goal>merge</goal></goals>
+                        <configuration>
+                            <environment>${zone}</environment>
+                            <staticFiles>
+                                <staticFile>log4j.xml</staticFile>
+                                <!-- smartdeals -->
+                                <staticFile>all_deals_workflow.json</staticFile>
+                                <staticFile>post_purchase_workflow.json</staticFile>
+                                <staticFile>data_source_settings.json</staticFile>
+                                <staticFile>odds_categories_2012_01.json</staticFile>
+                                <staticFile>odds_divisions.json</staticFile>
+                                <staticFile>root_configuration.json</staticFile>
+                            </staticFiles>
+                            <resource>
+                                <directory>${project.build.directory}/generated-resources-tmp</directory>
+                                <targetPath>${project.build.directory}/generated-resources</targetPath>
+                                <excludes><exclude>**/.svn</exclude></excludes>
+                            </resource>
+                            <addToResources>true</addToResources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+    <repositories>
+        <repository>
+            <releases />
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>citydeal Releases Repository</name>
+            <url>http://repo.team.citydeal.de/content/groups/public</url>
+        </repository>
+        <repository>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots />
+            <id>snapshots</id>
+            <name>citydeal Snapshots Repository</name>
+            <url>http://repo.team.citydeal.de/content/groups/public-snapshots</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <releases />
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>citydeal Releases Repository</name>
+            <url>http://repo.team.citydeal.de/content/groups/public</url>
+        </pluginRepository>
+        <pluginRepository>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots />
+            <id>snapshots</id>
+            <name>citydeal Snapshots Repository</name>
+            <url>http://repo.team.citydeal.de/content/groups/public-snapshots</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+</project>
+
