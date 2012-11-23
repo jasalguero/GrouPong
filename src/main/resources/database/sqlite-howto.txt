@@ -1,0 +1,3 @@
+rm groupong.sqlite 
+sqlite3 -init scripts/creation.sql groupong.sqlite
+.read scripts/insert_data.sql
