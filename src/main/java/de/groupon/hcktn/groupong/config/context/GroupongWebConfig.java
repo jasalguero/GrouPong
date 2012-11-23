@@ -25,7 +25,7 @@ public class GroupongWebConfig extends WebConfigContext {
         final DefaultResponseBodyTypeConfiguration defaultResponseBodyTypeConfiguration = new DefaultResponseBodyTypeConfiguration();
 
         Map<String, String> mediaTypes = Maps.newHashMap();
-        mediaTypes.put("/*", MediaType.APPLICATION_JSON_VALUE);
+        mediaTypes.put("/groupong", MediaType.APPLICATION_JSON_VALUE);
         defaultResponseBodyTypeConfiguration.setMediaTypes(mediaTypes);
 
         return defaultResponseBodyTypeConfiguration;
