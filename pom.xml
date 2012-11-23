@@ -16,7 +16,13 @@
     </parent>
 
     <properties>
+        <api-shared.version>1.2.2</api-shared.version>
+        <backendservices.version>5.2.5</backendservices.version>
+        <jms-messaging.version>1.12.0</jms-messaging.version>
+        <bes-mode>persistence</bes-mode>
+
         <jetty.version>8.1.5.v20120716</jetty.version>
+        <tomcat.version>7.0.29</tomcat.version>
     </properties>
 
     <build>
@@ -124,6 +130,101 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>de.groupon.api</groupId>
+            <artifactId>api-shared</artifactId>
+            <version>${api-shared.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.mockito</groupId>
+                    <artifactId>mockito-all</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>de.groupon.api</groupId>
+            <artifactId>api-shared</artifactId>
+            <version>${api-shared.version}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Backend Services -->
+        <dependency>
+            <groupId>de.citydeal.service</groupId>
+            <artifactId>location-${bes-mode}</artifactId>
+            <version>${backendservices.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>de.citydeal.service</groupId>
+            <artifactId>content-${bes-mode}</artifactId>
+            <version>${backendservices.version}</version>
+        </dependency>
+
+        <!-- Messaging -->
+        <dependency>
+            <groupId>de.groupon.messaging</groupId>
+            <artifactId>jms</artifactId>
+            <version>${jms-messaging.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>de.groupon.config</groupId>
+                    <artifactId>config-main</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-oxm</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-expression</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
         <!-- Logging -->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -145,38 +246,76 @@
             <scope>runtime</scope>
         </dependency>
 
-       
-
         <!-- Test -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.jayway.restassured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>1.6.2</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.hamcrest</groupId>
+                    <artifactId>hamcrest-library</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>junit</groupId>-->
+        <!--<artifactId>junit-dep</artifactId>-->
+        <!--<version>4.10</version>-->
+        <!--<scope>test</scope>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit-dep</artifactId>
+            <version>4.10</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- Response mappers -->
         <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <scope>test</scope>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.1</version>
         </dependency>
         <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-all</artifactId>
-            <scope>test</scope>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.4.1</version>
         </dependency>
 
-        <!-- Other util libs -->       
-
+        <!-- Other util libs -->
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>11.0.2</version>
+            <groupId>org.opensymphony.quartz</groupId>
+            <artifactId>quartz-all</artifactId>
+            <version>1.6.1</version>
         </dependency>
-     
+
+        <!-- Utils -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.1</version>
+        </dependency>
+
     </dependencies>
 
     <!--scm>

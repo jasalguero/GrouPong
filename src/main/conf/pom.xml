@@ -54,13 +54,6 @@
                             <environment>${env}</environment>
                             <staticFiles>
                                 <staticFile>log4j.xml</staticFile>
-                                <!-- smartdeals -->
-                                <staticFile>all_deals_workflow.json</staticFile>
-                                <staticFile>post_purchase_workflow.json</staticFile>
-                                <staticFile>data_source_settings.json</staticFile>
-                                <staticFile>odds_categories_2012_01.json</staticFile>
-                                <staticFile>odds_divisions.json</staticFile>
-                                <staticFile>root_configuration.json</staticFile>
                             </staticFiles>
                             <resource>
                                 <directory>${basedir}/envs</directory>
@@ -78,13 +71,6 @@
                             <environment>${env}</environment>
                             <staticFiles>
                                 <staticFile>${zone}/log4j.xml</staticFile>
-                                <!-- smartdeals -->
-                                <staticFile>${zone}/all_deals_workflow.json</staticFile>
-                                <staticFile>${zone}/post_purchase_workflow.json</staticFile>
-                                <staticFile>${zone}/data_source_settings.json</staticFile>
-                                <staticFile>${zone}/odds_categories_2012_01.json</staticFile>
-                                <staticFile>${zone}/odds_divisions.json</staticFile>
-                                <staticFile>${zone}/root_configuration.json</staticFile>
                             </staticFiles>
                             <resource>
                                 <directory>${basedir}/envs</directory>
@@ -102,13 +88,6 @@
                             <environment>${zone}</environment>
                             <staticFiles>
                                 <staticFile>log4j.xml</staticFile>
-                                <!-- smartdeals -->
-                                <staticFile>all_deals_workflow.json</staticFile>
-                                <staticFile>post_purchase_workflow.json</staticFile>
-                                <staticFile>data_source_settings.json</staticFile>
-                                <staticFile>odds_categories_2012_01.json</staticFile>
-                                <staticFile>odds_divisions.json</staticFile>
-                                <staticFile>root_configuration.json</staticFile>
                             </staticFiles>
                             <resource>
                                 <directory>${project.build.directory}/generated-resources-tmp</directory>
