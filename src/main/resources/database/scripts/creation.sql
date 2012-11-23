@@ -30,11 +30,11 @@ CREATE TABLE user_achievement (
 
 CREATE TABLE game (
         id              INTEGER PRIMARY KEY,
-        user_one        INTEGER,
+        user1	        INTEGER,
         user2           INTEGER,
-        score_user1,    INTEGER,
-        score_user2,    INTEGER,
-        game_date,     DATE,
+        score_user1	INTEGER,
+        score_user2    	INTEGER,
+        game_date	DATE,
         status_id       INTEGER
 );
 
