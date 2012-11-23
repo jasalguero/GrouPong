@@ -11,7 +11,7 @@
   <!-- Set the viewport width to device width for mobile -->
   <meta name="viewport" content="width=device-width" />
 
-  <title>Welcome to Foundation | Blog</title>
+  <title>GrouPong!</title>
 
   <!-- Included CSS Files (Uncompressed) -->
   <!--
@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="stylesheets/social_foundicons_ie7.css">
   <link rel="stylesheet" href="stylesheets/app.css">
 
-  <script src="javascripts/modernizr.foundation.js"></script>
+  <script src="js/modernizr.foundation.js"></script>
 </head>
 <body>
 
@@ -82,7 +82,7 @@
 
     <!-- Main Blog Content -->
     <div class="nine columns" role="content">
-
+        {{#each user in GP.router.userController}}
         <div class="row">
             <div class="twelve columns offset-by-two">
                 <div class="panel">
@@ -91,31 +91,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="twelve columns offset-by-two">
-                <div class="panel">
-                    <h5>This is a regular panel.</h5>
-                    <p>It has an easy to override visual style, and is appropriately subdued.</p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="twelve columns offset-by-two">
-                <div class="panel">
-                    <h5>This is a regular panel.</h5>
-                    <p>It has an easy to override visual style, and is appropriately subdued.</p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="twelve columns offset-by-two">
-                <div class="panel">
-                    <h5>This is a regular panel.</h5>
-                    <p>It has an easy to override visual style, and is appropriately subdued.</p>
-                </div>
-            </div>
-        </div>
-
+        {{/each}}
       <!--<article>
 
         <h3><a href="#">Blog Post Title</a></h3>
@@ -218,46 +194,50 @@
   <!-- Included JS Files (Uncompressed) -->
   <!--
   
-  <script src="javascripts/jquery.js"></script>
+  <script src="js/jquery.js"></script>
   
-  <script src="javascripts/jquery.foundation.mediaQueryToggle.js"></script>
+  <script src="js/jquery.foundation.mediaQueryToggle.js"></script>
   
-  <script src="javascripts/jquery.foundation.forms.js"></script>
+  <script src="js/jquery.foundation.forms.js"></script>
   
-  <script src="javascripts/jquery.foundation.reveal.js"></script>
+  <script src="js/jquery.foundation.reveal.js"></script>
   
-  <script src="javascripts/jquery.foundation.orbit.js"></script>
+  <script src="js/jquery.foundation.orbit.js"></script>
   
-  <script src="javascripts/jquery.foundation.navigation.js"></script>
+  <script src="js/jquery.foundation.navigation.js"></script>
   
-  <script src="javascripts/jquery.foundation.buttons.js"></script>
+  <script src="js/jquery.foundation.buttons.js"></script>
   
-  <script src="javascripts/jquery.foundation.tabs.js"></script>
+  <script src="js/jquery.foundation.tabs.js"></script>
   
-  <script src="javascripts/jquery.foundation.tooltips.js"></script>
+  <script src="js/jquery.foundation.tooltips.js"></script>
   
-  <script src="javascripts/jquery.foundation.accordion.js"></script>
+  <script src="js/jquery.foundation.accordion.js"></script>
   
-  <script src="javascripts/jquery.placeholder.js"></script>
+  <script src="js/jquery.placeholder.js"></script>
   
-  <script src="javascripts/jquery.foundation.alerts.js"></script>
+  <script src="js/jquery.foundation.alerts.js"></script>
   
-  <script src="javascripts/jquery.foundation.topbar.js"></script>
+  <script src="js/jquery.foundation.topbar.js"></script>
   
-  <script src="javascripts/jquery.foundation.joyride.js"></script>
+  <script src="js/jquery.foundation.joyride.js"></script>
   
-  <script src="javascripts/jquery.foundation.clearing.js"></script>
+  <script src="js/jquery.foundation.clearing.js"></script>
   
-  <script src="javascripts/jquery.foundation.magellan.js"></script>
+  <script src="js/jquery.foundation.magellan.js"></script>
   
   -->
   
   <!-- Included JS Files (Compressed) -->
-  <script src="javascripts/jquery.js"></script>
-  <script src="javascripts/foundation.min.js"></script>
+  <script src="js/jquery.js"></script>
+  <script src="js/foundation.min.js"></script>
   
   <!-- Initialize JS Plugins -->
-  <script src="javascripts/main.js"></script>
-  
+  <script src="js/main.js"></script>
+
+  <!-- Load Ember -->
+  <script src="js/handlebars-1.0.rc.1.js"></script>
+  <script src="js/ember-1.0.0-pre.2.min.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
