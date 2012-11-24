@@ -1,6 +1,6 @@
 INSERT INTO user (email, password, user_name, avatar, score) VALUES ("zbigniew@groupon.com", "rollback", "Zbigniew Zabost", "http://localhost:8080/images/avatars/diver_avatar.png", 1700);
 INSERT INTO user (email, password, user_name, avatar, score) VALUES ("bart@groupon.com", "rollback", "Bart B. aka Bobby", "http://localhost:8080/images/avatars/dad_avatar.png", 2000);
-INSERT INTO user (email, password, user_name, avatar, score) VALUES ("jose@groupon.com", "rollback", "Jose A. Salaguero", "http://localhost:8080/images/avatars/assassin_avatar.png", 1200);
+INSERT INTO user (email, password, user_name, avatar, score) VALUES ("jose@groupon.com", "rollback", "Jose A. Salguero", "http://localhost:8080/images/avatars/assassin_avatar.png", 1200);
 INSERT INTO user (email, password, user_name, avatar, score) VALUES ("guest@groupon.com", "rollback", "Santa Claus", "http://localhost:8080/images/avatars/designer_avatar.png", 1000);
 
 
