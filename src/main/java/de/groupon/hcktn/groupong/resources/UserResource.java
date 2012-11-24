@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 
-@Controller("userResource")
+@Controller
 @RequestMapping("/groupong")
 public class UserResource {
 

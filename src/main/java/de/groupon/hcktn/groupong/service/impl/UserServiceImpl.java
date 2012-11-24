@@ -48,6 +48,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer createUser(final UserDTO userDTO) {
         userDTO.setUserId(null);
+        userDTO.setScore(1000);
 
         userDTO.setUserId(users.get(users.size() - 1).getUserId() + 1);
         users.add(userDTO);

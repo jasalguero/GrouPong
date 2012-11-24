@@ -1,7 +1,7 @@
 package de.groupon.hcktn.groupong.resources;
 
-import de.groupon.hcktn.groupong.domain.response.AvatarDTO;
-import de.groupon.hcktn.groupong.service.AvatarService;
+import de.groupon.hcktn.groupong.domain.response.StatusDTO;
+import de.groupon.hcktn.groupong.service.StatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -13,14 +13,14 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/groupong")
-public class AvatarResource {
+public class StatusResource {
 
     @Autowired
-    AvatarService avatarService;
+    private StatusService statusService;
 
-    @RequestMapping(value = "/avatars", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE} )
+    @RequestMapping(value = "/statuses", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE} )
     @ResponseBody
-    public List<AvatarDTO> fetchAvatars() {
-        return avatarService.fetchAvatars();
+    public List<StatusDTO> fetchStatuses() {
+        return statusService.fetchStatuses();
     }
 }
