@@ -13,21 +13,26 @@ public abstract class BaseDTOMapper {
 
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(DATE_FORMAT);
 
-    public String formatTime(final Calendar calendar) {
+    public String formatTime(final Long timeInMilis) {
+        if (timeInMilis == null ) {
+            return "";
+        }
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(timeInMilis);
         return calendar == null ? "" : dateTimeFormatter.print(calendar.getTimeInMillis());
     }
 
-    public Calendar formatTime(final String dateTime) {
+    public Long formatTime(final String dateTime) {
         if (StringUtils.hasText(dateTime)) {
             try {
                 final Calendar instance = Calendar.getInstance();
                 instance.setTimeInMillis(dateTimeFormatter.parseMillis(dateTime));
-                return instance;
+                return instance.getTimeInMillis();
             } catch (IllegalArgumentException e) {
-                return Calendar.getInstance();
+                return Calendar.getInstance().getTimeInMillis();
             }
         } else {
-            return Calendar.getInstance();
+            return Calendar.getInstance().getTimeInMillis();
         }
     }
 }

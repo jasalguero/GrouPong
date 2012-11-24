@@ -22,22 +22,19 @@ public class MatchServiceImpl implements MatchService {
     private MatchDTOMapper matchDTOMapper;
 
     @Override
-    public BaseDTO createMatch(MatchDTO matchDTO) {
-//        matchDTO.setId(null);
-//        Match match = matchDTOMapper.mapToMatch(matchDTO);
-//        Integer id = matchDAO.create(match);
-//        match = matchDAO.retrieve(id);
-//        return matchDTOMapper.mapToMatchDTO(match);
-        return null;
+    public BaseDTO createMatch(final MatchDTO matchDTO) {
+        matchDTO.setId(null);
+        Match match = matchDTOMapper.mapToMatch(matchDTO);
+        match = matchDAO.create(match);
+        return matchDTOMapper.mapToMatchDTO(match);
     }
 
     @Override
-    public BaseDTO updateMatch(MatchDTO matchDTO) {
-//        Match match = matchDTOMapper.mapToMatch(matchDTO);
-//        matchDAO.update(match);
-//        match = matchDAO.retrieve(id);
-//        return matchDTOMapper.mapToMatchDTO(match);
-        return null;
+    public BaseDTO updateMatch(final MatchDTO matchDTO) {
+        Match match = matchDAO.retrieve(matchDTO.getId());
+        match = matchDTOMapper.update(match, matchDTO);
+        match = matchDAO.update(match);
+        return matchDTOMapper.mapToMatchDTO(match);
     }
 
     @Override

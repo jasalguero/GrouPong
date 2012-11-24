@@ -1,13 +1,17 @@
 package de.groupon.hcktn.groupong.service.impl;
 
+import de.groupon.hcktn.groupong.domain.mappers.UserDTOMapper;
 import de.groupon.hcktn.groupong.domain.response.BaseDTO;
 import de.groupon.hcktn.groupong.domain.response.UserDTO;
+import de.groupon.hcktn.groupong.model.dao.UserDAO;
+import de.groupon.hcktn.groupong.model.entity.User;
 import de.groupon.hcktn.groupong.service.AvatarService;
 import de.groupon.hcktn.groupong.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,48 +19,17 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private AvatarService avatarService;
+    private UserDAO userDAO;
 
-    //TODO: Remove this section
-    final List<UserDTO> users = new LinkedList<UserDTO>();
-    @PostConstruct
-    public void init() {
-        final UserDTO user = new UserDTO();
-        user.setId(0);
-        user.setUserName("bbednarek");
-        user.setPassword("rollback");
-        user.setEmail("bbednarek@groupon.com");
-        user.setAvatar(avatarService.fetchAvatars().get(0).getUrl());
-        user.setScore(1000);
-        users.add(user);
-
-        final UserDTO user2 = new UserDTO();
-        user2.setId(1);
-        user2.setUserName("jsalguero");
-        user.setPassword("rollback");
-        user2.setEmail("jsalguero@groupon.com");
-        user2.setAvatar(avatarService.fetchAvatars().get(1).getUrl());
-        user2.setScore(1200);
-        users.add(user2);
-
-        final UserDTO user3 = new UserDTO();
-        user3.setId(2);
-        user3.setUserName("zzabost");
-        user.setPassword("rollback");
-        user3.setEmail("zzabost@groupon.com");
-        user3.setAvatar(avatarService.fetchAvatars().get(2).getUrl());
-        user3.setScore(800);
-        users.add(user3);
-    }
+    @Autowired
+    private UserDTOMapper userDTOMapper;
 
     @Override
     public BaseDTO createUser(final UserDTO userDTO) {
         userDTO.setId(null);
-        userDTO.setScore(1000);
-
-        userDTO.setId(users.get(users.size() - 1).getId() + 1);
-        users.add(userDTO);
-        return userDTO;
+        User user = userDTOMapper.mapToUser(userDTO);
+        user = userDAO.create(user);
+        return userDTOMapper.mapToUserDTO(user);
     }
 
     @Override
@@ -81,6 +54,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> fetchUsers() {
-        return users;
+        final List<UserDTO> usersDTO = new ArrayList<UserDTO>();
+        final List<User> users = userDAO.retrieveAll();
+        for (User user : users) {
+            usersDTO.add(userDTOMapper.mapToUserDTO(user));
+        }
+        return usersDTO;
     }
 }

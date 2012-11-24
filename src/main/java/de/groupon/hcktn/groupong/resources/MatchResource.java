@@ -44,4 +44,10 @@ public class MatchResource {
         return matchService.createMatch(match);
     }
 
+    @RequestMapping(value = "/match", method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public BaseDTO updateMatch(@RequestBody final MatchDTO match) {
+        return matchService.updateMatch(match);
+    }
+
 }

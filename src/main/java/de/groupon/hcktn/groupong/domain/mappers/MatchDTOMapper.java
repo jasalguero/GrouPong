@@ -21,9 +21,7 @@ public class MatchDTOMapper extends BaseDTOMapper {
         matchDTO.setUser2Id(match.getUser2Id());
         matchDTO.setScoreUser1(match.getScoreUser1());
         matchDTO.setScoreUser2(match.getScoreUser2());
-        Calendar c = Calendar.getInstance();
-        c.setTimeInMillis(match.getMatchDate());
-        matchDTO.setDate(formatTime(c));
+        matchDTO.setDate(formatTime(match.getMatchDate()));
         if (match.getStatusId() != null ) {
             matchDTO.setStatus(statusService.fetchStatus(match.getStatusId()).getDescription());
         }
@@ -31,7 +29,10 @@ public class MatchDTOMapper extends BaseDTOMapper {
     }
 
     public Match mapToMatch(final MatchDTO matchDTO) {
-        final Match match = new Match();
+        return update(new Match(), matchDTO);
+    }
+
+    public Match update(final Match match, final MatchDTO matchDTO) {
         if (matchDTO.getId() != null) {
             match.setId(matchDTO.getId());
         }
@@ -53,7 +54,6 @@ public class MatchDTOMapper extends BaseDTOMapper {
         if (matchDTO.getStatusId() != null) {
             match.setStatusId(matchDTO.getStatusId());
         }
-
         return match;
     }
 }
