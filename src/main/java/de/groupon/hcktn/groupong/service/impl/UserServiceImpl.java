@@ -23,6 +23,7 @@ public class UserServiceImpl implements UserService {
         final UserDTO user = new UserDTO();
         user.setUserId(0);
         user.setUserName("bbednarek");
+        user.setPassword("rollback");
         user.setEmail("bbednarek@groupon.com");
         user.setAvatar(avatarService.fetchAvatars().get(0).getUrl());
         user.setScore(1000);
@@ -31,6 +32,7 @@ public class UserServiceImpl implements UserService {
         final UserDTO user2 = new UserDTO();
         user2.setUserId(1);
         user2.setUserName("jsalguero");
+        user.setPassword("rollback");
         user2.setEmail("jsalguero@groupon.com");
         user2.setAvatar(avatarService.fetchAvatars().get(1).getUrl());
         user2.setScore(1200);
@@ -39,6 +41,7 @@ public class UserServiceImpl implements UserService {
         final UserDTO user3 = new UserDTO();
         user3.setUserId(2);
         user3.setUserName("zzabost");
+        user.setPassword("rollback");
         user3.setEmail("zzabost@groupon.com");
         user3.setAvatar(avatarService.fetchAvatars().get(2).getUrl());
         user3.setScore(800);
@@ -59,6 +62,16 @@ public class UserServiceImpl implements UserService {
     public UserDTO fetchUser(final Integer userId) {
         for (UserDTO user : fetchUsers()) {
             if (user.getUserId().equals(userId)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public UserDTO fetchUser(final String email, final String password) {
+        for (UserDTO user : fetchUsers()) {
+            if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
                 return user;
             }
         }

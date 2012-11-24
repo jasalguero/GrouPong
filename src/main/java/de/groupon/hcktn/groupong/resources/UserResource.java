@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +35,15 @@ public class UserResource {
     @ResponseBody
     public UserDTO fetchUser(@PathVariable final Integer userId) {
         return userService.fetchUser(userId);
+    }
+
+    @RequestMapping(value = "/user", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE} )
+    @ResponseBody
+    public UserDTO fetchUser(
+            @RequestParam(value = "email", required = true) String email,
+            @RequestParam(value = "password", required = true) String password
+            ) {
+        return userService.fetchUser(email, password);
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE} )
