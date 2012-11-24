@@ -9,6 +9,8 @@ public interface UserService {
 
     BaseDTO createUser(UserDTO userDTO);
 
+    BaseDTO updateUser(UserDTO userDTO);
+
     UserDTO fetchUser(Integer userId);
 
     UserDTO fetchUser(String email, String password);

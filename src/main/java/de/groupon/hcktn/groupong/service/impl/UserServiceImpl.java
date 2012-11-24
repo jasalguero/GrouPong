@@ -5,6 +5,7 @@ import de.groupon.hcktn.groupong.domain.mappers.UserDTOMapper;
 import de.groupon.hcktn.groupong.domain.response.BaseDTO;
 import de.groupon.hcktn.groupong.domain.response.UserDTO;
 import de.groupon.hcktn.groupong.model.dao.UserDAO;
+import de.groupon.hcktn.groupong.model.entity.Match;
 import de.groupon.hcktn.groupong.model.entity.User;
 import de.groupon.hcktn.groupong.service.AvatarService;
 import de.groupon.hcktn.groupong.service.UserService;
@@ -32,6 +33,19 @@ public class UserServiceImpl implements UserService {
         user = userDAO.create(user);
         return userDTOMapper.mapToUserDTO(user);
     }
+
+
+    @Override
+    public BaseDTO updateUser(final UserDTO userDTO) {
+        User user = userDAO.retrieve(userDTO.getId());
+        if (user == null) {
+            throw new NotFoundException("User found with id: " + userDTO.getId() + " not found");
+        }
+        user = userDTOMapper.update(user, userDTO);
+        user = userDAO.update(user);
+        return userDTOMapper.mapToUserDTO(user);
+    }
+
 
     @Override
     public UserDTO fetchUser(final Integer userId) {
