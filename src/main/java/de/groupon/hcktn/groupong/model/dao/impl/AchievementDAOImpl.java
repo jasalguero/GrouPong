@@ -8,20 +8,21 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class AchievementDAOImpl implements AchievementDAO {
 
     @Override
-    public Integer create(final Achievement achievement) {
+    public Achievement create(final Achievement achievement) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         session.save(achievement);
         tx.commit();
         session.close();
         HibernateUtil.shutdown();
-        return achievement.getId();
+        return achievement;
     }
 
 
@@ -39,21 +40,31 @@ public class AchievementDAOImpl implements AchievementDAO {
     public List<Achievement> retrieveAll() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query allQuery = session.createSQLQuery("SELECT * from achievement");
-        List<Achievement> allAchievements = allQuery.list();
+        List<Object[]> allAchievement = allQuery.list();
+
+        List<Achievement> achievementsToReturn = new ArrayList<Achievement>();
+        for (Object[] o : allAchievement) {
+            Achievement tempAchievement = new Achievement();
+            tempAchievement.setId((Integer) o[0]);
+            tempAchievement.setTitle((String) o[1]);
+            tempAchievement.setDescription((String) o[2]);
+            achievementsToReturn.add(tempAchievement);
+        }
         session.close();
         HibernateUtil.shutdown();
-        return allAchievements;
+        return achievementsToReturn;
     }
 
 
     @Override
-    public void update(final Achievement achievement) {
+    public Achievement update(final Achievement achievement) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         session.update(achievement);
         tx.commit();
         session.close();
         HibernateUtil.shutdown();
+        return achievement;
     }
 
 

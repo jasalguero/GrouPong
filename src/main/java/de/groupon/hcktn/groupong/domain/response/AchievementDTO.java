@@ -1,19 +1,19 @@
 package de.groupon.hcktn.groupong.domain.response;
 
-public class AchievementDTO {
+import de.groupon.config.web.annotation.JsonImplicit;
 
-    private Integer achievementId;
+@JsonImplicit(AchievementDTO.class)
+public class AchievementDTO extends BaseDTO {
 
     private String title;
 
     private String description;
 
-    public Integer getAchievementId() {
-        return achievementId;
+    public AchievementDTO() {
     }
 
-    public void setAchievementId(Integer achievementId) {
-        this.achievementId = achievementId;
+    public AchievementDTO(Integer id) {
+        super(id);
     }
 
     public String getTitle() {

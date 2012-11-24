@@ -6,21 +6,24 @@ import de.groupon.hcktn.groupong.model.utils.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
+@Repository
 public class MatchDAOImpl implements MatchDAO {
 
     @Override
-    public Integer create(final Match match) {
+    public Match create(final Match match) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         session.save(match);
         tx.commit();
         session.close();
         HibernateUtil.shutdown();
-        return match.getId();
+        return match;
     }
 
 
@@ -38,21 +41,35 @@ public class MatchDAOImpl implements MatchDAO {
     public List<Match> retrieveAll() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query allQuery = session.createSQLQuery("SELECT * from game");
-        List<Match> allMatches = allQuery.list();
+        List<Object[]> allMatches = allQuery.list();
+
+        List<Match> matchesToReturn = new ArrayList<Match>();
+        for (Object[] o : allMatches) {
+            Match tempMatch = new Match();
+            tempMatch.setId((Integer) o[0]);
+            tempMatch.setUser1Id((Integer) o[1]);
+            tempMatch.setUser2Id((Integer) o[2]);
+            tempMatch.setScoreUser1((Integer) o[3]);
+            tempMatch.setScoreUser2((Integer) o[4]);
+            tempMatch.setMatchDate((String) o[5]);
+            tempMatch.setStatusId((Integer) o[6]);
+            matchesToReturn.add(tempMatch);
+        }
         session.close();
         HibernateUtil.shutdown();
-        return allMatches;
+        return matchesToReturn;
     }
 
 
     @Override
-    public void update(final Match match) {
+    public Match update(final Match match) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         session.update(match);
         tx.commit();
         session.close();
         HibernateUtil.shutdown();
+        return match;
     }
 
 

@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -15,14 +16,14 @@ public class StatusDAOImpl implements StatusDAO {
 
 
     @Override
-    public Integer create(final Status status) {
+    public Status create(final Status status) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         session.save(status);
         tx.commit();
         session.close();
         HibernateUtil.shutdown();
-        return status.getId();
+        return status;
     }
 
 
@@ -40,21 +41,30 @@ public class StatusDAOImpl implements StatusDAO {
     public List<Status> retrieveAll() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query allQuery = session.createSQLQuery("SELECT * from status");
-        List<Status> allStatuses = allQuery.list();
+        List<Object[]> allStatuses = allQuery.list();
+
+        List<Status> statusesToReturn = new ArrayList<Status>();
+        for (Object[] o : allStatuses) {
+            Status tempStatus = new Status();
+            tempStatus.setId((Integer) o[0]);
+            tempStatus.setDescription((String) o[1]);
+            statusesToReturn.add(tempStatus);
+        }
         session.close();
         HibernateUtil.shutdown();
-        return allStatuses;
+        return statusesToReturn;
     }
 
 
     @Override
-    public void update(final Status status) {
+    public Status update(final Status status) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         session.update(status);
         tx.commit();
         session.close();
         HibernateUtil.shutdown();
+        return status;
     }
 
 

@@ -6,20 +6,23 @@ import de.groupon.hcktn.groupong.model.utils.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class UserAchievementDAOImpl implements UserAchievementDAO {
 
     @Override
-    public Integer create(final UserAchievement userAchievement) {
+    public UserAchievement create(final UserAchievement userAchievement) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         session.save(userAchievement);
         tx.commit();
         session.close();
         HibernateUtil.shutdown();
-        return userAchievement.getId();
+        return userAchievement;
     }
 
 
@@ -37,21 +40,31 @@ public class UserAchievementDAOImpl implements UserAchievementDAO {
     public List<UserAchievement> retrieveAll() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query allQuery = session.createSQLQuery("SELECT * from user_achievement");
-        List<UserAchievement> allUserAchievements = allQuery.list();
+        List<Object[]> allUserAchievement = allQuery.list();
+
+        List<UserAchievement> userAchievementToReturn = new ArrayList<UserAchievement>();
+        for (Object[] o : allUserAchievement) {
+            UserAchievement tempUserAchievement = new UserAchievement();
+            tempUserAchievement.setId((Integer) o[0]);
+            tempUserAchievement.setUserId((Integer) o[1]);
+            tempUserAchievement.setAchievementId((Integer) o[2]);
+            userAchievementToReturn.add(tempUserAchievement);
+        }
         session.close();
         HibernateUtil.shutdown();
-        return allUserAchievements;
+        return userAchievementToReturn;
     }
 
 
     @Override
-    public void update(final UserAchievement userAchievement) {
+    public UserAchievement update(final UserAchievement userAchievement) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         session.update(userAchievement);
         tx.commit();
         session.close();
         HibernateUtil.shutdown();
+        return userAchievement;
     }
 
 

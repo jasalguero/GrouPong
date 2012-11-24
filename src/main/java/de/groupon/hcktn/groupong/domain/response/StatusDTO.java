@@ -1,28 +1,24 @@
 package de.groupon.hcktn.groupong.domain.response;
 
+import de.groupon.config.web.annotation.JsonImplicit;
 import de.groupon.hcktn.groupong.model.entity.Status;
 
-public class StatusDTO {
+@JsonImplicit(StatusDTO.class)
+public class StatusDTO extends BaseDTO {
 
-    private Integer id;
     private String description;
 
+    public StatusDTO() {
+    }
+
     public StatusDTO(final Status status) {
-        this.id = status.getId();
+        super(status.getId());
         this.description = status.getDescription();
     }
 
     public StatusDTO(Integer id, String description) {
-        this.id = id;
+        super(id);
         this.description = description;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getDescription() {

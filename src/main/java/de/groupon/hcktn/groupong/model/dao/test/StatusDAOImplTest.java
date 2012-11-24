@@ -16,7 +16,7 @@ public class StatusDAOImplTest {
         Status status = new Status();
         status.setDescription("test status");
         StatusDAO statusDao = new StatusDAOImpl();
-        Integer id = statusDao.create(status);
+        Integer id = statusDao.create(status).getId();
         assertNotNull(id);
     }
 
@@ -25,7 +25,7 @@ public class StatusDAOImplTest {
         Status status = new Status();
         status.setDescription("test status");
         StatusDAO statusDao = new StatusDAOImpl();
-        Integer id = statusDao.create(status);
+        Integer id = statusDao.create(status).getId();
         final Status retrievedStatus = statusDao.retrieve(id);
         assertEquals(status, retrievedStatus);
     }
@@ -46,6 +46,11 @@ public class StatusDAOImplTest {
         final List<Status> retrievedAllStatuses = statusDao.retrieveAll();
 
         assertTrue(retrievedAllStatuses.size()>=2);
+        assertTrue(retrievedAllStatuses.get(0) instanceof Status);
+
+        List<Status> allStatus = statusDao.retrieveAll();
+        assertTrue(allStatus.contains(status1));
+        assertTrue(allStatus.contains(status2));
     }
 
     @Test
@@ -53,13 +58,12 @@ public class StatusDAOImplTest {
         Status status = new Status();
         status.setDescription("test status");
         StatusDAO statusDao = new StatusDAOImpl();
-        Integer id = statusDao.create(status);
+        Integer id = statusDao.create(status).getId();
         final String myDescription = "new test status";
         status.setDescription(myDescription);
         statusDao.update(status);
         final Status retrievedStatus = statusDao.retrieve(status.getId());
         assertEquals(myDescription, retrievedStatus.getDescription());
-
     }
 
 
@@ -68,7 +72,7 @@ public class StatusDAOImplTest {
         Status status = new Status();
         status.setDescription("test status to be deleted");
         StatusDAO statusDao = new StatusDAOImpl();
-        final Integer id = statusDao.create(status);
+        final Integer id = statusDao.create(status).getId();
         statusDao.delete(id);
         Status retrievedStatus = statusDao.retrieve(id);
         assertNull(retrievedStatus);

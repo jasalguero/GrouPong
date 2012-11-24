@@ -1,12 +1,20 @@
 package de.groupon.hcktn.groupong.model.entity;
 
-public class UserAchievement {
+import java.io.Serializable;
+
+public class UserAchievement implements Serializable {
     private Integer id;
     private Integer userId;
     private Integer achievementId;
 
     public UserAchievement() {
 
+    }
+
+    public UserAchievement(Integer id, Integer userId, Integer achievementId) {
+        this.id = id;
+        this.userId = userId;
+        this.achievementId = achievementId;
     }
 
     public Integer getId() {
@@ -22,8 +30,9 @@ public class UserAchievement {
     }
 
     public void setUserId(final Integer userId) {
-        this.userId = id;
+        this.userId = userId;
     }
+
 
     public Integer getAchievementId() {
         return achievementId;

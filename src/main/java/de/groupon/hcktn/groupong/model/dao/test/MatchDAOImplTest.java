@@ -20,11 +20,11 @@ public class MatchDAOImplTest {
         match.setUser2Id(2);
         match.setScoreUser1(0);
         match.setScoreUser1(3);
-        match.setMatchDate(Calendar.getInstance());
+        match.setMatchDate(String.valueOf(Calendar.getInstance().getTimeInMillis()));
         match.setStatusId(1);
 
         MatchDAO matchDao = new MatchDAOImpl();
-        Integer id = matchDao.create(match);
+        Integer id = matchDao.create(match).getId();
 
         assertNotNull(id);
     }
@@ -36,11 +36,11 @@ public class MatchDAOImplTest {
         match.setUser2Id(2);
         match.setScoreUser1(0);
         match.setScoreUser1(3);
-        match.setMatchDate(Calendar.getInstance());
+        match.setMatchDate(String.valueOf(Calendar.getInstance().getTimeInMillis()));
         match.setStatusId(1);
 
         MatchDAO matchDao = new MatchDAOImpl();
-        Integer id = matchDao.create(match);
+        Integer id = matchDao.create(match).getId();
 
         Match retrievedMatch = matchDao.retrieve(id);
         assertEquals(match, retrievedMatch);
@@ -56,22 +56,25 @@ public class MatchDAOImplTest {
         match1.setUser1Id(1);
         match1.setUser2Id(2);
         match1.setScoreUser1(0);
-        match1.setScoreUser1(3);
-        match1.setMatchDate(Calendar.getInstance());
+        match1.setScoreUser2(3);
+        match1.setMatchDate(String.valueOf(Calendar.getInstance().getTimeInMillis()));
         match1.setStatusId(1);
         matchDao.create(match1);
 
         Match match2 = new Match();
-        match2.setUser1Id(2);
-        match2.setUser2Id(3);
-        match2.setScoreUser1(2);
-        match2.setScoreUser1(1);
-        match2.setMatchDate(Calendar.getInstance());
+        match2.setUser1Id(1);
+        match2.setUser2Id(2);
+        match2.setScoreUser1(0);
+        match2.setScoreUser2(3);
+        match2.setMatchDate(String.valueOf(Calendar.getInstance().getTimeInMillis()));
         match2.setStatusId(1);
         matchDao.create(match2);
 
         final List<Match> retrievedAllMatch = matchDao.retrieveAll();
         assertTrue(retrievedAllMatch.size()>=2);
+        assertTrue(retrievedAllMatch.get(0) instanceof Match);
+        assertTrue(retrievedAllMatch.contains(match1));
+        assertTrue(retrievedAllMatch.contains(match2));
     }
 
     @Test
@@ -82,7 +85,7 @@ public class MatchDAOImplTest {
         match1.setUser2Id(2);
         match1.setScoreUser1(0);
         match1.setScoreUser1(3);
-        match1.setMatchDate(Calendar.getInstance());
+        match1.setMatchDate(String.valueOf(Calendar.getInstance().getTimeInMillis()));
         match1.setStatusId(1);
         matchDao.create(match1);
 
@@ -105,9 +108,9 @@ public class MatchDAOImplTest {
         match1.setUser2Id(2);
         match1.setScoreUser1(0);
         match1.setScoreUser1(3);
-        match1.setMatchDate(Calendar.getInstance());
+        match1.setMatchDate(String.valueOf(Calendar.getInstance().getTimeInMillis()));
         match1.setStatusId(1);
-        final Integer id = matchDao.create(match1);
+        final Integer id = matchDao.create(match1).getId();
         matchDao.delete(id);
         Match retrievedMatches = matchDao.retrieve(id);
         assertNull(retrievedMatches);

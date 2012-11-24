@@ -1,6 +1,8 @@
 package de.groupon.hcktn.groupong.model.entity;
 
-public class Status {
+import java.io.Serializable;
+
+public class Status implements Serializable {
     private Integer id;
     private String description;
 
