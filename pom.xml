@@ -107,6 +107,11 @@
     <repositories>
 
         <repository>
+            <id>hibernatesqlite-maven</id>
+            <url>https://hibernate-sqlite.googlecode.com/svn/trunk/mavenrepo</url>
+        </repository>
+
+        <repository>
             <releases/>
             <snapshots>
                 <enabled>false</enabled>
@@ -126,9 +131,17 @@
             <url>http://repo.team.citydeal.de/content/groups/public-snapshots</url>
         </repository>
 
+
+
     </repositories>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.applerao</groupId>
+            <artifactId>hibernatesqlite</artifactId>
+            <version>1.0</version>
+        </dependency>
 
         <dependency>
             <groupId>de.groupon.api</groupId>
