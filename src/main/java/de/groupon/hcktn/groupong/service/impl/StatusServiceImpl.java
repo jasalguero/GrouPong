@@ -18,21 +18,12 @@ public class StatusServiceImpl implements StatusService {
 
     @Override
     public List<StatusDTO> fetchStatuses() {
-//        final List<StatusDTO> statusesDTO = new ArrayList<StatusDTO>();
-//        final List<Status> statuses = statusDAO.retrieveAll();
-//        for (Status status : statuses) {
-//            statusesDTO.add(new StatusDTO(status));
-//        }
-//        return statusesDTO;
-
-        final List<StatusDTO> statuses = new ArrayList<StatusDTO>();
-        statuses.add(new StatusDTO(0, "CREATED"));
-        statuses.add(new StatusDTO(1, "ACCEPTED"));
-        statuses.add(new StatusDTO(2, "REFUSED"));
-        statuses.add(new StatusDTO(3, "CONFIRMED_USER1"));
-        statuses.add(new StatusDTO(4, "CONFIRMED_USER2"));
-        statuses.add(new StatusDTO(5, "FINISHED"));
-        return statuses;
+        final List<StatusDTO> statusesDTO = new ArrayList<StatusDTO>();
+        final List<Status> statuses = statusDAO.retrieveAll();
+        for (Status status : statuses) {
+            statusesDTO.add(new StatusDTO(status));
+        }
+        return statusesDTO;
     }
 
     @Override

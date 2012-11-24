@@ -25,8 +25,10 @@ public class MatchDTOMapper extends BaseDTOMapper {
         matchDTO.setDate(formatTime(dateLong));
         if (match.getStatusId() != null ) {
             StatusDTO statusDTO = statusService.fetchStatus(match.getStatusId());
-            matchDTO.setStatus(statusDTO.getDescription());
-            matchDTO.setStatusId(statusDTO.getId());
+            if (statusDTO != null) {
+                matchDTO.setStatus(statusDTO.getDescription());
+                matchDTO.setStatusId(statusDTO.getId());
+            }
         }
         return matchDTO;
     }
