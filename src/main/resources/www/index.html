@@ -206,7 +206,7 @@
                   <div class="twelve columns centered">
                       <div class="panel playerRank shadow">
                           <div class="two columns position">#{{user.index}}</div>
-                          <div class="two columns"><img src="images/unknown.png" class="playerImg"></div>
+                          <div class="two columns"><img {{bindAttr src="user.item.avatar_url"}} class="playerImg"/></div>
                           <div class="three columns playerInfo">
                               <div class="playerBasic">
                                 <div class="playerName">{{user.item.username}}</div>
