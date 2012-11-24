@@ -31,6 +31,17 @@ public class UserAchievementDAOImplTest {
         assertTrue(retrievedAllUserAchiv.get(0) instanceof UserAchievement);
         assertTrue(retrievedAllUserAchiv.contains(ua1));
         assertTrue(retrievedAllUserAchiv.contains(ua2));
-
     }
+
+    @Test
+    public void testRetrieveByUserId() {
+        UserAchievementDAO userAchivDao = new UserAchievementDAOImpl();
+        for (int userId=0; userId<=6; userId++) {
+            final List<UserAchievement> retrievedUserAchiv = userAchivDao.retrieveByUserId(userId);
+            for(UserAchievement ua : retrievedUserAchiv) {
+                assertTrue(userId==ua.getUserId());
+            }
+        }
+    }
+
 }

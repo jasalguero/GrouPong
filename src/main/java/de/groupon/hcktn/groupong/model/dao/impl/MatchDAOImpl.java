@@ -39,25 +39,31 @@ public class MatchDAOImpl implements MatchDAO {
 
     @Override
     public List<Match> retrieveAll() {
+        List<Match> matchesToReturn = new ArrayList<Match>();
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query allQuery = session.createSQLQuery("SELECT * from game");
-        List<Object[]> allMatches = allQuery.list();
-
-        List<Match> matchesToReturn = new ArrayList<Match>();
-        for (Object[] o : allMatches) {
-            Match tempMatch = new Match();
-            tempMatch.setId((Integer) o[0]);
-            tempMatch.setUser1Id((Integer) o[1]);
-            tempMatch.setUser2Id((Integer) o[2]);
-            tempMatch.setScoreUser1((Integer) o[3]);
-            tempMatch.setScoreUser2((Integer) o[4]);
-            tempMatch.setMatchDate((String) o[5]);
-            tempMatch.setStatusId((Integer) o[6]);
-            matchesToReturn.add(tempMatch);
+        try {
+            List<Object[]> allMatches = allQuery.list();
+            for (Object[] o : allMatches) {
+                Match tempMatch = new Match();
+                tempMatch.setId((Integer) o[0]);
+                tempMatch.setUser1Id((Integer) o[1]);
+                tempMatch.setUser2Id((Integer) o[2]);
+                tempMatch.setScoreUser1((Integer) o[3]);
+                tempMatch.setScoreUser2((Integer) o[4]);
+                tempMatch.setMatchDate((String) o[5]);
+                tempMatch.setStatusId((Integer) o[6]);
+                matchesToReturn.add(tempMatch);
+            }
+        } finally {
+            session.close();
+            try {
+                HibernateUtil.shutdown();
+            } catch (Exception e) {
+                // nothing here, SQLite sux!
+            }
+            return matchesToReturn;
         }
-        session.close();
-        HibernateUtil.shutdown();
-        return matchesToReturn;
     }
 
 

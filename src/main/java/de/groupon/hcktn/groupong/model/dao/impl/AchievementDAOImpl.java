@@ -38,21 +38,27 @@ public class AchievementDAOImpl implements AchievementDAO {
 
     @Override
     public List<Achievement> retrieveAll() {
+        List<Achievement> achievementsToReturn = new ArrayList<Achievement>();
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query allQuery = session.createSQLQuery("SELECT * from achievement");
-        List<Object[]> allAchievement = allQuery.list();
-
-        List<Achievement> achievementsToReturn = new ArrayList<Achievement>();
-        for (Object[] o : allAchievement) {
-            Achievement tempAchievement = new Achievement();
-            tempAchievement.setId((Integer) o[0]);
-            tempAchievement.setTitle((String) o[1]);
-            tempAchievement.setDescription((String) o[2]);
-            achievementsToReturn.add(tempAchievement);
+        try {
+            List<Object[]> allAchievement = allQuery.list();
+            for (Object[] o : allAchievement) {
+                Achievement tempAchievement = new Achievement();
+                tempAchievement.setId((Integer) o[0]);
+                tempAchievement.setTitle((String) o[1]);
+                tempAchievement.setDescription((String) o[2]);
+                achievementsToReturn.add(tempAchievement);
+            }
+        } finally {
+            session.close();
+            try {
+                HibernateUtil.shutdown();
+            } catch (Exception e) {
+                // nothing here, SQLite sux!
+            }
+            return achievementsToReturn;
         }
-        session.close();
-        HibernateUtil.shutdown();
-        return achievementsToReturn;
     }
 
 
