@@ -3,6 +3,7 @@ package de.groupon.hcktn.groupong.model.dao.impl;
 import de.groupon.hcktn.groupong.model.dao.StatusDAO;
 import de.groupon.hcktn.groupong.model.entity.Status;
 import de.groupon.hcktn.groupong.model.utils.HibernateUtil;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -36,7 +37,7 @@ public class StatusDAOImpl implements StatusDAO {
     @Override
     public List<Status> retrieveAll() {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        org.hibernate.Query allQuery = session.createSQLQuery("SELECT * from status");
+        Query allQuery = session.createSQLQuery("SELECT * from status");
         List<Status> allStatuses = allQuery.list();
         session.close();
         HibernateUtil.shutdown();

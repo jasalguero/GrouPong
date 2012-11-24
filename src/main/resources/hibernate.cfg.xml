@@ -13,5 +13,6 @@
         <property name="connection.password"></property>
 
         <mapping resource="database/Status.hbm.xml"/>
+        <mapping resource="database/Match.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

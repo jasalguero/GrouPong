@@ -70,4 +70,36 @@ public class Match {
     public void setStatusId(final Integer statusId) {
         this.statusId = statusId;
     }
+
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        final Match myMatch = (Match) o;
+
+        if (id != null ? !id.equals(myMatch.id) : myMatch.id != null) return false;
+        if (matchDate != null ? !matchDate.equals(myMatch.matchDate) : myMatch.matchDate != null) return false;
+        if (scoreUser1 != null ? !scoreUser1.equals(myMatch.scoreUser1) : myMatch.scoreUser1 != null) return false;
+        if (scoreUser2 != null ? !scoreUser2.equals(myMatch.scoreUser2) : myMatch.scoreUser2 != null) return false;
+        if (statusId != null ? !statusId.equals(myMatch.statusId) : myMatch.statusId != null) return false;
+        if (user1Id != null ? !user1Id.equals(myMatch.user1Id) : myMatch.user1Id != null) return false;
+        if (user2Id != null ? !user2Id.equals(myMatch.user2Id) : myMatch.user2Id != null) return false;
+
+        return true;
+    }
+
+
+    @Override
+    public int hashCode() {
+        int myresult = id != null ? id.hashCode() : 0;
+        myresult = 31 * myresult + (user1Id != null ? user1Id.hashCode() : 0);
+        myresult = 31 * myresult + (user2Id != null ? user2Id.hashCode() : 0);
+        myresult = 31 * myresult + (scoreUser1 != null ? scoreUser1.hashCode() : 0);
+        myresult = 31 * myresult + (scoreUser2 != null ? scoreUser2.hashCode() : 0);
+        myresult = 31 * myresult + (matchDate != null ? matchDate.hashCode() : 0);
+        myresult = 31 * myresult + (statusId != null ? statusId.hashCode() : 0);
+        return myresult;
+    }
 }

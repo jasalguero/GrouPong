@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="de.groupon.hcktn.groupong.model.entity.Match" table="game">
+        <id name="id" column="id" type="integer">
+            <generator class="native"></generator>
+        </id>
+        <property name="user1Id" column="user1" type="integer"></property>
+        <property name="user2Id" column="user2" type="integer"></property>
+        <property name="scoreUser1" column="score_user1" type="integer"></property>
+        <property name="scoreUser2" column="score_user2" type="integer"></property>
+        <property name="matchDate" column="game_date" type="java.util.Calendar"></property>
+        <property name="statusId" column="status_id" type="integer"></property>
+    </class>
+</hibernate-mapping>
