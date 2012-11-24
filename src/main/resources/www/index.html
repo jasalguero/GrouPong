@@ -193,40 +193,46 @@
 
   <script type="text/x-handlebars" data-template-name="ladder">
       <div class="row">
-      <div class="nine columns ranking" role="content">
-        <div class="sectionTitle"><h1>Ranking</h1></div>
+      <div class="twelve columns ranking" role="content">
+          <div class="row">
+              <div class="twelve columns centered">
+                <div class="sectionTitle"><h1>Ranking</h1></div>
+              </div>
+          </div>
 
-              {{#each user in GP.router.userController.contentWithIndexes}}
-                  <div class="row">
-                      <div class="twelve columns offset-by-two">
-                          <div class="panel playerRank">
-                              <div class="position">#{{user.index}}</div>
-                              <div><img src="images/unknown.png" class="playerImg"></div>
-                              <div class="playerInfo">
-                                  <div class="playerBasic">
-                                    <div class="playerName">Username</div>
-                                    <div class="playerScore">1000</div>
-                                    <div class="playerRanking">Master</div>
-                                  </div>
-                                  <div class="playerAchievements">
-                                     <img src="images/achievement_32_hot.png"/>
-                                      <img src="images/achievement_32_hot.png"/>
-                                      <img src="images/achievement_32_dis.png"/>
-                                  </div>
+
+          {{#each user in GP.router.userController.contentWithIndexes}}
+              <div class="row">
+                  <div class="twelve columns centered">
+                      <div class="panel playerRank shadow">
+                          <div class="two columns position">#{{user.index}}</div>
+                          <div class="two columns"><img src="images/unknown.png" class="playerImg"></div>
+                          <div class="three columns playerInfo">
+                              <div class="playerBasic">
+                                <div class="playerName">{{user.item.username}}</div>
+                                <div class="playerScore">{{user.item.score}}</div>
+                                <div class="playerRanking">Master</div>
                               </div>
-                              <div class="actionButtons">
-                                  <div class="actionButton"><a class="alert button" {{action showChallengeModal item target="GP.router.modalController"}}>Challenge!</a></div>
-                                  <div class="actionButton"><a class="button" href="#">Profile</a></div>
+                              <div class="playerAchievements">
+                                 <img src="images/achievement_32_hot.png"/>
+                                  <img src="images/achievement_32_hot.png"/>
+                                  <img src="images/achievement_32_dis.png"/>
                               </div>
+                          </div>
+                          <div class="two columns actionButtons">
+                              <div class="actionButton"><a class="alert button" {{action showChallengeModal user target="GP.router.modalController"}}>Challenge!</a></div>
+                              <div class="actionButton"><a class="button" {{action showProfile user.item}}>Profile</a></div>
                           </div>
                       </div>
                   </div>
-              {{/each}}
+              </div>
+          {{/each}}
           </div>
       </div>
   </script>
 
 <script type="text/x-handlebars" data-template-name="profile">
+    {{#with GP.router.profileController.user}}
     <div class="row">
         <div class=" playerProfile" role="content">
             <div class="row">
@@ -235,7 +241,7 @@
                 </div>
                 <div class="four columns playerInfo">
                     <div class="playerBasic">
-                        <div class="playerName">Username</div>
+                        <div class="playerName">{{username}}</div>
 
                         <div class="playerRanking">Master</div>
                     </div>
@@ -246,7 +252,7 @@
                     </div>
                 </div>
                 <div class="three columns score">
-                    <div class="playerScore">1000</div>
+                    <div class="playerScore">{{score}}</div>
                 </div>
             </div>
         </div>
@@ -337,6 +343,7 @@
             <hr>
         </div>
     </div>
+    {{/with}}
 </script>
 
 

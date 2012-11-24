@@ -148,6 +148,13 @@ footer{
     background-color: #F7F5F3;;
 }
 
+.shadow {
+    /* shadow */
+    -moz-box-shadow: 5px 5px 5px #ccc;
+    -webkit-box-shadow: 5px 5px 5px #ccc;
+    box-shadow: 5px 5px 5px #ccc;
+}
+
 
 /* -----------------------------------------
    LEADERBOARD
@@ -172,7 +179,7 @@ footer{
 
 .ranking .playerInfo{
     float:left;
-    width: 400px;
+
     margin-left: 30px;
 }
 
@@ -194,6 +201,10 @@ footer{
 
 .ranking .actionButtons{
     float: right;
+}
+
+.ranking .actionButtons a{
+    width: 150px;
 }
 
 .ranking .actionButtons .actionButton{

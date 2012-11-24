@@ -6,7 +6,8 @@ window.GP = Em.Application.create({
 
     ready: function(){
         console.log("Application initialized");
-        this.gpDevhelper.createUsers(5);
+        GP.gpDevhelper.createUsers(5);
+
     }
 });
 
@@ -111,8 +112,14 @@ GP.ModalController = Em.Controller.extend({
 })
 
 GP.UserController = Em.ArrayController.extend(GP.Clearable,{
-
     sortProperties: ['score'],
+
+    init: function(){
+        this._super();
+        console.log("initializing controller");
+
+    },
+
 
     addUser: function(user){
         var exists = this.filterProperty('id', user.get('id'));
@@ -135,7 +142,7 @@ GP.LadderController = Em.Controller.extend({
 });
 
 GP.ProfileController = Em.Controller.extend({
-
+    user: null
 });
 
 
@@ -189,15 +196,28 @@ GP.Router = Em.Router.extend({
             }
         }),
         profile: Em.Route.extend({
-            route: '/profile',
+            route: '/profile/:id',
             enter: function(router) {
+                console.log("entering ladder from", router.get('currentState.name'));
+            },
+            connectOutlets: function(router, context){
+                console.log("connecting in");
+                //console.log(JSON.stringify(context.id));
                 router.get('applicationController').connectOutlet('profile');
             },
+
+            /*serialize: function(router, context){
+                console.log("serializing...");
+                console.log(JSON.stringify(context));
+                return{
+                    userId: context.get('id')
+                }
+            },*/
             exit: function(router){
                 //router.get('applicationController').disconnectOutlet('profile');
             }
         }),
-        profile: Em.Route.extend({
+        /*profile: Em.Route.extend({
             route: '/lastMatches',
             enter: function(router) {
                 router.get('applicationController').connectOutlet('profile');
@@ -205,12 +225,14 @@ GP.Router = Em.Router.extend({
             exit: function(router){
                 //router.get('applicationController').disconnectOutlet('profile');
             }
-        }),
+        }),*/
         showLadder: function(router){
             router.transitionTo('ladder');
         },
-        showProfile: function(router){
-            router.transitionTo('profile');
+        showProfile: function(router, event){
+            var user = event.context;
+            router.get('profileController').set('user',user);
+            router.transitionTo('profile', user);
         }
     })
 });
@@ -230,5 +252,6 @@ GP.dataSource = Ember.Object.create({
 /*              UTILITY FUNCTIONS                     */
 /******************************************************/
 
- GP.initialize();
+
+GP.initialize();
 
