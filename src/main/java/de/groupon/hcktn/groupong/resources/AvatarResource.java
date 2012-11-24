@@ -20,7 +20,7 @@ public class AvatarResource {
 
     @RequestMapping(value = "avatars", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE} )
     @ResponseBody
-    public List<AvatarDTO> getAvatars() {
+    public List<AvatarDTO> fetchAvatars() {
         return avatarService.fetchAvatars();
     }
 }
