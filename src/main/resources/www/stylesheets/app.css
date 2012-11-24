@@ -20,23 +20,99 @@
     font-family: "GeneralFoundicons";
 }
 
+body, input, select, textarea, h1, h2, h3, h4, h5{
+    font: 100%/1.4 "myriad-pro",sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
 .top-bar {
     height:60px;
+    background-color: #75D1D3;
+    font-size: 35px;
 }
+
+.top-bar ul > li:not(.name):hover, .top-bar ul > li:not(.name).active{
+    background-color: #7ABBD3;
+}
+
+.top-bar > ul .name{
+    margin-left: 30px;
+}
+
+#logoText{
+    font-size: 30px;
+}
+
 
 .top-bar ul > li a:not(.button) {
     height:60px;
+    font-size: 20px;
 }
 
 .top-bar ul > li.divider {
     height:60px;
 }
 
+body{
+    background: url('../images/background.png') 0 0 fixed;
+}
+
 
 /* -----------------------------------------
-   Page Name 1
+   LEADERBOARD
 ----------------------------------------- */
 
+.playerRank{
+    height:120px;
+}
+
+.position{
+    font-size: 35px;
+    float: left;
+    margin-right: 8px;
+    width: 40px;
+}
+
+.playerImg{
+    float:left;
+    height:70px;
+    width:70px;
+}
+
+.playerInfo{
+    float:left;
+    width: 400px;
+    margin-left: 30px;
+}
+
+.playerBasic{
+    margin-left: 5px;
+    margin-bottom: 10px;
+}
+
+.playerBasic div{
+    width: 30px;
+    display: inline;
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.playerAchievements{
+    margin-left: 5px;
+}
+
+.actionButtons{
+    float: right;
+}
+
+.actionButtons .actionButton{
+    float:none;
+    margin-bottom: 10px;
+}
+
+.panel > :first-child{
+
+}
 
 
 

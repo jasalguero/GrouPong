@@ -2,8 +2,11 @@
 /*              INITS                                 */
 /******************************************************/
 window.GP = Em.Application.create({
+    gpDevhelper : GPDevHelper.create(),
+
     ready: function(){
-        console.log("Created GP namespace");
+        console.log("Application initialized");
+        this.gpDevhelper.createUsers(5);
     }
 });
 
@@ -94,10 +97,6 @@ GP.ApplicationController = Em.Controller.extend({
 
 });
 
-GP.LadderController = Em.Controller.extend({
-
-});
-
 GP.UserController = Em.ArrayController.extend(GP.Clearable,{
 
     sortProperties: ['score'],
@@ -108,8 +107,25 @@ GP.UserController = Em.ArrayController.extend(GP.Clearable,{
         if (Em.empty(exists)){
             this.addObject(user);
         }
-    }
+    },
+
+    contentWithIndexes: function(){
+        return this.map(function(i, idx) {
+            return {item: i, index: idx+1};
+        });
+    }.property('content.@each')
+
 });
+
+GP.LadderController = Em.Controller.extend({
+
+});
+
+GP.ProfileController = Em.Controller.extend({
+
+});
+
+
 
 
 /******************************************************/
@@ -123,6 +139,10 @@ GP.ApplicationView = Ember.View.extend({
 
 GP.LadderView = Em.View.extend({
     templateName: 'ladder'
+});
+
+GP.ProfileView = Em.View.extend({
+    templateName: 'profile'
 })
 
 
@@ -142,10 +162,36 @@ GP.Router = Em.Router.extend({
                 console.log("entering ladder from", router.get('currentState.name'));
             },
             connectOutlets: function(router){
-                console.log("changing route");
                 router.get('applicationController').connectOutlet('ladder');
+            },
+            exit: function(router){
+                //router.get('applicationController').disconnectOutlet('ladder');
             }
-        })
+        }),
+        profile: Em.Route.extend({
+            route: '/profile',
+            enter: function(router) {
+                router.get('applicationController').connectOutlet('profile');
+            },
+            exit: function(router){
+                //router.get('applicationController').disconnectOutlet('profile');
+            }
+        }),
+        profile: Em.Route.extend({
+            route: '/profile',
+            enter: function(router) {
+                router.get('applicationController').connectOutlet('profile');
+            },
+            exit: function(router){
+                //router.get('applicationController').disconnectOutlet('profile');
+            }
+        }),
+        showLadder: function(router){
+            router.transitionTo('ladder');
+        },
+        showProfile: function(router){
+            router.transitionTo('profile');
+        }
     })
 });
 
