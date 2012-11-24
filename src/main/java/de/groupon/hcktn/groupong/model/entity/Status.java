@@ -5,7 +5,11 @@ public class Status {
     private String description;
 
     public Status() {
+    }
 
+    public Status(Integer id, String description) {
+        this.id = id;
+        this.description = description;
     }
 
     public Integer getId() {
