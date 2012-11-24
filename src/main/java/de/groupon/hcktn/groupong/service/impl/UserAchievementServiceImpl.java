@@ -21,7 +21,7 @@ public class UserAchievementServiceImpl implements UserAchievementService {
         final List<UserAchievement> userAchievements = userAchievementDAO.retrieveByUserId(userId);
         if (userAchievements != null) {
             for (UserAchievement userAchievement : userAchievements) {
-                achievementsIds.add(userAchievement.getUserId());
+                achievementsIds.add(userAchievement.getAchievementId());
             }
         }
         return achievementsIds;
