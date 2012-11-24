@@ -66,9 +66,9 @@
                     <ul class="right">
                         <li>
                             {{#if GP.router.applicationController.isUserLogged}}
-                                <a {{action showProfile}}>Profile</a>
+                                <a class="active" href="#" {{action showProfile}}>Profile</a>
                             {{else}}
-                                <a {{action showModalLogin target="GP.router.modalController"}}>Login</a>
+                                <a class="active" href="#"  {{action showModalLogin target="GP.router.modalController"}}>Login</a>
                             {{/if}}
 
                         </li>
@@ -206,8 +206,8 @@
                 <div class="twelve columns centered">
                     <div class="panel playerRank shadow">
                         <div class="two columns position">#{{user.index}}</div>
-                        <div class="two columns"><img {{bindAttr src="user.item.avatar"}} class="playerImg"/></div>
-                        <div class="three columns playerInfo">
+                        <div class="one columns"><img {{bindAttr src="user.item.avatar"}} class="playerImg"/></div>
+                        <div class="five-up columns playerInfo">
                             <div class="playerBasic">
                                 <div class="playerName">{{user.item.username}}</div>
                                 <div class="playerScore">{{user.item.score}}</div>

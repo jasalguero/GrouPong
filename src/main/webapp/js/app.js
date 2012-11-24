@@ -321,6 +321,7 @@ GP.parseUser = function(json){
     user.set('email',json.email);
     user.set('avatar',json.avatar);
     user.set('score',json.score);
+    user.set('username',json.userName);
     return user;
 };
 
