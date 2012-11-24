@@ -1,0 +1,89 @@
+package de.groupon.hcktn.groupong.service.impl;
+
+import de.groupon.hcktn.groupong.domain.mappers.MatchDTOMapper;
+import de.groupon.hcktn.groupong.domain.response.BaseDTO;
+import de.groupon.hcktn.groupong.domain.response.MatchDTO;
+import de.groupon.hcktn.groupong.model.dao.MatchDAO;
+import de.groupon.hcktn.groupong.model.entity.Match;
+import de.groupon.hcktn.groupong.service.MatchService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+public class MatchServiceImpl implements MatchService {
+
+    @Autowired
+    private MatchDAO matchDAO;
+
+    @Autowired
+    private MatchDTOMapper matchDTOMapper;
+
+    @Override
+    public BaseDTO createMatch(MatchDTO matchDTO) {
+//        matchDTO.setId(null);
+//        Match match = matchDTOMapper.mapToMatch(matchDTO);
+//        Integer id = matchDAO.create(match);
+//        match = matchDAO.retrieve(id);
+//        return matchDTOMapper.mapToMatchDTO(match);
+        return null;
+    }
+
+    @Override
+    public BaseDTO updateMatch(MatchDTO matchDTO) {
+//        Match match = matchDTOMapper.mapToMatch(matchDTO);
+//        matchDAO.update(match);
+//        match = matchDAO.retrieve(id);
+//        return matchDTOMapper.mapToMatchDTO(match);
+        return null;
+    }
+
+    @Override
+    public List<MatchDTO> fetchMatches() {
+        final List<MatchDTO> matchesDTO = new ArrayList<MatchDTO>();
+        final List<Match> matches = matchDAO.retrieveAll();
+        for (Match match : matches) {
+            matchesDTO.add(matchDTOMapper.mapToMatchDTO(match));
+        }
+        return matchesDTO;
+    }
+
+    @Override
+    public List<MatchDTO> fetchMatchesByUserId(final Integer userId) {
+        final List<MatchDTO> matchesDTO = new ArrayList<MatchDTO>();
+        final List<Match> matches = matchDAO.retrieveAll();
+        for (Match match : matches) {
+            if (match.getUser1Id().equals(userId) || match.getUser2Id().equals(userId)) {
+                matchesDTO.add(matchDTOMapper.mapToMatchDTO(match));
+            }
+        }
+        return matchesDTO;
+    }
+
+    @Override
+    public List<MatchDTO> fetchMatchesByStatusId(final Integer statusId) {
+        final List<MatchDTO> matchesDTO = new ArrayList<MatchDTO>();
+        final List<Match> matches = matchDAO.retrieveAll();
+        for (Match match : matches) {
+            if (match.getStatusId().equals(statusId)) {
+                matchesDTO.add(matchDTOMapper.mapToMatchDTO(match));
+            }
+        }
+        return matchesDTO;
+    }
+
+    @Override
+    public List<MatchDTO> fetchMatchesByUserIdStatusId(final Integer userId, final Integer statusId) {
+        final List<MatchDTO> matchesDTO = new ArrayList<MatchDTO>();
+        final List<Match> matches = matchDAO.retrieveAll();
+        for (Match match : matches) {
+            if (match.getStatusId().equals(statusId) && ( (match.getUser1Id().equals(userId) || match.getUser2Id().equals(userId)) )) {
+                matchesDTO.add(matchDTOMapper.mapToMatchDTO(match));
+            }
+        }
+        return matchesDTO;
+    }
+
+}

@@ -14,10 +14,10 @@ public class AvatarServiceImpl implements AvatarService{
     public List<AvatarDTO> fetchAvatars() {
         final List<AvatarDTO> avatars = new LinkedList<AvatarDTO>();
 
-        avatars.add(new AvatarDTO("http://www.avatarsdb.com/avatars/acrobat.gif"));
-        avatars.add(new AvatarDTO("http://www.avatarsdb.com/avatars/pc_user.gif"));
-        avatars.add(new AvatarDTO("http://www.avatarsdb.com/avatars/cat_piano.gif"));
-        avatars.add(new AvatarDTO("http://www.avatarsdb.com/avatars/dilemma_HH.jpg"));
+        avatars.add(new AvatarDTO(0, "http://www.avatarsdb.com/avatars/acrobat.gif"));
+        avatars.add(new AvatarDTO(1, "http://www.avatarsdb.com/avatars/pc_user.gif"));
+        avatars.add(new AvatarDTO(2, "http://www.avatarsdb.com/avatars/cat_piano.gif"));
+        avatars.add(new AvatarDTO(3, "http://www.avatarsdb.com/avatars/dilemma_HH.jpg"));
 
         return avatars;
     }

@@ -1,22 +1,23 @@
 package de.groupon.hcktn.groupong.domain.response;
 
-import de.groupon.hcktn.groupong.model.entity.Status;
+import de.groupon.config.web.annotation.JsonImplicit;
 
-public class MatchDTO {
-    private Integer matchId;
+@JsonImplicit(MatchDTO.class)
+public class MatchDTO extends BaseDTO {
+
     private Integer user1Id;
     private Integer user2Id;
     private Integer scoreUser1;
     private Integer scoreUser2;
     private String date;
     private String status;
+    private Integer statusId;
 
-    public Integer getMatchId() {
-        return matchId;
+    public MatchDTO() {
     }
 
-    public void setMatchId(Integer matchId) {
-        this.matchId = matchId;
+    public MatchDTO(Integer id) {
+        super(id);
     }
 
     public Integer getUser1Id() {
@@ -65,5 +66,13 @@ public class MatchDTO {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Integer getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(Integer statusId) {
+        this.statusId = statusId;
     }
 }

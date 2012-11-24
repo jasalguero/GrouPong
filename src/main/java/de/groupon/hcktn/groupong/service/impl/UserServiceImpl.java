@@ -1,5 +1,6 @@
 package de.groupon.hcktn.groupong.service.impl;
 
+import de.groupon.hcktn.groupong.domain.response.BaseDTO;
 import de.groupon.hcktn.groupong.domain.response.UserDTO;
 import de.groupon.hcktn.groupong.service.AvatarService;
 import de.groupon.hcktn.groupong.service.UserService;
@@ -21,7 +22,7 @@ public class UserServiceImpl implements UserService {
     @PostConstruct
     public void init() {
         final UserDTO user = new UserDTO();
-        user.setUserId(0);
+        user.setId(0);
         user.setUserName("bbednarek");
         user.setPassword("rollback");
         user.setEmail("bbednarek@groupon.com");
@@ -30,7 +31,7 @@ public class UserServiceImpl implements UserService {
         users.add(user);
 
         final UserDTO user2 = new UserDTO();
-        user2.setUserId(1);
+        user2.setId(1);
         user2.setUserName("jsalguero");
         user.setPassword("rollback");
         user2.setEmail("jsalguero@groupon.com");
@@ -39,7 +40,7 @@ public class UserServiceImpl implements UserService {
         users.add(user2);
 
         final UserDTO user3 = new UserDTO();
-        user3.setUserId(2);
+        user3.setId(2);
         user3.setUserName("zzabost");
         user.setPassword("rollback");
         user3.setEmail("zzabost@groupon.com");
@@ -49,19 +50,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer createUser(final UserDTO userDTO) {
-        userDTO.setUserId(null);
+    public BaseDTO createUser(final UserDTO userDTO) {
+        userDTO.setId(null);
         userDTO.setScore(1000);
 
-        userDTO.setUserId(users.get(users.size() - 1).getUserId() + 1);
+        userDTO.setId(users.get(users.size() - 1).getId() + 1);
         users.add(userDTO);
-        return userDTO.getUserId();
+        return userDTO;
     }
 
     @Override
     public UserDTO fetchUser(final Integer userId) {
         for (UserDTO user : fetchUsers()) {
-            if (user.getUserId().equals(userId)) {
+            if (user.getId().equals(userId)) {
                 return user;
             }
         }

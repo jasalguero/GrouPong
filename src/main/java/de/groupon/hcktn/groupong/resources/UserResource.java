@@ -1,5 +1,6 @@
 package de.groupon.hcktn.groupong.resources;
 
+import de.groupon.hcktn.groupong.domain.response.BaseDTO;
 import de.groupon.hcktn.groupong.domain.response.UserDTO;
 import de.groupon.hcktn.groupong.service.UserService;
 import org.codehaus.jackson.JsonParseException;
@@ -27,7 +28,7 @@ public class UserResource {
 
     @RequestMapping(value = "/user", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public Integer createUser(@RequestBody final UserDTO user, HttpServletRequest request) {
+    public BaseDTO createUser(@RequestBody final UserDTO user) {
         return userService.createUser(user);
     }
 
