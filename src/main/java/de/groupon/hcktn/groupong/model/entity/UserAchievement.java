@@ -9,18 +9,6 @@ public class UserAchievement {
 
     }
 
-    public UserAchievement(final Integer id, final Integer userId, final Integer achievementId) {
-        this.id = id;
-        this.userId = userId;
-        this.achievementId = achievementId;
-    }
-
-
-    public UserAchievement(final Integer userId, final Integer achievementId) {
-        this.userId = userId;
-        this.achievementId = achievementId;
-    }
-
     public Integer getId() {
         return id;
     }

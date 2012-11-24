@@ -1,36 +1,37 @@
-package de.groupon.hcktn.groupong.model.dao;
+package de.groupon.hcktn.groupong.model.dao.impl;
 
-import de.groupon.hcktn.groupong.model.entity.User;
+import de.groupon.hcktn.groupong.model.dao.AchievementDAO;
+import de.groupon.hcktn.groupong.model.entity.Achievement;
 
 import java.util.List;
 
-public class UserDAOImpl implements UserDAO {
+public class AchievementDAOImpl implements AchievementDAO {
     @Override
-    public void createUser(final User user) {
+    public void createAchievement(final Achievement achievement) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
 
     @Override
-    public User readUser(final Integer userId) {
+    public Achievement readAchievement(final Integer achievementId) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
 
     @Override
-    public List<User> readAllUsers() {
+    public List<Achievement> readAllAchievements() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
 
     @Override
-    public void deleteUser(final Integer userId) {
+    public void deleteAchievement(final Integer achievementId) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
 
     @Override
-    public void updateUser(final User user) {
+    public void updateAchievement(final Achievement achievement) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 }

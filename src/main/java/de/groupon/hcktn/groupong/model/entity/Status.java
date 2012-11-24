@@ -8,15 +8,6 @@ public class Status {
 
     }
 
-    public Status(final Integer id, final String description) {
-        this.id = id;
-        this.description = description;
-    }
-
-    public Status(final String description) {
-        this.description = description;
-    }
-
     public Integer getId() {
         return id;
     }

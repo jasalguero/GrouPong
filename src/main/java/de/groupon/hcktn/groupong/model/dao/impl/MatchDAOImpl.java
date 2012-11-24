@@ -1,5 +1,6 @@
-package de.groupon.hcktn.groupong.model.dao;
+package de.groupon.hcktn.groupong.model.dao.impl;
 
+import de.groupon.hcktn.groupong.model.dao.MatchDAO;
 import de.groupon.hcktn.groupong.model.entity.Match;
 
 import java.util.List;

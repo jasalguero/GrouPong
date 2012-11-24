@@ -11,21 +11,6 @@ public class User {
 
     }
 
-    public User(final Integer id, final  String email, final String password, final String avatar, final Integer score) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.avatar = avatar;
-        this.score = score;
-    }
-
-    public User(final  String email, final String password, final String avatar, final Integer score) {
-        this.email = email;
-        this.password = password;
-        this.avatar = avatar;
-        this.score = score;
-    }
-
     public Integer getId() {
         return id;
     }

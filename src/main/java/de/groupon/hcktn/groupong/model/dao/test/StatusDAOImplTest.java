@@ -1,7 +1,7 @@
 package de.groupon.hcktn.groupong.model.dao.test;
 
 import de.groupon.hcktn.groupong.model.dao.StatusDAO;
-import de.groupon.hcktn.groupong.model.dao.StatusDAOImpl;
+import de.groupon.hcktn.groupong.model.dao.impl.StatusDAOImpl;
 import de.groupon.hcktn.groupong.model.entity.Status;
 import org.junit.Test;
 

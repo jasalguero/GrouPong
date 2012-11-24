@@ -9,19 +9,6 @@ public class Achievement {
 
     }
 
-    public Achievement(final Integer id, final String title, final String description) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-    }
-
-
-    public Achievement(final String title, final String description) {
-        this.title = title;
-        this.description = description;
-    }
-
-
     public Integer getId() {
         return id;
     }

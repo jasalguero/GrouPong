@@ -1,6 +1,6 @@
 package de.groupon.hcktn.groupong.model.entity;
 
-import java.util.Date;
+import java.util.Calendar;
 
 public class Match {
     private Integer id;
@@ -8,31 +8,11 @@ public class Match {
     private Integer user2Id;
     private Integer scoreUser1;
     private Integer scoreUser2;
-    private Date matchDate;
+    private Calendar matchDate;
     private Integer statusId;
 
     public Match() {
 
-    }
-
-    public Match(final Integer id, final Integer user1Id, final Integer user2Id, final Integer scoreUser1, final Integer scoreUser2, final Date matchDate, final Integer statusId) {
-        this.id = id;
-        this.user1Id = user1Id;
-        this.user2Id = user2Id;
-        this.scoreUser1 = scoreUser1;
-        this.scoreUser2 = scoreUser2;
-        this.matchDate = matchDate;
-        this.statusId = statusId;
-    }
-
-
-    public Match(final Integer user1Id, final Integer user2Id, final Integer scoreUser1, final Integer scoreUser2, final Date matchDate, final Integer statusId) {
-        this.user1Id = user1Id;
-        this.user2Id = user2Id;
-        this.scoreUser1 = scoreUser1;
-        this.scoreUser2 = scoreUser2;
-        this.matchDate = matchDate;
-        this.statusId = statusId;
     }
 
     public Integer getId() {
@@ -75,11 +55,11 @@ public class Match {
         this.scoreUser2 = scoreUser2;
     }
 
-    public Date getMatchDate() {
+    public Calendar getMatchDate() {
         return matchDate;
     }
 
-    public void setMatchDate(final Date matchDate) {
+    public void setMatchDate(final Calendar matchDate) {
         this.matchDate = matchDate;
     }
 

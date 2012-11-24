@@ -1,5 +1,6 @@
-package de.groupon.hcktn.groupong.model.dao;
+package de.groupon.hcktn.groupong.model.dao.impl;
 
+import de.groupon.hcktn.groupong.model.dao.StatusDAO;
 import de.groupon.hcktn.groupong.model.entity.Status;
 import de.groupon.hcktn.groupong.model.utils.HibernateUtil;
 import org.hibernate.Session;
