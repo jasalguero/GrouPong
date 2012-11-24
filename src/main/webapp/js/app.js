@@ -24,7 +24,8 @@ GP.CONSTANTS = {
         BASE_URL:'/groupong',
         AVATARS:'/avatars',
         USERS:'/users',
-        USER:'/user'
+        USER:'/user',
+        ACHIEVEMENTS:'/achievements'
 
     }
 };
@@ -79,8 +80,8 @@ GP.User = Em.Object.extend({
 
 GP.Achievement = Em.Object.extend({
     id: null,
-    userId: null,
-    achievementId: null
+    title: null,
+    description: null
 });
 
 GP.Game = Em.Object.extend({
@@ -346,7 +347,6 @@ GP.dataSource = Ember.Object.create({
             success: function(data){
                 if (!Em.none(data)){
                     var user = GP.get('router.userController').findProperty('id',data.id);
-                    debugger;
                     GP.get('router.applicationController').set('loggedUser', user);
                     result = true;
                 }else{
@@ -356,6 +356,22 @@ GP.dataSource = Ember.Object.create({
         });
 
         return result;
+    },
+
+    getAllAchievements: function(){
+        $.ajax({
+            type:'GET',
+            url: GP.CONSTANTS.API.BASE_URL + GP.CONSTANTS.API.USERS,
+            dataType:'json',
+            success: function(data){
+                if (Em.isArray(data)){
+                    data.map(function(item){
+                        var avatar = GP.parseUser(item);
+                        GP.get('router.userController').addObject(avatar);
+                    })
+                }
+            }
+        });
     }
 
 });

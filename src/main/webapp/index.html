@@ -66,9 +66,9 @@
                     <ul class="right">
                         <li>
                             {{#if GP.router.applicationController.isUserLogged}}
-                                <a class="active" href="#" {{action showProfile GP.router.applicationController.userLogged}}>Profile</a>
+                                <a class="active" href="#" {{action showProfile GP.router.applicationController.loggedUser}}>Profile</a>
                             {{else}}
-                                <a class="active" href="#"  {{action showLoginModal target="GP.router.modalController"}}>Login</a>
+                                <a class="active" href="#" {{action showLoginModal target="GP.router.modalController"}}>Login</a>
                             {{/if}}
 
                         </li>
