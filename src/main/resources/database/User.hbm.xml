@@ -6,10 +6,10 @@
         <id name="id" column="id" type="integer">
             <generator class="native"></generator>
         </id>
-        <property name="email" column="email" type="text"></property>
-        <property name="password" column="password" type="text"></property>
-        <property name="username" column="user_name" type="text"></property>
-        <property name="avatar" column="avatar" type="text"></property>
+        <property name="email" column="email" type="string"></property>
+        <property name="password" column="password" type="string"></property>
+        <property name="username" column="user_name" type="string"></property>
+        <property name="avatar" column="avatar" type="string"></property>
         <property name="score" column="score" type="integer"></property>
     </class>
 </hibernate-mapping>

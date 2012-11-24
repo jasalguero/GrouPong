@@ -6,7 +6,7 @@
         <id name="id" column="id" type="integer">
             <generator class="native"></generator>
         </id>
-        <property name="userId" column="user_id" type="integer"></property>
-        <property name="achievementId" column="achievement_id" type="integer"></property>
+        <property name="userId" column="user_id" type="integer" not-null="true"></property>
+        <property name="achievementId" column="achievement_id" type="integer" not-null="true"></property>
     </class>
 </hibernate-mapping>

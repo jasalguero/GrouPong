@@ -11,6 +11,12 @@ public class UserAchievement implements Serializable {
 
     }
 
+    public UserAchievement(Integer id, Integer userId, Integer achievementId) {
+        this.id = id;
+        this.userId = userId;
+        this.achievementId = achievementId;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -24,8 +30,9 @@ public class UserAchievement implements Serializable {
     }
 
     public void setUserId(final Integer userId) {
-        this.userId = id;
+        this.userId = userId;
     }
+
 
     public Integer getAchievementId() {
         return achievementId;
