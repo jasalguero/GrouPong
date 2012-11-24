@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.oxm.xstream.XStreamMarshaller;
@@ -28,6 +29,7 @@ import java.util.Map;
 @Configuration
 @ComponentScan(basePackages = "de.groupon.hcktn.groupong", excludeFilters = {@ComponentScan.Filter(Configuration.class)})
 @EnableAspectJAutoProxy()
+@ImportResource("classpath:applicationContext.xml")
 public class GroupongWebConfig extends WebConfigContext {
 
     @Override
