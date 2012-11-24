@@ -26,46 +26,47 @@
     <link rel="stylesheet" href="stylesheets/social_foundicons_ie7.css">
   <link rel="stylesheet" href="stylesheets/app.css">
 
-  <script src="js/modernizr.foundation.js"></script>
+  <script src="js/libs/modernizr.foundation.js"></script>
 </head>
 <body>
 
 <script type="text/x-handlebars" data-template-name="application">
   <!-- Nav Bar -->
 
-  <div class="row">
-      <div class="twelve columns">
+  <div class="">
+      <div class="">
           <nav class="top-bar">
               <ul>
                   <!-- Title Area -->
                   <li class="name">
-                      <h1>
                           <a href="#">
-                              GrouPong!<img src="images/pingpongT.png" height="45px" width="45px"/>
+                              <span id="logoText">GrouPong!</span><img src="images/pingpongT.png" height="45px" width="45px"/>
                           </a>
-                      </h1>
                   </li>
-                  <li class="toggle-topbar"><a href="#"></a></li>
+                  <li class="toggle-topbar">
+                      <a href="#">test</a>
+                      <a href="#">test</a>
+                  </li>
               </ul>
 
               <section>
                   <!-- Left Nav Section -->
                   <ul class="left">
-                      <li class="divider"></li>
+
                       <li>
                           <a class="active" href="#">Challenges</a>
                       </li>
                       <li>
                           <a class="active" href="#">Last Matches</a>
                       </li>
-                      <li class="divider hide-for-small"></li>
+
                   </ul>
 
                   <!-- Right Nav Section -->
                   <ul class="right">
-                      <li class="divider show-for-medium-and-up"></li>
+
                       <li>
-                          <a href="#">User</a>
+                          <a {{action showProfile}}>User</a>
                       </li>
                   </ul>
               </section>
@@ -83,7 +84,6 @@
 
     <!-- Main Blog Content -->
     <div class="nine columns" role="content">
-        <h2>Leaderboard</h2>
         {{outlet}}
     </div>
 
@@ -160,28 +160,52 @@
   -->
 
   <script type="text/x-handlebars" data-template-name="ladder">
-      {{#each user in GP.router.userController}}
-      <div class="row">
-          <div class="twelve columns offset-by-two">
-              <div class="panel">
-                  <h5>This is a regular panel.</h5>
-                  <p>It has an easy to override visual style, and is appropriately subdued.</p>
+      <h1>LeaderBoard</h1>
+
+      {{#each user in GP.router.userController.contentWithIndexes}}
+          <div class="row">
+              <div class="twelve columns offset-by-two">
+                  <div class="panel playerRank">
+                      <div class="position">#{{user.index}}</div>
+                      <div><img src="images/unknown.png" class="playerImg"></div>
+                      <div class="playerInfo">
+                          <div class="playerBasic">
+                            <div class="playerName">Username</div>
+                            <div class="playerScore">1000</div>
+                            <div class="playerRanking">Master</div>
+                          </div>
+                          <div class="playerAchievements">
+                             <img src="images/achievement_32_hot.png"/>
+                              <img src="images/achievement_32_hot.png"/>
+                              <img src="images/achievement_32_dis.png"/>
+                          </div>
+                      </div>
+                      <div class="actionButtons">
+                          <div class="actionButton"><a class="alert button" href="#">Challenge!</a></div>
+                          <div class="actionButton"><a class="button" href="#">Profile</a></div>
+                      </div>
+                  </div>
               </div>
           </div>
-      </div>
       {{/each}}
   </script>
+
+<script type="text/x-handlebars" data-template-name="profile">
+    <h1>Profile</h1>
+</script>
   
   <!-- Included JS Files (Compressed) -->
-  <script src="js/jquery.js"></script>
-  <script src="js/foundation.min.js"></script>
+  <script src="js/libs/jquery.js"></script>
+  <script src="js/libs/foundation.min.js"></script>
   
   <!-- Initialize JS Plugins -->
   <script src="js/main.js"></script>
 
   <!-- Load Ember -->
-  <script src="js/handlebars-1.0.rc.1.js"></script>
-  <script src="js/ember-1.0.0-pre.2.min.js"></script>
+  <script src="js/libs/handlebars-1.0.rc.1.js"></script>
+  <script src="js/libs/ember-1.0.0-pre.2.min.js"></script>
+  <script src="js/dev_helper.js"></script>
   <script src="js/app.js"></script>
+
 </body>
 </html>
