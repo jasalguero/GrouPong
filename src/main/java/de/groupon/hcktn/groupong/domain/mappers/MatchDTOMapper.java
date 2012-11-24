@@ -6,7 +6,7 @@ import de.groupon.hcktn.groupong.service.StatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component("matchDTOMapper")
+@Component
 public class MatchDTOMapper extends BaseMapper {
 
     @Autowired

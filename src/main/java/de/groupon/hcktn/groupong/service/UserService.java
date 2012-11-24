@@ -10,6 +10,8 @@ public interface UserService {
 
     UserDTO fetchUser(Integer userId);
 
+    UserDTO fetchUser(String email, String password);
+
     List<UserDTO> fetchUsers();
 
 }

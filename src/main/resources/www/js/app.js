@@ -97,6 +97,19 @@ GP.ApplicationController = Em.Controller.extend({
 
 });
 
+GP.ModalController = Em.Controller.extend({
+    showChallengeModal: function(){
+        var context = {
+            title: 'Do you want to challenge xxxx?',
+            lead: 'If you confirm, he will receive a notification and will confirm the challenge',
+            second: '.. if he is not too afraid to accept it',
+            actionChallenge: true
+        }
+            GP.get('router').get('applicationController').connectOutlet('modal', 'modal', context);
+            $('#myModal').reveal();
+    }
+})
+
 GP.UserController = Em.ArrayController.extend(GP.Clearable,{
 
     sortProperties: ['score'],
@@ -128,6 +141,7 @@ GP.ProfileController = Em.Controller.extend({
 
 
 
+
 /******************************************************/
 /*              VIEWS                                 */
 /******************************************************/
@@ -145,7 +159,11 @@ GP.LadderView = Em.View.extend({
 GP.ProfileView = Em.View.extend({
     templateName: 'profile',
     tagName: 'span'
-})
+});
+
+GP.ModalView = Em.View.extend({
+    templateName: 'modal'
+});
 
 
 /******************************************************/
@@ -180,7 +198,7 @@ GP.Router = Em.Router.extend({
             }
         }),
         profile: Em.Route.extend({
-            route: '/profile',
+            route: '/lastMatches',
             enter: function(router) {
                 router.get('applicationController').connectOutlet('profile');
             },

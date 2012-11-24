@@ -40,7 +40,7 @@
                   <!-- Title Area -->
                   <li class="name">
                           <a href="#">
-                              <span id="logoText">GrouPong!</span><img src="images/pingpongT.png" height="45px" width="45px"/>
+                              <img src="images/logo.png"/>
                           </a>
                   </li>
                   <li class="toggle-topbar">
@@ -117,6 +117,11 @@
       </div>
     </div>
   </footer>
+
+    <div id="myModal" class="reveal-modal large">
+        {{outlet modal}}
+    </div>
+
 </script>
 
   <!-- End Footer -->
@@ -158,6 +163,34 @@
   
   -->
 
+<!-- MODAL TEMPLATE -->
+    <script type="text/x-handlebars" data-template-name="modal">
+            <div class="modalLeft">
+                <div class="modalTitle">
+                    <h2>{{content.title}}</h2>
+                </div>
+                <div class="modalMessage">
+                    <p class="lead">{{content.lead}}</p><p>{{content.second}}</p>
+                </div>
+                <div class="modalButtons">
+                    <div class="buttonLeft">
+                        {{#if content.actionChallenge}}
+                        <a class="success radius button" >GO FOR IT!</a>
+                        {{/if}}
+                    </div>
+                    <div class="buttonRight">
+                        <a class="alert radius button" onclick="$('#myModal').trigger('reveal:close');">Let me think about it...</a>
+                    </div>
+                    <a class="close-reveal-modal" onclick="$('#myModal').trigger('reveal:close');">&#215;</a>
+                </div>
+            </div>
+            <div class="modalRight">
+                <div class="modalImg">
+                    <img src="images/challenge.png"/>
+                </div>
+            </div>
+    </script>
+
   <script type="text/x-handlebars" data-template-name="ladder">
       <div class="row">
       <div class="nine columns ranking" role="content">
@@ -182,7 +215,7 @@
                                   </div>
                               </div>
                               <div class="actionButtons">
-                                  <div class="actionButton"><a class="alert button" href="#">Challenge!</a></div>
+                                  <div class="actionButton"><a class="alert button" {{action showChallengeModal item target="GP.router.modalController"}}>Challenge!</a></div>
                                   <div class="actionButton"><a class="button" href="#">Profile</a></div>
                               </div>
                           </div>
@@ -226,27 +259,27 @@
             <hr>
             <div class="row match" >
                 <div class="two columns offset-by-one against">
-                    <span><strong>vs</strong> player2<span>
+                    <span><strong>vs</strong> player2</span>
                 </div>
                 <div class="two columns offset-by-one date">
                     <span>in 3 days</span>
                 </div>
                 <div class="three columns offset-by-one score">
                     <button class="button">Accept</button>
-                    <button class="danger button">Decline</button>
+                    <button class="alert button">Decline</button>
                 </div>
             </div>
             <hr>
             <div class="row match" >
                 <div class="two columns offset-by-one against">
-                    <span><strong>vs</strong> player2<span>
+                    <span><strong>vs</strong> player2</span>
                 </div>
                 <div class="two columns offset-by-one date">
                     <span>in 3 days</span>
                 </div>
                 <div class="three columns offset-by-one score">
                     <button class="button">Accept</button>
-                    <button class="danger button">Decline</button>
+                    <button class="alert button">Decline</button>
                 </div>
             </div>
             <hr>
@@ -280,7 +313,7 @@
             <hr>
             <div class="row match" >
                 <div class="two columns offset-by-one against">
-                    <span><strong>vs</strong> player2<span>
+                    <span><strong>vs</strong> player2</span>
                 </div>
                 <div class="two columns offset-by-one score">
                     <span>2 <strong>-</strong> 1</span>
@@ -292,7 +325,7 @@
             <hr>
             <div class="row match" >
                 <div class="two columns offset-by-one against">
-                    <span><strong>vs</strong> player2<span>
+                    <span><strong>vs</strong> player2</span>
                 </div>
                 <div class="two columns offset-by-one score">
                     <span>2 <strong>-</strong> 1</span>
