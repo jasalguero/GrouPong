@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+
+  <!-- Set the viewport width to device width for mobile -->
+  <meta name="viewport" content="width=device-width" />
+
+  <title>GrouPong!</title>
+
+  <!-- Included CSS Files (Uncompressed) -->
+  <!--
+  <link rel="stylesheet" href="stylesheets/foundation.css">
+  -->
+  
+  <!-- Included CSS Files (Compressed) -->
+  <link rel="stylesheet" href="stylesheets/foundation.min.css">
+    <link rel="stylesheet" href="stylesheets/general_foundicons.css">
+    <link rel="stylesheet" href="stylesheets/general_foundicons_ie7.css">
+    <link rel="stylesheet" href="stylesheets/social_foundicons.css">
+    <link rel="stylesheet" href="stylesheets/social_foundicons_ie7.css">
+  <link rel="stylesheet" href="stylesheets/app.css">
+
+  <script src="js/libs/modernizr.foundation.js"></script>
+</head>
+<body>
+
+<script type="text/x-handlebars" data-template-name="application">
+  <!-- Nav Bar -->
+
+  <div class="">
+      <div class="">
+          <nav class="top-bar">
+              <ul>
+                  <!-- Title Area -->
+                  <li class="name">
+                          <a href="#">
+                              <img src="images/logo.png"/>
+                          </a>
+                  </li>
+                  <li class="toggle-topbar">
+                      <a href="#">test</a>
+                      <a href="#">test</a>
+                  </li>
+              </ul>
+
+              <section>
+                  <!-- Left Nav Section -->
+                  <ul class="left">
+
+                      <li>
+                          <a class="active" href="#">Challenges</a>
+                      </li>
+                      <li>
+                          <a class="active" href="#">Last Matches</a>
+                      </li>
+
+                  </ul>
+
+                  <!-- Right Nav Section -->
+                  <ul class="right">
+                      <li>
+                          <a {{action showProfile}}>User</a>
+                      </li>
+                  </ul>
+              </section>
+          </nav>
+      </div>
+  </div>
+
+
+  <!-- End Nav -->
+
+
+  <!-- Main Page Content and Sidebar -->
+
+
+    <!-- Main Content -->
+    <div class="mainContent">
+
+        {{outlet}}
+
+    </div>
+
+    <!-- End Main Content -->
+
+
+    <!-- Sidebar -->
+
+    <!-- End Sidebar -->
+
+  <!-- End Main Content and Sidebar -->
+
+
+  <!-- Footer -->
+
+  <footer class="">
+    <div class="">
+      <hr />
+      <div class="row">
+        <div class="six columns">
+          <p>&copy; Copyright no one at all. Go to town.</p>
+        </div>
+        <div class="six columns">
+          <ul class="link-list right">
+            <li><a href="#">Link 1</a></li>
+            <li><a href="#">Link 2</a></li>
+            <li><a href="#">Link 3</a></li>
+            <li><a href="#">Link 4</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+    <div id="myModal" class="reveal-modal large">
+        {{outlet modal}}
+    </div>
+
+</script>
+
+  <!-- End Footer -->
+
+  <!-- Included JS Files (Uncompressed) -->
+  <!--
+  
+  <script src="js/jquery.js"></script>
+  
+  <script src="js/jquery.foundation.mediaQueryToggle.js"></script>
+  
+  <script src="js/jquery.foundation.forms.js"></script>
+  
+  <script src="js/jquery.foundation.reveal.js"></script>
+  
+  <script src="js/jquery.foundation.orbit.js"></script>
+  
+  <script src="js/jquery.foundation.navigation.js"></script>
+  
+  <script src="js/jquery.foundation.buttons.js"></script>
+  
+  <script src="js/jquery.foundation.tabs.js"></script>
+  
+  <script src="js/jquery.foundation.tooltips.js"></script>
+  
+  <script src="js/jquery.foundation.accordion.js"></script>
+  
+  <script src="js/jquery.placeholder.js"></script>
+  
+  <script src="js/jquery.foundation.alerts.js"></script>
+  
+  <script src="js/jquery.foundation.topbar.js"></script>
+  
+  <script src="js/jquery.foundation.joyride.js"></script>
+  
+  <script src="js/jquery.foundation.clearing.js"></script>
+  
+  <script src="js/jquery.foundation.magellan.js"></script>
+  
+  -->
+
+<!-- MODAL TEMPLATE -->
+    <script type="text/x-handlebars" data-template-name="modal">
+            <div class="modalLeft">
+                <div class="modalTitle">
+                    <h2>{{content.title}}</h2>
+                </div>
+                <div class="modalMessage">
+                    <p class="lead">{{content.lead}}</p><p>{{content.second}}</p>
+                </div>
+                <div class="modalButtons">
+                    <div class="buttonLeft">
+                        {{#if content.actionChallenge}}
+                        <a class="success radius button" >GO FOR IT!</a>
+                        {{/if}}
+                    </div>
+                    <div class="buttonRight">
+                        <a class="alert radius button" onclick="$('#myModal').trigger('reveal:close');">Let me think about it...</a>
+                    </div>
+                    <a class="close-reveal-modal" onclick="$('#myModal').trigger('reveal:close');">&#215;</a>
+                </div>
+            </div>
+            <div class="modalRight">
+                <div class="modalImg">
+                    <img src="images/challenge.png"/>
+                </div>
+            </div>
+    </script>
+
+  <script type="text/x-handlebars" data-template-name="ladder">
+      <div class="row">
+      <div class="twelve columns ranking" role="content">
+          <div class="row">
+              <div class="twelve columns centered">
+                <div class="sectionTitle"><h1>Ranking</h1></div>
+              </div>
+          </div>
+
+
+          {{#each user in GP.router.userController.contentWithIndexes}}
+              <div class="row">
+                  <div class="twelve columns centered">
+                      <div class="panel playerRank shadow">
+                          <div class="two columns position">#{{user.index}}</div>
+                          <div class="two columns"><img src="images/unknown.png" class="playerImg"></div>
+                          <div class="three columns playerInfo">
+                              <div class="playerBasic">
+                                <div class="playerName">{{user.item.username}}</div>
+                                <div class="playerScore">{{user.item.score}}</div>
+                                <div class="playerRanking">Master</div>
+                              </div>
+                              <div class="playerAchievements">
+                                 <img src="images/achievement_32_hot.png"/>
+                                  <img src="images/achievement_32_hot.png"/>
+                                  <img src="images/achievement_32_dis.png"/>
+                              </div>
+                          </div>
+                          <div class="two columns actionButtons">
+                              <div class="actionButton"><a class="alert button" {{action showChallengeModal user target="GP.router.modalController"}}>Challenge!</a></div>
+                              <div class="actionButton"><a class="button" {{action showProfile user.item}}>Profile</a></div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          {{/each}}
+          </div>
+      </div>
+  </script>
+
+<script type="text/x-handlebars" data-template-name="profile">
+    {{#with GP.router.profileController.user}}
+    <div class="row">
+        <div class=" playerProfile" role="content">
+            <div class="row">
+                <div class="three columns playerImg">
+                   <img src="images/unknown.png"/>
+                </div>
+                <div class="four columns playerInfo">
+                    <div class="playerBasic">
+                        <div class="playerName">{{username}}</div>
+
+                        <div class="playerRanking">Master</div>
+                    </div>
+                    <div class="playerAchievements">
+                        <img src="images/achievement.png"/>
+                        <img src="images/achievement.png"/>
+                        <img src="images/achievement_dis.png"/>
+                    </div>
+                </div>
+                <div class="three columns score">
+                    <div class="playerScore">{{score}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="twelve columns matchesList pendingMatches">
+            <div class="row">
+                <h3>Challenges</h3>
+            </div>
+            <hr>
+            <div class="row match" >
+                <div class="two columns offset-by-one against">
+                    <span><strong>vs</strong> player2</span>
+                </div>
+                <div class="two columns offset-by-one date">
+                    <span>in 3 days</span>
+                </div>
+                <div class="three columns offset-by-one score">
+                    <button class="button">Accept</button>
+                    <button class="alert button">Decline</button>
+                </div>
+            </div>
+            <hr>
+            <div class="row match" >
+                <div class="two columns offset-by-one against">
+                    <span><strong>vs</strong> player2</span>
+                </div>
+                <div class="two columns offset-by-one date">
+                    <span>in 3 days</span>
+                </div>
+                <div class="three columns offset-by-one score">
+                    <button class="button">Accept</button>
+                    <button class="alert button">Decline</button>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="twelve columns matchesList acceptedMatches">
+            <div class="row">
+                <h3>Pending Matches</h3>
+            </div>
+            <hr>
+            <div class="row match" >
+                <div class="two columns offset-by-one against">
+                    <span><strong>vs</strong> player2</span>
+                </div>
+                <div class="two columns offset-by-one date">
+                    <span>in 3 days</span>
+                </div>
+                <div class="three columns offset-by-one score">
+                    <button class="button">Input Result</button>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="twelve columns matchesList finishedMatches">
+            <div class="row">
+                <h3>History</h3>
+            </div>
+            <hr>
+            <div class="row match" >
+                <div class="two columns offset-by-one against">
+                    <span><strong>vs</strong> player2</span>
+                </div>
+                <div class="two columns offset-by-one score">
+                    <span>2 <strong>-</strong> 1</span>
+                </div>
+                <div class="three columns offset-by-one date">
+                    <span>in 3 days</span>
+                </div>
+            </div>
+            <hr>
+            <div class="row match" >
+                <div class="two columns offset-by-one against">
+                    <span><strong>vs</strong> player2</span>
+                </div>
+                <div class="two columns offset-by-one score">
+                    <span>2 <strong>-</strong> 1</span>
+                </div>
+                <div class="three columns offset-by-one date">
+                    <span>in 3 days</span>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
+    {{/with}}
+</script>
+
+
+  
+  <!-- Included JS Files (Compressed) -->
+  <script src="js/libs/jquery.js"></script>
+  <script src="js/libs/foundation.min.js"></script>
+  
+  <!-- Initialize JS Plugins -->
+  <script src="js/main.js"></script>
+
+  <!-- Load Ember -->
+  <script src="js/libs/handlebars-1.0.rc.1.js"></script>
+  <script src="js/libs/ember-1.0.0-pre.2.min.js"></script>
+  <script src="js/dev_helper.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>

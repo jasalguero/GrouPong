@@ -1,0 +1,287 @@
+/* Artfully masterminded by ZURB  */
+
+/* -------------------------------------------------- 
+   Table of Contents
+-----------------------------------------------------
+:: Shared Styles
+:: Page Name 1
+:: Page Name 2
+*/
+
+
+/* -----------------------------------------
+   Shared Styles
+----------------------------------------- */
+[class*="social foundicon-"]:before {
+    font-family: "SocialFoundicons";
+}
+
+[class*="general foundicon-"]:before {
+    font-family: "GeneralFoundicons";
+}
+
+body, input, select, textarea, h1, h2, h3, h4, h5{
+    font: 100%/1.4 "myriad-pro",sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+/* sometimes there are links in headers, we want them to look like headers though */
+h1 a:link, h1 a:visited, h2 a:link, h2 a:visited, h3 a:link, h3 a:visited, h4 a:link, h4 a:visited, h5 a:link, h5 a:visited {
+    color: #212121;
+    text-decoration: none;
+}
+
+h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover {
+    color: #0085c8;
+}
+
+/* Optional class for blue links in headers */
+h1.link a:link, h1.link a:visited, h2.link a:link, h2.link a:visited, h3.link a:link, h3.link a:visited, h4.link a:link, h4.link a:visited, h5.link a:link, h5.link a:visited {
+    color: #006fba;
+    text-decoration: none;
+}
+
+h1.link a:hover, h2.link a:hover, h3.link a:hover, h4.link a:hover, h5.link a:hover {
+    color: #0085c8;
+    text-decoration: underline;
+}
+
+h1 {
+    font-family: "myriad-pro-1", "myriad-pro-2", Arial, sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -1px;
+    font-size: 42px;
+    color: #212121;
+    line-height: 44px;
+}
+
+h2 {
+    font-family: "myriad-pro-semi-condensed-1", "myriad-pro-semi-condensed-2", Arial, sans-serif;
+    font-weight: 700;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 0px;
+    font-size: 32px;
+    color: #212121;
+    line-height: 33px;
+    margin: 15px 0;
+}
+
+h3 {
+    font-family: "myriad-pro-1", "myriad-pro-2", Arial, sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 0px;
+    font-size: 32px;
+    color: #212121;
+    line-height: 33px;
+    margin: 15px 0;
+}
+
+h4 {
+    font-family: "myriad-pro-semi-condensed-1", "myriad-pro-semi-condensed-2", Arial, sans-serif;
+    font-weight: 700;
+    -webkit-font-smoothing: antialiased;
+    font-size: 26px;
+    color: #212121;
+    line-height: 30px;
+    margin: 15px 0;
+}
+
+h5 {
+    font-family: "myriad-pro-semi-condensed-1", "myriad-pro-semi-condensed-2", Arial, sans-serif;
+    font-weight: 700;
+    -webkit-font-smoothing: antialiased;
+    font-size: 20px;
+    color: #212121;
+    line-height: 21px;
+    margin: 12px 0;
+}
+
+h6 {
+    font-family: "myriad-pro-semi-condensed-1", "myriad-pro-semi-condensed-2", Arial, sans-serif;
+    font-weight: 700;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+    color: #212121;
+    line-height: 19px;
+}
+
+.top-bar {
+    height:60px;
+    background-color: #75D1D3;
+    font-size: 35px;
+}
+
+.top-bar ul > li:not(.name):hover, .top-bar ul > li:not(.name).active{
+    background-color: #7ABBD3;
+}
+
+.top-bar > ul .name{
+    margin-right: 30px;
+}
+
+#logoText{
+    font-size: 30px;
+}
+
+.top-bar ul > li a:not(.button) {
+    height:60px;
+    font-size: 20px;
+}
+
+.top-bar ul > li.divider {
+    height:60px;
+}
+
+.top-bar ul.right {
+    margin-right: 50px;
+}
+
+.container{
+    background: url('../images/background.png') 0 0 fixed;
+}
+
+footer{
+    background-image: none;
+    background-color: #F7F5F3;;
+}
+
+.shadow {
+    /* shadow */
+    -moz-box-shadow: 5px 5px 5px #ccc;
+    -webkit-box-shadow: 5px 5px 5px #ccc;
+    box-shadow: 5px 5px 5px #ccc;
+}
+
+
+/* -----------------------------------------
+   LEADERBOARD
+----------------------------------------- */
+
+.ranking .playerRank{
+    height:120px;
+}
+
+.ranking  .position{
+    font-size: 35px;
+    float: left;
+    margin-right: 8px;
+    width: 40px;
+}
+
+.ranking .playerImg{
+    float:left;
+    height:70px;
+    width:70px;
+}
+
+.ranking .playerInfo{
+    float:left;
+
+    margin-left: 30px;
+}
+
+.ranking .playerBasic{
+    margin-left: 5px;
+    margin-bottom: 10px;
+}
+
+.ranking .playerBasic div{
+    width: 30px;
+    display: inline;
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.ranking .playerAchievements{
+    margin-left: 5px;
+}
+
+.ranking .actionButtons{
+    float: right;
+}
+
+.ranking .actionButtons a{
+    width: 150px;
+}
+
+.ranking .actionButtons .actionButton{
+    float:none;
+    margin-bottom: 10px;
+}
+
+
+
+/* -----------------------------------------
+   Player Profile
+----------------------------------------- */
+
+.playerProfile{
+}
+
+.playerBasic div{
+    font-size: 30px;
+    margin-right: 10px;
+}
+
+.playerProfile .playerAchievements img{
+    margin-top: 20px;
+    height:70px;
+    width:70px;
+}
+
+.playerProfile .playerScore{
+    font-size: 100px;
+}
+
+.playerProfile .pendingMatches{
+    height: 500px;
+}
+
+
+/* -----------------------------------------
+   Matches history
+----------------------------------------- */
+
+.matchesList{
+    margin-bottom:10px;
+    margin-top:10px;
+}
+
+.match .date{
+    font-size: 23px;
+}
+
+.match .against{
+    font-size: 23px;
+}
+
+.match .score{
+    font-size: 25px;
+}
+
+/* -----------------------------------------
+   Modal
+----------------------------------------- */
+
+.modalLeft{
+    float: left;
+}
+
+.modalRight{
+    float:right;
+}
+
+.modalMessage{
+    height: 400px;
+}
+
+.modalButtons .buttonLeft{
+    float:left;
+}
+
+.modalButtons .buttonRight{
+    float:right;
+}
