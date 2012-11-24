@@ -84,7 +84,6 @@ public class UserAchievementDAOImpl implements UserAchievementDAO {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query allQuery = session.createSQLQuery("select * from user_achievement where user_id=" + userId);
         try {
-
             List<Object[]> allUserAchievement = allQuery.list();
             for (Object[] o : allUserAchievement) {
                 UserAchievement tempUserAchievement = new UserAchievement();

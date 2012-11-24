@@ -39,20 +39,26 @@ public class StatusDAOImpl implements StatusDAO {
 
     @Override
     public List<Status> retrieveAll() {
+        List<Status> statusesToReturn = new ArrayList<Status>();
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query allQuery = session.createSQLQuery("SELECT * from status");
-        List<Object[]> allStatuses = allQuery.list();
-
-        List<Status> statusesToReturn = new ArrayList<Status>();
-        for (Object[] o : allStatuses) {
-            Status tempStatus = new Status();
-            tempStatus.setId((Integer) o[0]);
-            tempStatus.setDescription((String) o[1]);
-            statusesToReturn.add(tempStatus);
+        try {
+            List<Object[]> allStatuses = allQuery.list();
+            for (Object[] o : allStatuses) {
+                Status tempStatus = new Status();
+                tempStatus.setId((Integer) o[0]);
+                tempStatus.setDescription((String) o[1]);
+                statusesToReturn.add(tempStatus);
+            }
+        } finally {
+            session.close();
+            try {
+                HibernateUtil.shutdown();
+            } catch (Exception e) {
+                // nothing here, SQLite sux!
+            }
+            return statusesToReturn;
         }
-        session.close();
-        HibernateUtil.shutdown();
-        return statusesToReturn;
     }
 
 

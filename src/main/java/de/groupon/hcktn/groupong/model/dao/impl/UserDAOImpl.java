@@ -38,24 +38,30 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public List<User> retrieveAll() {
+        List<User> usersToReturn = new ArrayList<User>();
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query allQuery = session.createSQLQuery("SELECT * from user");
-        List<Object[]> allUsers = allQuery.list();
-
-        List<User> usersToReturn = new ArrayList<User>();
-        for (Object[] o : allUsers) {
-            User tempUser = new User();
-            tempUser.setId((Integer) o[0]);
-            tempUser.setEmail((String) o[1]);
-            tempUser.setPassword((String) o[2]);
-            tempUser.setUsername((String) o[3]);
-            tempUser.setAvatar((String) o[4]);
-            tempUser.setScore((Integer) o[5]);
-            usersToReturn.add(tempUser);
+        try {
+            List<Object[]> allUsers = allQuery.list();
+            for (Object[] o : allUsers) {
+                User tempUser = new User();
+                tempUser.setId((Integer) o[0]);
+                tempUser.setEmail((String) o[1]);
+                tempUser.setPassword((String) o[2]);
+                tempUser.setUsername((String) o[3]);
+                tempUser.setAvatar((String) o[4]);
+                tempUser.setScore((Integer) o[5]);
+                usersToReturn.add(tempUser);
+            }
+        } finally {
+            session.close();
+            try {
+                HibernateUtil.shutdown();
+            } catch (Exception e) {
+                // nothing here, SQLite sux!
+            }
+            return usersToReturn;
         }
-        session.close();
-        HibernateUtil.shutdown();
-        return usersToReturn;
     }
 
 
