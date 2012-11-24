@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -38,10 +39,23 @@ public class MatchDAOImpl implements MatchDAO {
     public List<Match> retrieveAll() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query allQuery = session.createSQLQuery("SELECT * from game");
-        List<Match> allMatches = allQuery.list();
+        List<Object[]> allMatches = allQuery.list();
+
+        List<Match> matchesToReturn = new ArrayList<Match>();
+        for (Object[] o : allMatches) {
+            Match tempMatch = new Match();
+            tempMatch.setId((Integer) o[0]);
+            tempMatch.setUser1Id((Integer) o[1]);
+            tempMatch.setUser2Id((Integer) o[2]);
+            tempMatch.setScoreUser1((Integer) o[3]);
+            tempMatch.setScoreUser2((Integer) o[4]);
+            tempMatch.setMatchDate((Long) o[5]);
+            tempMatch.setStatusId((Integer) o[6]);
+            matchesToReturn.add(tempMatch);
+        }
         session.close();
         HibernateUtil.shutdown();
-        return allMatches;
+        return matchesToReturn;
     }
 
 

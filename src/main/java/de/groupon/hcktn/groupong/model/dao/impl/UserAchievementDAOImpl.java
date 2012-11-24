@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserAchievementDAOImpl implements UserAchievementDAO {
@@ -37,10 +38,19 @@ public class UserAchievementDAOImpl implements UserAchievementDAO {
     public List<UserAchievement> retrieveAll() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query allQuery = session.createSQLQuery("SELECT * from user_achievement");
-        List<UserAchievement> allUserAchievements = allQuery.list();
+        List<Object[]> allUserAchievement = allQuery.list();
+
+        List<UserAchievement> userAchievementToReturn = new ArrayList<UserAchievement>();
+        for (Object[] o : allUserAchievement) {
+            UserAchievement tempUserAchievement = new UserAchievement();
+            tempUserAchievement.setId((Integer) o[0]);
+            tempUserAchievement.setUserId((Integer) o[1]);
+            tempUserAchievement.setAchievementId((Integer) o[2]);
+            userAchievementToReturn.add(tempUserAchievement);
+        }
         session.close();
         HibernateUtil.shutdown();
-        return allUserAchievements;
+        return userAchievementToReturn;
     }
 
 

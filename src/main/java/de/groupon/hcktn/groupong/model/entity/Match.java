@@ -1,14 +1,14 @@
 package de.groupon.hcktn.groupong.model.entity;
 
-import java.util.Calendar;
+import java.io.Serializable;
 
-public class Match {
+public class Match implements Serializable {
     private Integer id;
     private Integer user1Id;
     private Integer user2Id;
     private Integer scoreUser1;
     private Integer scoreUser2;
-    private Calendar matchDate;
+    private Long matchDate;
     private Integer statusId;
 
     public Match() {
@@ -55,11 +55,11 @@ public class Match {
         this.scoreUser2 = scoreUser2;
     }
 
-    public Calendar getMatchDate() {
+    public Long getMatchDate() {
         return matchDate;
     }
 
-    public void setMatchDate(final Calendar matchDate) {
+    public void setMatchDate(final Long matchDate) {
         this.matchDate = matchDate;
     }
 

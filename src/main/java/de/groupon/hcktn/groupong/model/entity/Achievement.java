@@ -1,6 +1,8 @@
 package de.groupon.hcktn.groupong.model.entity;
 
-public class Achievement {
+import java.io.Serializable;
+
+public class Achievement implements Serializable {
     private Integer id;
     private String title;
     private String description;

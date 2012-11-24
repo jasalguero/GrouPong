@@ -7,6 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StatusDAOImpl implements StatusDAO {
@@ -38,10 +39,18 @@ public class StatusDAOImpl implements StatusDAO {
     public List<Status> retrieveAll() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query allQuery = session.createSQLQuery("SELECT * from status");
-        List<Status> allStatuses = allQuery.list();
+        List<Object[]> allStatuses = allQuery.list();
+
+        List<Status> statusesToReturn = new ArrayList<Status>();
+        for (Object[] o : allStatuses) {
+            Status tempStatus = new Status();
+            tempStatus.setId((Integer) o[0]);
+            tempStatus.setDescription((String) o[1]);
+            statusesToReturn.add(tempStatus);
+        }
         session.close();
         HibernateUtil.shutdown();
-        return allStatuses;
+        return statusesToReturn;
     }
 
 

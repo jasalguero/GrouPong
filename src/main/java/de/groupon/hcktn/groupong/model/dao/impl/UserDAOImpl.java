@@ -4,9 +4,10 @@ import de.groupon.hcktn.groupong.model.dao.UserDAO;
 import de.groupon.hcktn.groupong.model.entity.User;
 import de.groupon.hcktn.groupong.model.utils.HibernateUtil;
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.classic.Session;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
@@ -37,10 +38,22 @@ public class UserDAOImpl implements UserDAO {
     public List<User> retrieveAll() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query allQuery = session.createSQLQuery("SELECT * from user");
-        List<User> allUsers = allQuery.list();
+        List<Object[]> allUsers = allQuery.list();
+
+        List<User> usersToReturn = new ArrayList<User>();
+        for (Object[] o : allUsers) {
+            User tempUser = new User();
+            tempUser.setId((Integer) o[0]);
+            tempUser.setEmail((String) o[1]);
+            tempUser.setPassword((String) o[2]);
+            tempUser.setUsername((String) o[3]);
+            tempUser.setAvatar((String) o[4]);
+            tempUser.setScore((Integer) o[5]);
+            usersToReturn.add(tempUser);
+        }
         session.close();
         HibernateUtil.shutdown();
-        return allUsers;
+        return usersToReturn;
     }
 
 

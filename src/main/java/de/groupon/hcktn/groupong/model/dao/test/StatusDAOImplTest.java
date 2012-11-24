@@ -46,6 +46,11 @@ public class StatusDAOImplTest {
         final List<Status> retrievedAllStatuses = statusDao.retrieveAll();
 
         assertTrue(retrievedAllStatuses.size()>=2);
+        assertTrue(retrievedAllStatuses.get(0) instanceof Status);
+
+        List<Status> allStatus = statusDao.retrieveAll();
+        assertTrue(allStatus.contains(status1));
+        assertTrue(allStatus.contains(status2));
     }
 
     @Test
@@ -59,7 +64,6 @@ public class StatusDAOImplTest {
         statusDao.update(status);
         final Status retrievedStatus = statusDao.retrieve(status.getId());
         assertEquals(myDescription, retrievedStatus.getDescription());
-
     }
 
 

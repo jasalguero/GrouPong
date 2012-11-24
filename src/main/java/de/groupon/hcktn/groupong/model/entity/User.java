@@ -1,9 +1,12 @@
 package de.groupon.hcktn.groupong.model.entity;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private Integer id;
     private String email;
     private String password;
+    private String username;
     private String avatar;
     private Integer score;
 
@@ -25,6 +28,14 @@ public class User {
 
     public void setEmail(final String email) {
         this.email = email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(final String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -64,6 +75,7 @@ public class User {
         if (id != null ? !id.equals(myUser.id) : myUser.id != null) return false;
         if (password != null ? !password.equals(myUser.password) : myUser.password != null) return false;
         if (score != null ? !score.equals(myUser.score) : myUser.score != null) return false;
+        if (username != null ? !username.equals(myUser.username) : myUser.username != null) return false;
 
         return true;
     }
@@ -74,6 +86,7 @@ public class User {
         int myresult = id != null ? id.hashCode() : 0;
         myresult = 31 * myresult + (email != null ? email.hashCode() : 0);
         myresult = 31 * myresult + (password != null ? password.hashCode() : 0);
+        myresult = 31 * myresult + (username != null ? username.hashCode() : 0);
         myresult = 31 * myresult + (avatar != null ? avatar.hashCode() : 0);
         myresult = 31 * myresult + (score != null ? score.hashCode() : 0);
         return myresult;

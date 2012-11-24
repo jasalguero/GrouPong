@@ -8,6 +8,7 @@
         </id>
         <property name="email" column="email" type="text"></property>
         <property name="password" column="password" type="text"></property>
+        <property name="username" column="user_name" type="text"></property>
         <property name="avatar" column="avatar" type="text"></property>
         <property name="score" column="score" type="integer"></property>
     </class>
