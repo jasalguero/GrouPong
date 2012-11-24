@@ -13,7 +13,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/groupong")
-public class StatusResource {
+public class StatusResource extends BaseResource {
 
     @Autowired
     private StatusService statusService;

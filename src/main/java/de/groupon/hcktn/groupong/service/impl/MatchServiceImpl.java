@@ -1,5 +1,6 @@
 package de.groupon.hcktn.groupong.service.impl;
 
+import de.groupon.hcktn.groupong.domain.exception.NotFoundException;
 import de.groupon.hcktn.groupong.domain.mappers.MatchDTOMapper;
 import de.groupon.hcktn.groupong.domain.response.BaseDTO;
 import de.groupon.hcktn.groupong.domain.response.MatchDTO;
@@ -32,6 +33,9 @@ public class MatchServiceImpl implements MatchService {
     @Override
     public BaseDTO updateMatch(final MatchDTO matchDTO) {
         Match match = matchDAO.retrieve(matchDTO.getId());
+        if (match == null) {
+            throw new NotFoundException("Match found with id: " + matchDTO.getId() + " not found");
+        }
         match = matchDTOMapper.update(match, matchDTO);
         match = matchDAO.update(match);
         return matchDTOMapper.mapToMatchDTO(match);

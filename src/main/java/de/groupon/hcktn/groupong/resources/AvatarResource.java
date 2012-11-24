@@ -13,7 +13,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/groupong")
-public class AvatarResource {
+public class AvatarResource extends BaseResource {
 
     @Autowired
     AvatarService avatarService;

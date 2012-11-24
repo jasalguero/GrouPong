@@ -1,5 +1,6 @@
 package de.groupon.hcktn.groupong.resources;
 
+import de.groupon.hcktn.groupong.domain.exception.BadRequestException;
 import de.groupon.hcktn.groupong.domain.response.BaseDTO;
 import de.groupon.hcktn.groupong.domain.response.MatchDTO;
 import de.groupon.hcktn.groupong.service.MatchService;
@@ -12,11 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.resource.ResourceException;
 import java.util.List;
 
 @Controller
 @RequestMapping("/groupong")
-public class MatchResource {
+public class MatchResource extends BaseResource {
 
     @Autowired
     private MatchService matchService;
@@ -46,7 +48,10 @@ public class MatchResource {
 
     @RequestMapping(value = "/match", method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public BaseDTO updateMatch(@RequestBody final MatchDTO match) {
+    public BaseDTO updateMatch(@RequestBody final MatchDTO match) throws ResourceException {
+        if (match.getId() == null) {
+            throw new BadRequestException("match id is null");
+        }
         return matchService.updateMatch(match);
     }
 
