@@ -12,6 +12,10 @@ public class Achievement {
     private String title;
     private String description;
 
+    public Achievement() {
+
+    }
+
     public Achievement(final Integer id, final String title, final String description) {
         this.id = id;
         this.title = title;

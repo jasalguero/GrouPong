@@ -10,6 +10,10 @@ public class Status {
     private Integer id;
     private String description;
 
+    public Status() {
+
+    }
+
     public Status(final Integer id, final String description) {
         this.id = id;
         this.description = description;

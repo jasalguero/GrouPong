@@ -12,6 +12,10 @@ public class UserAchievement {
     private Integer userId;
     private Integer achievementId;
 
+    public UserAchievement() {
+
+    }
+
     public UserAchievement(final Integer id, final Integer userId, final Integer achievementId) {
         this.id = id;
         this.userId = userId;

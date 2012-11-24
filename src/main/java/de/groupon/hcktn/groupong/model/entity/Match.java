@@ -18,6 +18,10 @@ public class Match {
     private Date matchDate;
     private Integer statusId;
 
+    public Match() {
+
+    }
+
     public Match(final Integer id, final Integer user1Id, final Integer user2Id, final Integer scoreUser1, final Integer scoreUser2, final Date matchDate, final Integer statusId) {
         this.id = id;
         this.user1Id = user1Id;

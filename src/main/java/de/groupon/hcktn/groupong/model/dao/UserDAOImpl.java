@@ -4,13 +4,6 @@ import de.groupon.hcktn.groupong.model.entity.User;
 
 import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: root
- * Date: 11/24/12
- * Time: 11:36 AM
- * To change this template use File | Settings | File Templates.
- */
 public class UserDAOImpl implements UserDAO {
     @Override
     public void createUser(final User user) {

@@ -1,27 +1,28 @@
 package de.groupon.hcktn.groupong.model.dao;
 
 import de.groupon.hcktn.groupong.model.entity.Status;
+import de.groupon.hcktn.groupong.model.utils.HibernateUtil;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: root
- * Date: 11/24/12
- * Time: 11:27 AM
- * To change this template use File | Settings | File Templates.
- */
 public class StatusDAOImpl implements StatusDAO {
 
     @Override
     public void createStatus(final Status status) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        session.save(status);
+        tx.commit();
+        session.close();
+        HibernateUtil.shutdown();
     }
 
 
     @Override
     public Status readStatus(final Integer statusId) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
     }
 
 

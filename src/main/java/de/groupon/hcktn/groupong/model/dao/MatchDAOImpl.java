@@ -4,13 +4,7 @@ import de.groupon.hcktn.groupong.model.entity.Match;
 
 import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: root
- * Date: 11/24/12
- * Time: 11:35 AM
- * To change this template use File | Settings | File Templates.
- */
+
 public class MatchDAOImpl implements MatchDAO {
     @Override
     public void createMatch(final Match match) {

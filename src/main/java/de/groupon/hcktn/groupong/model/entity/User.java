@@ -14,6 +14,10 @@ public class User {
     private String avatar;
     private Integer score;
 
+    public User() {
+
+    }
+
     public User(final Integer id, final  String email, final String password, final String avatar, final Integer score) {
         this.id = id;
         this.email = email;
