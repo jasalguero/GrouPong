@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
 public class UserAchievementDAOImplTest {
@@ -37,10 +36,11 @@ public class UserAchievementDAOImplTest {
     @Test
     public void testRetrieveByUserId() {
         UserAchievementDAO userAchivDao = new UserAchievementDAOImpl();
-        final Integer userId = 1;
-        final List<UserAchievement> retrievedUserAchiv = userAchivDao.retrieveByUserId(userId);
-        for(UserAchievement ua : retrievedUserAchiv) {
-            assertEquals(userId, ua.getUserId());
+        for (int userId=0; userId<=4; userId++) {
+            final List<UserAchievement> retrievedUserAchiv = userAchivDao.retrieveByUserId(userId);
+            for(UserAchievement ua : retrievedUserAchiv) {
+                assertTrue(userId==ua.getUserId());
+            }
         }
     }
 

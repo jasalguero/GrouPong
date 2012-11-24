@@ -80,20 +80,27 @@ public class UserAchievementDAOImpl implements UserAchievementDAO {
 
     @Override
     public List<UserAchievement> retrieveByUserId(Integer userId) {
+        List<UserAchievement> userAchievementToReturn = new ArrayList<UserAchievement>();
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query allQuery = session.createSQLQuery("select * from user_achievement where user_id=" + userId);
-        List<Object[]> allUserAchievement = allQuery.list();
+        try {
 
-        List<UserAchievement> userAchievementToReturn = new ArrayList<UserAchievement>();
-        for (Object[] o : allUserAchievement) {
-            UserAchievement tempUserAchievement = new UserAchievement();
-            tempUserAchievement.setId((Integer) o[0]);
-            tempUserAchievement.setUserId((Integer) o[1]);
-            tempUserAchievement.setAchievementId((Integer) o[2]);
-            userAchievementToReturn.add(tempUserAchievement);
+            List<Object[]> allUserAchievement = allQuery.list();
+            for (Object[] o : allUserAchievement) {
+                UserAchievement tempUserAchievement = new UserAchievement();
+                tempUserAchievement.setId((Integer) o[0]);
+                tempUserAchievement.setUserId((Integer) o[1]);
+                tempUserAchievement.setAchievementId((Integer) o[2]);
+                userAchievementToReturn.add(tempUserAchievement);
+            }
+        } finally {
+            session.close();
+            try {
+                HibernateUtil.shutdown();
+            } catch (Exception e) {
+                // nothing here, SQLite sux!
+            }
+            return userAchievementToReturn;
         }
-        session.close();
-        HibernateUtil.shutdown();
-        return userAchievementToReturn;
     }
 }
