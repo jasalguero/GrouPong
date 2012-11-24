@@ -13,7 +13,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/groupong")
-public class AchievementResource {
+public class AchievementResource extends BaseResource {
 
     @Autowired
     private AchievementService achievementService;
