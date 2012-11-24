@@ -6,11 +6,11 @@
         <id name="id" column="id" type="integer">
             <generator class="native"></generator>
         </id>
-        <property name="user1Id" column="user1" type="integer"></property>
-        <property name="user2Id" column="user2" type="integer"></property>
+        <property name="user1Id" column="user1" type="integer" not-null="true"></property>
+        <property name="user2Id" column="user2" type="integer" not-null="true"></property>
         <property name="scoreUser1" column="score_user1" type="integer"></property>
         <property name="scoreUser2" column="score_user2" type="integer"></property>
-        <property name="matchDate" column="game_date" type="long"></property>
-        <property name="statusId" column="status_id" type="integer"></property>
+        <property name="matchDate" column="game_date" type="string"></property>
+        <property name="statusId" column="status_id" type="integer" not-null="true"></property>
     </class>
 </hibernate-mapping>

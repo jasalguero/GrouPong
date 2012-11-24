@@ -23,7 +23,7 @@ public class MatchDTOMapper extends BaseMapper {
         matchDTO.setScoreUser1(match.getScoreUser1());
         matchDTO.setScoreUser2(match.getScoreUser2());
         Calendar c = Calendar.getInstance();
-        c.setTimeInMillis(match.getMatchDate());
+        c.setTimeInMillis(Long.parseLong(match.getMatchDate()));
         matchDTO.setDate(formatTime(c));
         if (match.getStatusId() != null ) {
             matchDTO.setStatus(statusService.fetchStatus(match.getStatusId()).getDescription());

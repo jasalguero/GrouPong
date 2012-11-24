@@ -8,11 +8,21 @@ public class Match implements Serializable {
     private Integer user2Id;
     private Integer scoreUser1;
     private Integer scoreUser2;
-    private Long matchDate;
+    private String matchDate;
     private Integer statusId;
 
     public Match() {
 
+    }
+
+    public Match(Integer id, Integer user1, Integer user2, Integer scoreUser1, Integer scoreUser2, String date, Integer statusId) {
+        this.id = id;
+        this.user1Id = user1;
+        this.user2Id = user2;
+        this.scoreUser1 = scoreUser1;
+        this.scoreUser2 = scoreUser2;
+        this.matchDate = date;
+        this.statusId = statusId;
     }
 
     public Integer getId() {
@@ -55,11 +65,11 @@ public class Match implements Serializable {
         this.scoreUser2 = scoreUser2;
     }
 
-    public Long getMatchDate() {
+    public String getMatchDate() {
         return matchDate;
     }
 
-    public void setMatchDate(final Long matchDate) {
+    public void setMatchDate(final String matchDate) {
         this.matchDate = matchDate;
     }
 

@@ -47,8 +47,8 @@ CREATE TABLE game (
         user2           INTEGER NOT NULL,
         score_user1	INTEGER,
         score_user2    	INTEGER,
-        game_date	INTEGER,
-        status_id       INTEGER NOT NULL,
+        game_date	TEXT,
+        status_id       INTEGER(8) NOT NULL,
 	FOREIGN KEY (user1)           REFERENCES user(id),
 	FOREIGN KEY (user2)           REFERENCES user(id),
 	FOREIGN KEY (status_id)       REFERENCES status(id)

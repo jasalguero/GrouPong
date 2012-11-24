@@ -49,7 +49,7 @@ public class MatchDAOImpl implements MatchDAO {
             tempMatch.setUser2Id((Integer) o[2]);
             tempMatch.setScoreUser1((Integer) o[3]);
             tempMatch.setScoreUser2((Integer) o[4]);
-            tempMatch.setMatchDate((Long) o[5]);
+            tempMatch.setMatchDate((String) o[5]);
             tempMatch.setStatusId((Integer) o[6]);
             matchesToReturn.add(tempMatch);
         }

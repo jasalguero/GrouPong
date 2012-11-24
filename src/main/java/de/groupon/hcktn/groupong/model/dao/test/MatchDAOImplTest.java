@@ -20,7 +20,7 @@ public class MatchDAOImplTest {
         match.setUser2Id(2);
         match.setScoreUser1(0);
         match.setScoreUser1(3);
-        match.setMatchDate(Calendar.getInstance().getTimeInMillis());
+        match.setMatchDate(String.valueOf(Calendar.getInstance().getTimeInMillis()));
         match.setStatusId(1);
 
         MatchDAO matchDao = new MatchDAOImpl();
@@ -36,7 +36,7 @@ public class MatchDAOImplTest {
         match.setUser2Id(2);
         match.setScoreUser1(0);
         match.setScoreUser1(3);
-        match.setMatchDate(Calendar.getInstance().getTimeInMillis());
+        match.setMatchDate(String.valueOf(Calendar.getInstance().getTimeInMillis()));
         match.setStatusId(1);
 
         MatchDAO matchDao = new MatchDAOImpl();
@@ -48,7 +48,7 @@ public class MatchDAOImplTest {
 
 
 
-    //@Test
+    @Test
     public void testReadAllMatches() throws Exception {
         MatchDAO matchDao = new MatchDAOImpl();
 
@@ -57,7 +57,7 @@ public class MatchDAOImplTest {
         match1.setUser2Id(2);
         match1.setScoreUser1(0);
         match1.setScoreUser2(3);
-        match1.setMatchDate(Calendar.getInstance().getTimeInMillis());
+        match1.setMatchDate(String.valueOf(Calendar.getInstance().getTimeInMillis()));
         match1.setStatusId(1);
         matchDao.create(match1);
 
@@ -66,7 +66,7 @@ public class MatchDAOImplTest {
         match2.setUser2Id(2);
         match2.setScoreUser1(0);
         match2.setScoreUser2(3);
-        match2.setMatchDate(Calendar.getInstance().getTimeInMillis());
+        match2.setMatchDate(String.valueOf(Calendar.getInstance().getTimeInMillis()));
         match2.setStatusId(1);
         matchDao.create(match2);
 
@@ -85,7 +85,7 @@ public class MatchDAOImplTest {
         match1.setUser2Id(2);
         match1.setScoreUser1(0);
         match1.setScoreUser1(3);
-        match1.setMatchDate(Calendar.getInstance().getTimeInMillis());
+        match1.setMatchDate(String.valueOf(Calendar.getInstance().getTimeInMillis()));
         match1.setStatusId(1);
         matchDao.create(match1);
 
@@ -108,7 +108,7 @@ public class MatchDAOImplTest {
         match1.setUser2Id(2);
         match1.setScoreUser1(0);
         match1.setScoreUser1(3);
-        match1.setMatchDate(Calendar.getInstance().getTimeInMillis());
+        match1.setMatchDate(String.valueOf(Calendar.getInstance().getTimeInMillis()));
         match1.setStatusId(1);
         final Integer id = matchDao.create(match1).getId();
         matchDao.delete(id);
