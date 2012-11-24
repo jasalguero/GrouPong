@@ -1,12 +1,11 @@
 /*****************************************************/
 /*              INITS                                 */
 /******************************************************/
-var GP = Em.Application.create({
+window.GP = Em.Application.create({
+    ready: function(){
+        console.log("Created GP namespace");
+    }
 });
-
-GP.ready = function(){
-
-}
 
 
 /******************************************************/
@@ -95,7 +94,12 @@ GP.ApplicationController = Em.Controller.extend({
 
 });
 
-GP.UserController = Em.ArrayController.extend({
+GP.LadderController = Em.Controller.extend({
+
+});
+
+GP.UserController = Em.ArrayController.extend(GP.Clearable,{
+
     sortProperties: ['score'],
 
     addUser: function(user){
@@ -114,16 +118,19 @@ GP.UserController = Em.ArrayController.extend({
 
 //main application view
 GP.ApplicationView = Ember.View.extend({
+    templateName: 'application'
 });
+
+GP.LadderView = Em.View.extend({
+    templateName: 'ladder'
+})
 
 
 /******************************************************/
 /*              ROUTER                                */
 /******************************************************/
 
-GP.Router = Ember.Router.extend({
-    enableLogging:  true,
-    //default root goes to addLabels
+GP.Router = Em.Router.extend({
     root: Ember.Route.extend({
         index: Ember.Route.extend({
             route: '/',
@@ -131,8 +138,12 @@ GP.Router = Ember.Router.extend({
         }),
         ladder: Ember.Route.extend({
             route: '/ladder',
+            enter: function(router) {
+                console.log("entering ladder from", router.get('currentState.name'));
+            },
             connectOutlets: function(router){
-                //router.get('applicationController').connectOutlet('addLabel');
+                console.log("changing route");
+                router.get('applicationController').connectOutlet('ladder');
             }
         })
     })
@@ -153,5 +164,5 @@ GP.dataSource = Ember.Object.create({
 /*              UTILITY FUNCTIONS                     */
 /******************************************************/
 
-
+ GP.initialize();
 
