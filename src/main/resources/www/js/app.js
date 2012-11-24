@@ -134,7 +134,8 @@ GP.ProfileController = Em.Controller.extend({
 
 //main application view
 GP.ApplicationView = Ember.View.extend({
-    templateName: 'application'
+    templateName: 'application',
+    classNames: ['container']
 });
 
 GP.LadderView = Em.View.extend({
@@ -142,7 +143,8 @@ GP.LadderView = Em.View.extend({
 });
 
 GP.ProfileView = Em.View.extend({
-    templateName: 'profile'
+    templateName: 'profile',
+    tagName: 'span'
 })
 
 

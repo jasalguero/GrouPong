@@ -25,6 +25,89 @@ body, input, select, textarea, h1, h2, h3, h4, h5{
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
 }
+
+/* sometimes there are links in headers, we want them to look like headers though */
+h1 a:link, h1 a:visited, h2 a:link, h2 a:visited, h3 a:link, h3 a:visited, h4 a:link, h4 a:visited, h5 a:link, h5 a:visited {
+    color: #212121;
+    text-decoration: none;
+}
+
+h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover {
+    color: #0085c8;
+}
+
+/* Optional class for blue links in headers */
+h1.link a:link, h1.link a:visited, h2.link a:link, h2.link a:visited, h3.link a:link, h3.link a:visited, h4.link a:link, h4.link a:visited, h5.link a:link, h5.link a:visited {
+    color: #006fba;
+    text-decoration: auto;
+}
+
+h1.link a:hover, h2.link a:hover, h3.link a:hover, h4.link a:hover, h5.link a:hover {
+    color: #0085c8;
+    text-decoration: underline;
+}
+
+h1 {
+    font-family: "myriad-pro-1", "myriad-pro-2", Arial, sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -1px;
+    font-size: 42px;
+    color: #212121;
+    line-height: 44px;
+}
+
+h2 {
+    font-family: "myriad-pro-semi-condensed-1", "myriad-pro-semi-condensed-2", Arial, sans-serif;
+    font-weight: 700;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 0px;
+    font-size: 32px;
+    color: #212121;
+    line-height: 33px;
+    margin: 15px 0;
+}
+
+h3 {
+    font-family: "myriad-pro-1", "myriad-pro-2", Arial, sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 0px;
+    font-size: 32px;
+    color: #212121;
+    line-height: 33px;
+    margin: 15px 0;
+}
+
+h4 {
+    font-family: "myriad-pro-semi-condensed-1", "myriad-pro-semi-condensed-2", Arial, sans-serif;
+    font-weight: 700;
+    -webkit-font-smoothing: antialiased;
+    font-size: 26px;
+    color: #212121;
+    line-height: 30px;
+    margin: 15px 0;
+}
+
+h5 {
+    font-family: "myriad-pro-semi-condensed-1", "myriad-pro-semi-condensed-2", Arial, sans-serif;
+    font-weight: 700;
+    -webkit-font-smoothing: antialiased;
+    font-size: 20px;
+    color: #212121;
+    line-height: 21px;
+    margin: 12px 0;
+}
+
+h6 {
+    font-family: "myriad-pro-semi-condensed-1", "myriad-pro-semi-condensed-2", Arial, sans-serif;
+    font-weight: 700;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+    color: #212121;
+    line-height: 19px;
+}
+
 .top-bar {
     height:60px;
     background-color: #75D1D3;
@@ -43,7 +126,6 @@ body, input, select, textarea, h1, h2, h3, h4, h5{
     font-size: 30px;
 }
 
-
 .top-bar ul > li a:not(.button) {
     height:60px;
     font-size: 20px;
@@ -53,8 +135,17 @@ body, input, select, textarea, h1, h2, h3, h4, h5{
     height:60px;
 }
 
-body{
+.top-bar ul.right {
+    margin-right: 50px;
+}
+
+.container{
     background: url('../images/background.png') 0 0 fixed;
+}
+
+footer{
+    background-image: none;
+    background-color: #F7F5F3;;
 }
 
 
@@ -62,62 +153,101 @@ body{
    LEADERBOARD
 ----------------------------------------- */
 
-.playerRank{
+.ranking .playerRank{
     height:120px;
 }
 
-.position{
+.ranking  .position{
     font-size: 35px;
     float: left;
     margin-right: 8px;
     width: 40px;
 }
 
-.playerImg{
+.ranking .playerImg{
     float:left;
     height:70px;
     width:70px;
 }
 
-.playerInfo{
+.ranking .playerInfo{
     float:left;
     width: 400px;
     margin-left: 30px;
 }
 
-.playerBasic{
+.ranking .playerBasic{
     margin-left: 5px;
     margin-bottom: 10px;
 }
 
-.playerBasic div{
+.ranking .playerBasic div{
     width: 30px;
     display: inline;
     font-size: 20px;
     margin-right: 10px;
 }
 
-.playerAchievements{
+.ranking .playerAchievements{
     margin-left: 5px;
 }
 
-.actionButtons{
+.ranking .actionButtons{
     float: right;
 }
 
-.actionButtons .actionButton{
+.ranking .actionButtons .actionButton{
     float:none;
     margin-bottom: 10px;
-}
-
-.panel > :first-child{
-
 }
 
 
 
 /* -----------------------------------------
-   Page Name 2
+   Player Profile
 ----------------------------------------- */
 
+.playerProfile{
+}
+
+.playerBasic div{
+    font-size: 30px;
+    margin-right: 10px;
+}
+
+.playerProfile .playerAchievements img{
+    margin-top: 20px;
+    height:70px;
+    width:70px;
+}
+
+.playerProfile .playerScore{
+    font-size: 100px;
+}
+
+.playerProfile .pendingMatches{
+    height: 500px;
+}
+
+
+/* -----------------------------------------
+   Matches history
+----------------------------------------- */
+
+.matchesList{
+    margin-bottom:10px;
+    margin-top:10px;
+}
+
+.match .date{
+    font-size: 23px;
+}
+
+.match .against{
+    font-size: 23px;
+}
+
+.match .score{
+    font-size: 25px;
+}
 

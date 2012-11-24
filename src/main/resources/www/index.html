@@ -64,7 +64,6 @@
 
                   <!-- Right Nav Section -->
                   <ul class="right">
-
                       <li>
                           <a {{action showProfile}}>User</a>
                       </li>
@@ -80,11 +79,12 @@
 
   <!-- Main Page Content and Sidebar -->
 
-  <div class="row">
 
-    <!-- Main Blog Content -->
-    <div class="nine columns" role="content">
+    <!-- Main Content -->
+    <div class="mainContent">
+
         {{outlet}}
+
     </div>
 
     <!-- End Main Content -->
@@ -93,15 +93,14 @@
     <!-- Sidebar -->
 
     <!-- End Sidebar -->
-  </div>
 
   <!-- End Main Content and Sidebar -->
 
 
   <!-- Footer -->
 
-  <footer class="row">
-    <div class="twelve columns">
+  <footer class="">
+    <div class="">
       <hr />
       <div class="row">
         <div class="six columns">
@@ -160,39 +159,154 @@
   -->
 
   <script type="text/x-handlebars" data-template-name="ladder">
-      <h1>LeaderBoard</h1>
+      <div class="row">
+      <div class="nine columns ranking" role="content">
+        <div class="sectionTitle"><h1>Ranking</h1></div>
 
-      {{#each user in GP.router.userController.contentWithIndexes}}
-          <div class="row">
-              <div class="twelve columns offset-by-two">
-                  <div class="panel playerRank">
-                      <div class="position">#{{user.index}}</div>
-                      <div><img src="images/unknown.png" class="playerImg"></div>
-                      <div class="playerInfo">
-                          <div class="playerBasic">
-                            <div class="playerName">Username</div>
-                            <div class="playerScore">1000</div>
-                            <div class="playerRanking">Master</div>
+              {{#each user in GP.router.userController.contentWithIndexes}}
+                  <div class="row">
+                      <div class="twelve columns offset-by-two">
+                          <div class="panel playerRank">
+                              <div class="position">#{{user.index}}</div>
+                              <div><img src="images/unknown.png" class="playerImg"></div>
+                              <div class="playerInfo">
+                                  <div class="playerBasic">
+                                    <div class="playerName">Username</div>
+                                    <div class="playerScore">1000</div>
+                                    <div class="playerRanking">Master</div>
+                                  </div>
+                                  <div class="playerAchievements">
+                                     <img src="images/achievement_32_hot.png"/>
+                                      <img src="images/achievement_32_hot.png"/>
+                                      <img src="images/achievement_32_dis.png"/>
+                                  </div>
+                              </div>
+                              <div class="actionButtons">
+                                  <div class="actionButton"><a class="alert button" href="#">Challenge!</a></div>
+                                  <div class="actionButton"><a class="button" href="#">Profile</a></div>
+                              </div>
                           </div>
-                          <div class="playerAchievements">
-                             <img src="images/achievement_32_hot.png"/>
-                              <img src="images/achievement_32_hot.png"/>
-                              <img src="images/achievement_32_dis.png"/>
-                          </div>
-                      </div>
-                      <div class="actionButtons">
-                          <div class="actionButton"><a class="alert button" href="#">Challenge!</a></div>
-                          <div class="actionButton"><a class="button" href="#">Profile</a></div>
                       </div>
                   </div>
-              </div>
+              {{/each}}
           </div>
-      {{/each}}
+      </div>
   </script>
 
 <script type="text/x-handlebars" data-template-name="profile">
-    <h1>Profile</h1>
+    <div class="row">
+        <div class=" playerProfile" role="content">
+            <div class="row">
+                <div class="three columns playerImg">
+                   <img src="images/unknown.png"/>
+                </div>
+                <div class="four columns playerInfo">
+                    <div class="playerBasic">
+                        <div class="playerName">Username</div>
+
+                        <div class="playerRanking">Master</div>
+                    </div>
+                    <div class="playerAchievements">
+                        <img src="images/achievement.png"/>
+                        <img src="images/achievement.png"/>
+                        <img src="images/achievement_dis.png"/>
+                    </div>
+                </div>
+                <div class="three columns score">
+                    <div class="playerScore">1000</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="twelve columns matchesList pendingMatches">
+            <div class="row">
+                <h3>Challenges</h3>
+            </div>
+            <hr>
+            <div class="row match" >
+                <div class="two columns offset-by-one against">
+                    <span><strong>vs</strong> player2<span>
+                </div>
+                <div class="two columns offset-by-one date">
+                    <span>in 3 days</span>
+                </div>
+                <div class="three columns offset-by-one score">
+                    <button class="button">Accept</button>
+                    <button class="danger button">Decline</button>
+                </div>
+            </div>
+            <hr>
+            <div class="row match" >
+                <div class="two columns offset-by-one against">
+                    <span><strong>vs</strong> player2<span>
+                </div>
+                <div class="two columns offset-by-one date">
+                    <span>in 3 days</span>
+                </div>
+                <div class="three columns offset-by-one score">
+                    <button class="button">Accept</button>
+                    <button class="danger button">Decline</button>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="twelve columns matchesList acceptedMatches">
+            <div class="row">
+                <h3>Pending Matches</h3>
+            </div>
+            <hr>
+            <div class="row match" >
+                <div class="two columns offset-by-one against">
+                    <span><strong>vs</strong> player2</span>
+                </div>
+                <div class="two columns offset-by-one date">
+                    <span>in 3 days</span>
+                </div>
+                <div class="three columns offset-by-one score">
+                    <button class="button">Input Result</button>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="twelve columns matchesList finishedMatches">
+            <div class="row">
+                <h3>History</h3>
+            </div>
+            <hr>
+            <div class="row match" >
+                <div class="two columns offset-by-one against">
+                    <span><strong>vs</strong> player2<span>
+                </div>
+                <div class="two columns offset-by-one score">
+                    <span>2 <strong>-</strong> 1</span>
+                </div>
+                <div class="three columns offset-by-one date">
+                    <span>in 3 days</span>
+                </div>
+            </div>
+            <hr>
+            <div class="row match" >
+                <div class="two columns offset-by-one against">
+                    <span><strong>vs</strong> player2<span>
+                </div>
+                <div class="two columns offset-by-one score">
+                    <span>2 <strong>-</strong> 1</span>
+                </div>
+                <div class="three columns offset-by-one date">
+                    <span>in 3 days</span>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
 </script>
+
+
   
   <!-- Included JS Files (Compressed) -->
   <script src="js/libs/jquery.js"></script>
