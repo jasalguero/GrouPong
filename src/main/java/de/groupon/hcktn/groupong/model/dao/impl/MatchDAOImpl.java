@@ -14,14 +14,14 @@ import java.util.List;
 public class MatchDAOImpl implements MatchDAO {
 
     @Override
-    public Integer create(final Match match) {
+    public Match create(final Match match) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         session.save(match);
         tx.commit();
         session.close();
         HibernateUtil.shutdown();
-        return match.getId();
+        return match;
     }
 
 
@@ -60,13 +60,14 @@ public class MatchDAOImpl implements MatchDAO {
 
 
     @Override
-    public void update(final Match match) {
+    public Match update(final Match match) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         session.update(match);
         tx.commit();
         session.close();
         HibernateUtil.shutdown();
+        return match;
     }
 
 

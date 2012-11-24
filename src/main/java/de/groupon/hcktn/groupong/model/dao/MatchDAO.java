@@ -4,5 +4,4 @@ import de.groupon.hcktn.groupong.model.entity.Match;
 
 public interface MatchDAO extends DAO<Match> {
 
-    Integer create(Match match);
 }

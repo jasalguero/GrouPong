@@ -16,14 +16,14 @@ public class StatusDAOImpl implements StatusDAO {
 
 
     @Override
-    public Integer create(final Status status) {
+    public Status create(final Status status) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         session.save(status);
         tx.commit();
         session.close();
         HibernateUtil.shutdown();
-        return status.getId();
+        return status;
     }
 
 
@@ -57,13 +57,14 @@ public class StatusDAOImpl implements StatusDAO {
 
 
     @Override
-    public void update(final Status status) {
+    public Status update(final Status status) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         session.update(status);
         tx.commit();
         session.close();
         HibernateUtil.shutdown();
+        return status;
     }
 
 

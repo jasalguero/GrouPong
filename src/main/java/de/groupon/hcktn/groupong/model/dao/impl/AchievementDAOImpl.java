@@ -15,14 +15,14 @@ import java.util.List;
 public class AchievementDAOImpl implements AchievementDAO {
 
     @Override
-    public Integer create(final Achievement achievement) {
+    public Achievement create(final Achievement achievement) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         session.save(achievement);
         tx.commit();
         session.close();
         HibernateUtil.shutdown();
-        return achievement.getId();
+        return achievement;
     }
 
 
@@ -57,13 +57,14 @@ public class AchievementDAOImpl implements AchievementDAO {
 
 
     @Override
-    public void update(final Achievement achievement) {
+    public Achievement update(final Achievement achievement) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         session.update(achievement);
         tx.commit();
         session.close();
         HibernateUtil.shutdown();
+        return achievement;
     }
 
 

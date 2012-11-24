@@ -24,7 +24,7 @@ public class MatchDAOImplTest {
         match.setStatusId(1);
 
         MatchDAO matchDao = new MatchDAOImpl();
-        Integer id = matchDao.create(match);
+        Integer id = matchDao.create(match).getId();
 
         assertNotNull(id);
     }
@@ -40,7 +40,7 @@ public class MatchDAOImplTest {
         match.setStatusId(1);
 
         MatchDAO matchDao = new MatchDAOImpl();
-        Integer id = matchDao.create(match);
+        Integer id = matchDao.create(match).getId();
 
         Match retrievedMatch = matchDao.retrieve(id);
         assertEquals(match, retrievedMatch);
@@ -110,7 +110,7 @@ public class MatchDAOImplTest {
         match1.setScoreUser1(3);
         match1.setMatchDate(Calendar.getInstance().getTimeInMillis());
         match1.setStatusId(1);
-        final Integer id = matchDao.create(match1);
+        final Integer id = matchDao.create(match1).getId();
         matchDao.delete(id);
         Match retrievedMatches = matchDao.retrieve(id);
         assertNull(retrievedMatches);

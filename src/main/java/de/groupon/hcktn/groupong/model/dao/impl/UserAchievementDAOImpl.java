@@ -13,14 +13,14 @@ import java.util.List;
 public class UserAchievementDAOImpl implements UserAchievementDAO {
 
     @Override
-    public Integer create(final UserAchievement userAchievement) {
+    public UserAchievement create(final UserAchievement userAchievement) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         session.save(userAchievement);
         tx.commit();
         session.close();
         HibernateUtil.shutdown();
-        return userAchievement.getId();
+        return userAchievement;
     }
 
 
@@ -55,13 +55,14 @@ public class UserAchievementDAOImpl implements UserAchievementDAO {
 
 
     @Override
-    public void update(final UserAchievement userAchievement) {
+    public UserAchievement update(final UserAchievement userAchievement) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         session.update(userAchievement);
         tx.commit();
         session.close();
         HibernateUtil.shutdown();
+        return userAchievement;
     }
 
 

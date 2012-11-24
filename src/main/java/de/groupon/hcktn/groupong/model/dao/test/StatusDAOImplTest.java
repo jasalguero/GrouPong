@@ -16,7 +16,7 @@ public class StatusDAOImplTest {
         Status status = new Status();
         status.setDescription("test status");
         StatusDAO statusDao = new StatusDAOImpl();
-        Integer id = statusDao.create(status);
+        Integer id = statusDao.create(status).getId();
         assertNotNull(id);
     }
 
@@ -25,7 +25,7 @@ public class StatusDAOImplTest {
         Status status = new Status();
         status.setDescription("test status");
         StatusDAO statusDao = new StatusDAOImpl();
-        Integer id = statusDao.create(status);
+        Integer id = statusDao.create(status).getId();
         final Status retrievedStatus = statusDao.retrieve(id);
         assertEquals(status, retrievedStatus);
     }
@@ -58,7 +58,7 @@ public class StatusDAOImplTest {
         Status status = new Status();
         status.setDescription("test status");
         StatusDAO statusDao = new StatusDAOImpl();
-        Integer id = statusDao.create(status);
+        Integer id = statusDao.create(status).getId();
         final String myDescription = "new test status";
         status.setDescription(myDescription);
         statusDao.update(status);
@@ -72,7 +72,7 @@ public class StatusDAOImplTest {
         Status status = new Status();
         status.setDescription("test status to be deleted");
         StatusDAO statusDao = new StatusDAOImpl();
-        final Integer id = statusDao.create(status);
+        final Integer id = statusDao.create(status).getId();
         statusDao.delete(id);
         Status retrievedStatus = statusDao.retrieve(id);
         assertNull(retrievedStatus);

@@ -13,14 +13,14 @@ import java.util.List;
 public class UserDAOImpl implements UserDAO {
 
     @Override
-    public Integer create(final User user) {
+    public User create(final User user) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         session.save(user);
         tx.commit();
         session.close();
         HibernateUtil.shutdown();
-        return user.getId();
+        return user;
     }
 
 
@@ -58,13 +58,14 @@ public class UserDAOImpl implements UserDAO {
 
 
     @Override
-    public void update(final User user) {
+    public User update(final User user) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         session.update(user);
         tx.commit();
         session.close();
         HibernateUtil.shutdown();
+        return user;
     }
 
 
