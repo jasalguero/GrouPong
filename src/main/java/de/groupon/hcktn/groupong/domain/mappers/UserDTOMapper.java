@@ -1,11 +1,23 @@
 package de.groupon.hcktn.groupong.domain.mappers;
 
+import de.groupon.hcktn.groupong.domain.response.MatchDTO;
 import de.groupon.hcktn.groupong.domain.response.UserDTO;
 import de.groupon.hcktn.groupong.model.entity.User;
+import de.groupon.hcktn.groupong.service.MatchService;
+import de.groupon.hcktn.groupong.service.UserAchievementService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class UserDTOMapper extends BaseDTOMapper {
+
+    @Autowired
+    private UserAchievementService userAchievementService;
+
+    @Autowired
+    private MatchService matchService;
 
     public UserDTO mapToUserDTO(final User user) {
         final UserDTO userDTO = new UserDTO();
@@ -15,6 +27,9 @@ public class UserDTOMapper extends BaseDTOMapper {
         userDTO.setEmail(user.getEmail());
         userDTO.setAvatar(user.getAvatar());
         userDTO.setScore(user.getScore());
+        userDTO.setAchievements(userAchievementService.fetchUserAchievementsByUserId(user.getId()));
+        userDTO.setMatches(matchService.fetchMatchesByUserId(user.getId()));
+
         return userDTO;
     }
 
