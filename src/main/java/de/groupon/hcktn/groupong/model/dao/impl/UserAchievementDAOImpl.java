@@ -77,4 +77,9 @@ public class UserAchievementDAOImpl implements UserAchievementDAO {
         session.close();
         HibernateUtil.shutdown();
     }
+
+    @Override
+    public List<UserAchievement> retrieveByUserId(Integer userId) {
+        return null;  //TODO: ZZ
+    }
 }
