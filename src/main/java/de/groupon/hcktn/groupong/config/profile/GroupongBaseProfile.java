@@ -24,6 +24,11 @@ public abstract class GroupongBaseProfile extends BaseProfile {
     }
 
     @Bean
+    public ApplicationConfiguration applicationConfiguration() {
+        return new ApplicationConfiguration();
+    }
+
+    @Bean
     public ApplicationConfiguration appConfiguration() {
         final ApplicationConfiguration applicationConfiguration = new ApplicationConfiguration();
 

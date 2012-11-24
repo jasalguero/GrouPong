@@ -1,15 +1,15 @@
 package de.groupon.hcktn.groupong.service;
 
-import de.groupon.hcktn.groupong.model.entity.Status;
+import de.groupon.hcktn.groupong.domain.response.StatusDTO;
 
 import java.util.List;
 
 public interface StatusService {
 
-    List<Status> fetchStatuses();
+    List<StatusDTO> fetchStatuses();
 
-    Status fetchStatus(Integer statusId);
+    StatusDTO fetchStatus(Integer statusId);
 
-    Status fetchStatus(String statusDescription);
+    StatusDTO fetchStatus(String statusDescription);
 
 }
