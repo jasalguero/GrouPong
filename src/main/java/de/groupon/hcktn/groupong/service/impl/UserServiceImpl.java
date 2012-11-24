@@ -1,5 +1,6 @@
 package de.groupon.hcktn.groupong.service.impl;
 
+import de.groupon.hcktn.groupong.domain.exception.NotFoundException;
 import de.groupon.hcktn.groupong.domain.mappers.UserDTOMapper;
 import de.groupon.hcktn.groupong.domain.response.BaseDTO;
 import de.groupon.hcktn.groupong.domain.response.UserDTO;
@@ -39,7 +40,7 @@ public class UserServiceImpl implements UserService {
                 return user;
             }
         }
-        return null;
+        throw new NotFoundException("user with id: " + userId + " not found");
     }
 
     @Override
@@ -49,7 +50,7 @@ public class UserServiceImpl implements UserService {
                 return user;
             }
         }
-        return null;
+        throw new NotFoundException("user with email: " + email + " and password: " + password + " not found");
     }
 
     @Override

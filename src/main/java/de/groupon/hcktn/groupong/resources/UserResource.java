@@ -21,7 +21,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/groupong")
-public class UserResource {
+public class UserResource extends BaseResource {
 
     @Autowired
     private UserService userService;
