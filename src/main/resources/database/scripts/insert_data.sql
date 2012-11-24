@@ -8,9 +8,9 @@ INSERT INTO user_achievement (user_id, achievement_id) VALUES (1, 3);
 INSERT INTO user_achievement (user_id, achievement_id) VALUES (2, 1);
 
 
-INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (1, 2, null, null, '2012-11-01', 1);
-INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (2, 3, null, null, '2012-11-01', 2);
-INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (3, 1, 0, 3, '2012-11-01', 3);
-INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (3, 2, 1, 2, '2012-11-01', 4);
-INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (1, 3, 0, 3, '2012-11-01', 5);
+INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (1, 2, null, null, '1353765246620', 1);
+INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (2, 3, null, null, '1353765246620', 2);
+INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (3, 1, 0, 3, '1353765246620', 3);
+INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (3, 2, 1, 2, '1353765246620', 4);
+INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (1, 3, 0, 3, '1353765246620', 5);
 

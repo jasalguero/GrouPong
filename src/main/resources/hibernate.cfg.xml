@@ -12,6 +12,10 @@
         <property name="connection.username"></property>
         <property name="connection.password"></property>
 
+        <mapping resource="database/Achievement.hbm.xml"/>
+        <mapping resource="database/Match.hbm.xml"/>
         <mapping resource="database/Status.hbm.xml"/>
+        <mapping resource="database/User.hbm.xml"/>
+        <mapping resource="database/UserAchievement.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
