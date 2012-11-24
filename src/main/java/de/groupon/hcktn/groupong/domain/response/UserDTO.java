@@ -14,7 +14,7 @@ public class UserDTO extends BaseDTO {
     private String avatar;
     private Integer score;
 
-    private List<AchievementDTO> achievements = new ArrayList<AchievementDTO>();
+    private List<Integer> achievements = new ArrayList<Integer>();
     private List<MatchDTO> matches = new ArrayList<MatchDTO>();
 
     public UserDTO() {
@@ -65,11 +65,11 @@ public class UserDTO extends BaseDTO {
         this.score = score;
     }
 
-    public List<AchievementDTO> getAchievements() {
+    public List<Integer> getAchievements() {
         return achievements;
     }
 
-    public void setAchievements(List<AchievementDTO> achievements) {
+    public void setAchievements(List<Integer> achievements) {
         this.achievements = achievements;
     }
 
