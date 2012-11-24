@@ -107,6 +107,11 @@
     <repositories>
 
         <repository>
+            <id>hibernatesqlite-maven</id>
+            <url>https://hibernate-sqlite.googlecode.com/svn/trunk/mavenrepo</url>
+        </repository>
+
+        <repository>
             <releases/>
             <snapshots>
                 <enabled>false</enabled>
@@ -126,9 +131,50 @@
             <url>http://repo.team.citydeal.de/content/groups/public-snapshots</url>
         </repository>
 
+
+
     </repositories>
 
     <dependencies>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>asm</groupId>
+            <artifactId>asm</artifactId>
+            <version>2.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>asm</groupId>
+            <artifactId>asm-util</artifactId>
+            <version>2.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>asm</groupId>
+            <artifactId>asm-commons</artifactId>
+            <version>2.2.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.applerao</groupId>
+            <artifactId>hibernatesqlite</artifactId>
+            <version>1.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- SQLite database JDBC -->
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.6.0</version>
+        </dependency>
 
         <dependency>
             <groupId>de.groupon.api</groupId>
