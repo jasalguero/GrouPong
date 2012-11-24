@@ -4,24 +4,24 @@ INSERT INTO user (email, password, user_name, avatar, score) VALUES ("jose@group
 INSERT INTO user (email, password, user_name, avatar, score) VALUES ("guest@groupon.com", "rollback", "Santa Claus", "http://localhost:8080/images/avatars/designer_avatar.png", 1000);
 
 
-INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (0, 1, 2, 1, '1353765246620', 5);
-INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (2, 0, 1, 2, '1353765247620', 5);
+INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (1, 2, 2, 1, '1353765246620', 6);
+INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (3, 1, 1, 2, '1353765247620', 6);
 
-INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (1, 2, 3, 0, '1353765248620', 5);
-INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (2, 1, 2, 1, '1353765249620', 5);
+INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (2, 3, 3, 0, '1353765248620', 6);
+INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (3, 2, 2, 1, '1353765249620', 6);
 
-INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (0, 1, 1, 2, '1353765251620', 0);
-INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (0, 2, 1, 2, '1353765251620', 1);
-INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (1, 2, 1, 2, '1353765251620', 3);
-INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (1, 0, 3, 0, '1353765251620', 4);
+INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (1, 2, 1, 2, '1353765251620', 1);
+INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (1, 3, 1, 2, '1353765251620', 2);
+INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (2, 3, 1, 2, '1353765251620', 3);
+INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (2, 1, 3, 0, '1353765251620', 5);
 
 
-INSERT INTO user_achievement (user_id, achievement_id) VALUES (0, 0);
-INSERT INTO user_achievement (user_id, achievement_id) VALUES (0, 2);
-
-INSERT INTO user_achievement (user_id, achievement_id) VALUES (1, 0);
 INSERT INTO user_achievement (user_id, achievement_id) VALUES (1, 1);
+INSERT INTO user_achievement (user_id, achievement_id) VALUES (1, 3);
 
-INSERT INTO user_achievement (user_id, achievement_id) VALUES (2, 0);
+INSERT INTO user_achievement (user_id, achievement_id) VALUES (2, 1);
+INSERT INTO user_achievement (user_id, achievement_id) VALUES (2, 2);
+
+INSERT INTO user_achievement (user_id, achievement_id) VALUES (3, 1);
 
 
