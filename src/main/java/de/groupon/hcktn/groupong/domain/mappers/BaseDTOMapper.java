@@ -8,7 +8,7 @@ import java.util.Calendar;
 
 public abstract class BaseDTOMapper {
 
-    private static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+    private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern(DATE_FORMAT);
 
