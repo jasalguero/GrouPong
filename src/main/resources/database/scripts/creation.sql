@@ -17,9 +17,9 @@ CREATE TABLE achievement (
 	description	TEXT
 );
 
-INSERT INTO achievement (title, description) VALUES ("5 in a row", "You have won 5 matches in a row, like a boss!");
-INSERT INTO achievement (title, description) VALUES ("99%", "You won 99% of matches, awesome man!");
-INSERT INTO achievement (title, description) VALUES ("100 games", "Do you play all days long?");
+INSERT INTO achievement (title, description) VALUES ("First blood", "You have just finished your first game, welcome in club.");
+INSERT INTO achievement (title, description) VALUES ("3 to 0", "wow, we got a badass over here! This match was like execution!");
+INSERT INTO achievement (title, description) VALUES ("2 in a row", "Nice, you have just won 2nd game in a row, keep going like that!");
 
 
 CREATE TABLE user (
