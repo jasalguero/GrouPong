@@ -20,6 +20,18 @@
     font-family: "GeneralFoundicons";
 }
 
+.top-bar {
+    height:60px;
+}
+
+.top-bar ul > li a:not(.button) {
+    height:60px;
+}
+
+.top-bar ul > li.divider {
+    height:60px;
+}
+
 
 /* -----------------------------------------
    Page Name 1
