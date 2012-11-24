@@ -2,13 +2,6 @@ package de.groupon.hcktn.groupong.model.entity;
 
 import java.util.Date;
 
-/**
- * Created with IntelliJ IDEA.
- * User: root
- * Date: 11/24/12
- * Time: 10:58 AM
- * To change this template use File | Settings | File Templates.
- */
 public class Match {
     private Integer id;
     private Integer user1Id;

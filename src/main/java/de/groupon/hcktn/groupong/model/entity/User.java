@@ -1,12 +1,5 @@
 package de.groupon.hcktn.groupong.model.entity;
 
-/**
- * Created with IntelliJ IDEA.
- * User: root
- * Date: 11/24/12
- * Time: 10:47 AM
- * To change this template use File | Settings | File Templates.
- */
 public class User {
     private Integer id;
     private String email;

@@ -1,11 +1,5 @@
 package de.groupon.hcktn.groupong.model.entity;
 
-/**
- * Created with IntelliJ IDEA.
- * Date: 11/24/12
- * Time: 10:38 AM
- * To change this template use File | Settings | File Templates.
- */
 public class Status {
     private Integer id;
     private String description;
@@ -35,7 +29,7 @@ public class Status {
         return description;
     }
 
-    public void setDescriptions(final String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 

@@ -10,7 +10,7 @@ public class StatusDAOImplTest {
     @Test
     public void testCreateStatus() throws Exception {
         Status myStatus = new Status();
-        myStatus.setDescriptions("test status");
+        myStatus.setDescription("test status");
         StatusDAO statusDao = new StatusDAOImpl();
         statusDao.createStatus(myStatus);
     }
