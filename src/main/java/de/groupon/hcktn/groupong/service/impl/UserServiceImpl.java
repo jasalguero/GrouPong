@@ -6,6 +6,7 @@ import de.groupon.hcktn.groupong.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,25 +16,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private AvatarService avatarService;
 
-    @Override
-    public Integer createUser(final UserDTO userDTO) {
-        return 0;
-    }
-
-    @Override
-    public UserDTO fetchUser(final Integer userId) {
-        for (UserDTO user : fetchUsers()) {
-            if (user.getUserId().equals(userId)) {
-                return user;
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public List<UserDTO> fetchUsers() {
-        final List<UserDTO> users = new LinkedList<UserDTO>();
-
+    //TODO: Remove this section
+    final List<UserDTO> users = new LinkedList<UserDTO>();
+    @PostConstruct
+    public void init() {
         final UserDTO user = new UserDTO();
         user.setUserId(0);
         user.setUserName("bbednarek");
@@ -57,7 +43,29 @@ public class UserServiceImpl implements UserService {
         user3.setAvatar(avatarService.fetchAvatars().get(2).getUrl());
         user3.setScore(800);
         users.add(user3);
+    }
 
+    @Override
+    public Integer createUser(final UserDTO userDTO) {
+        userDTO.setUserId(null);
+
+        userDTO.setUserId(users.get(users.size() - 1).getUserId() + 1);
+        users.add(userDTO);
+        return userDTO.getUserId();
+    }
+
+    @Override
+    public UserDTO fetchUser(final Integer userId) {
+        for (UserDTO user : fetchUsers()) {
+            if (user.getUserId().equals(userId)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<UserDTO> fetchUsers() {
         return users;
     }
 }

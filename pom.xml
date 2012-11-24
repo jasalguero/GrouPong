@@ -16,10 +16,7 @@
     </parent>
 
     <properties>
-        <api-shared.version>1.2.2</api-shared.version>
-        <backendservices.version>5.2.5</backendservices.version>
-        <jms-messaging.version>1.12.0</jms-messaging.version>
-        <bes-mode>persistence</bes-mode>
+        <api-shared.version>1.3.0</api-shared.version>
 
         <jetty.version>8.1.5.v20120716</jetty.version>
         <tomcat.version>7.0.29</tomcat.version>
@@ -182,12 +179,16 @@
             <version>${api-shared.version}</version>
             <exclusions>
                 <exclusion>
-                    <groupId>org.mockito</groupId>
-                    <artifactId>mockito-all</artifactId>
+                    <groupId>de.groupon.logic</groupId>
+                    <artifactId>newsletter-module</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>junit</artifactId>
+                    <groupId>de.groupon.logic</groupId>
+                    <artifactId>order-module</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>de.groupon.logic</groupId>
+                    <artifactId>user-module</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -197,31 +198,6 @@
             <version>${api-shared.version}</version>
             <type>test-jar</type>
             <scope>test</scope>
-        </dependency>
-
-        <!-- Backend Services -->
-        <dependency>
-            <groupId>de.citydeal.service</groupId>
-            <artifactId>location-${bes-mode}</artifactId>
-            <version>${backendservices.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>de.citydeal.service</groupId>
-            <artifactId>content-${bes-mode}</artifactId>
-            <version>${backendservices.version}</version>
-        </dependency>
-
-        <!-- Messaging -->
-        <dependency>
-            <groupId>de.groupon.messaging</groupId>
-            <artifactId>jms</artifactId>
-            <version>${jms-messaging.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>de.groupon.config</groupId>
-                    <artifactId>config-main</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <!-- Spring -->

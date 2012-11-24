@@ -1,13 +1,12 @@
 package de.groupon.hcktn.groupong.domain.response;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
+import de.groupon.config.web.annotation.JsonImplicit;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@XStreamAlias("user")
+@JsonImplicit(UserDTO.class)
 public class UserDTO {
-
     private Integer userId;
     private String userName;
     private String email;
