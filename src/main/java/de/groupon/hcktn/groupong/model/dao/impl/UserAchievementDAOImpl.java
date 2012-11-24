@@ -6,32 +6,33 @@ import de.groupon.hcktn.groupong.model.entity.UserAchievement;
 import java.util.List;
 
 public class UserAchievementDAOImpl implements UserAchievementDAO {
-    @Override
-    public void createUserAchievement(final UserAchievement userAchievement) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
-
 
     @Override
-    public UserAchievement readUserAchievement(final Integer userAchievementId) {
+    public Integer create(final UserAchievement t) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
 
     @Override
-    public List<UserAchievement> readAllUserAchievements() {
+    public UserAchievement retrieve(final Integer id) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
 
     @Override
-    public void deleteUserAchievement(final Integer userAchievement) {
+    public List<UserAchievement> retrieveAll() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+
+    @Override
+    public void update(final UserAchievement t) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
 
     @Override
-    public void updateUserAchievement(final UserAchievement userAchievement) {
+    public void delete(final Integer id) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 }
