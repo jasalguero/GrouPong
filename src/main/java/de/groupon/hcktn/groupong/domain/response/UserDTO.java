@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @JsonImplicit(UserDTO.class)
-public class UserDTO {
-    private Integer userId;
+public class UserDTO extends BaseDTO {
+
     private String userName;
     private String password;
     private String email;
@@ -15,13 +15,14 @@ public class UserDTO {
     private Integer score;
 
     private List<AchievementDTO> achievements = new ArrayList<AchievementDTO>();
+    private List<MatchDTO> matches = new ArrayList<MatchDTO>();
 
-    public Integer getUserId() {
-        return userId;
+    public UserDTO() {
+
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public UserDTO(Integer id) {
+        super(id);
     }
 
     public String getUserName() {
@@ -70,5 +71,13 @@ public class UserDTO {
 
     public void setAchievements(List<AchievementDTO> achievements) {
         this.achievements = achievements;
+    }
+
+    public List<MatchDTO> getMatches() {
+        return matches;
+    }
+
+    public void setMatches(List<MatchDTO> matches) {
+        this.matches = matches;
     }
 }

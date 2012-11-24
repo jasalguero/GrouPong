@@ -6,10 +6,12 @@ import de.groupon.hcktn.groupong.model.utils.HibernateUtil;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class UserAchievementDAOImpl implements UserAchievementDAO {
 
     @Override
