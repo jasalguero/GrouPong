@@ -23,7 +23,8 @@ GP.CONSTANTS = {
     {
         BASE_URL:'/groupong',
         AVATARS:'/avatars',
-        USERS:'/users'
+        USERS:'/users',
+        USER:'/user'
 
     }
 };
@@ -124,10 +125,29 @@ GP.ModalController = Em.Controller.extend({
             title: 'Do you want to challenge xxxx?',
             lead: 'If you confirm, he will receive a notification and will confirm the challenge',
             second: '.. if he is not too afraid to accept it',
+            imgSrc: 'images/challenge.png',
             actionChallenge: true
         }
             GP.get('router').get('applicationController').connectOutlet('modal', 'modal', context);
             $('#myModal').reveal();
+    },
+
+    showLoginModal: function(){
+        GP.get('router').get('applicationController').connectOutlet('modal', 'modalLogin');
+        $('#myModal').reveal();
+    },
+
+    login: function(){
+        $('#incorrectLogin').hide('fast');
+        var email = $('#loginEmail').val();
+        var password = $('#loginPassword').val();
+        var result = GP.dataSource.login(email,password);
+        if (result){
+            $('#myModal').trigger('reveal:close')
+        }else{
+           $('#incorrectLogin').show('fast');
+        }
+
     }
 });
 
@@ -169,6 +189,10 @@ GP.ProfileController = Em.Controller.extend({
     user: null
 });
 
+GP.ModalLoginController = Em.Controller.extend({
+
+})
+
 
 
 
@@ -194,6 +218,10 @@ GP.ProfileView = Em.View.extend({
 
 GP.ModalView = Em.View.extend({
     templateName: 'modal'
+});
+
+GP.ModalLoginView = Em.View.extend({
+    templateName: 'modalLogin'
 });
 
 
@@ -300,6 +328,34 @@ GP.dataSource = Ember.Object.create({
                 }
             }
         });
+    },
+
+    login: function(email, password){
+        var result = null;
+        var data = {
+            email: email,
+            password: password
+        }
+
+        $.ajax({
+            type:'GET',
+            async: false,
+            url: GP.CONSTANTS.API.BASE_URL + GP.CONSTANTS.API.USER,
+            data: data,
+            dataType:'json',
+            success: function(data){
+                if (!Em.none(data)){
+                    var user = GP.get('router.userController').findProperty('id',data.id);
+                    debugger;
+                    GP.get('router.applicationController').set('loggedUser', user);
+                    result = true;
+                }else{
+                    result = false;
+                }
+            }
+        });
+
+        return result;
     }
 
 });

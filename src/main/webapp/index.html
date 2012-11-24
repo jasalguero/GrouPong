@@ -66,9 +66,9 @@
                     <ul class="right">
                         <li>
                             {{#if GP.router.applicationController.isUserLogged}}
-                                <a class="active" href="#" {{action showProfile}}>Profile</a>
+                                <a class="active" href="#" {{action showProfile GP.router.applicationController.userLogged}}>Profile</a>
                             {{else}}
-                                <a class="active" href="#"  {{action showModalLogin target="GP.router.modalController"}}>Login</a>
+                                <a class="active" href="#"  {{action showLoginModal target="GP.router.modalController"}}>Login</a>
                             {{/if}}
 
                         </li>
@@ -186,7 +186,43 @@
     </div>
     <div class="modalRight">
         <div class="modalImg">
-            <img src="images/challenge.png"/>
+            <img {{bindAttr src="content.imgSrc"}}/>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="modalLogin">
+    <div class="row">
+        <div class="one columns centered">
+            <h1>Login</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="ten columns centered alert-box alert" id="incorrectLogin">
+            User not found!
+        </div>
+    </div>
+    <div class="row">
+        <div class="eight columns centered">
+            <div class="row">
+                <div class="two columns">
+                    <label for="loginEmail">Email:</label>
+                </div>
+                <div class="ten columns">
+                    <input type="text" id="loginEmail" />
+                </div>
+            </div>
+                <div class="row">
+                <div class="two columns">
+                    <label for="loginPassword">Password:</label>
+                </div>
+                <div class="ten columns">
+                    <input type="password" id="loginPassword" />
+                </div>
+            </div>
+            <div class="row">
+                <button class="offset-by-two ten centered button" {{action login target="GP.router.modalController"}}>Login</button>
+            </div>
         </div>
     </div>
 </script>
