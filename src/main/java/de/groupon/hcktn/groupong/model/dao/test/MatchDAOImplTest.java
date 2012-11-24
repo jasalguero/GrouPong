@@ -6,11 +6,12 @@ import de.groupon.hcktn.groupong.model.entity.Match;
 import org.junit.Test;
 
 import java.util.Calendar;
+import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.*;
 
 public class MatchDAOImplTest {
+
 
     @Test
     public void testCreateMatch() throws Exception {
@@ -45,49 +46,71 @@ public class MatchDAOImplTest {
         assertEquals(match, retrievedMatch);
     }
 
-//
-//
-//    @Test
-//    public void testReadAllStatuses() throws Exception {
-//        Status status1 = new Status();
-//        status1.setDescription("test status");
-//        StatusDAO statusDao = new StatusDAOImpl();
-//        statusDao.create(status1);
-//
-//        Status status2 = new Status();
-//        status2.setDescription("test status");
-//        statusDao = new StatusDAOImpl();
-//        statusDao.create(status2);
-//
-//        final List<Status> retrievedAllStatuses = statusDao.retrieveAll();
-//
-//        assertTrue(retrievedAllStatuses.size()>=2);
-//    }
-//
-//    @Test
-//    public void testUpdateStatus() throws Exception {
-//        Status status = new Status();
-//        status.setDescription("test status");
-//        StatusDAO statusDao = new StatusDAOImpl();
-//        Integer id = statusDao.create(status);
-//        final String myDescription = "new test status";
-//        status.setDescription(myDescription);
-//        statusDao.update(status);
-//        final Status retrievedStatus = statusDao.retrieve(status.getId());
-//        assertEquals(myDescription, retrievedStatus.getDescription());
-//
-//    }
-//
-//
-//    @Test
-//    public void testDeleteStatus() throws Exception {
-//        Status status = new Status();
-//        status.setDescription("test status to be deleted");
-//        StatusDAO statusDao = new StatusDAOImpl();
-//        final Integer id = statusDao.create(status);
-//        statusDao.delete(id);
-//        Status retrievedStatus = statusDao.retrieve(id);
-//        assertNull(retrievedStatus);
-//    }
+
+
+    @Test
+    public void testReadAllMatches() throws Exception {
+        MatchDAO matchDao = new MatchDAOImpl();
+
+        Match match1 = new Match();
+        match1.setUser1Id(1);
+        match1.setUser2Id(2);
+        match1.setScoreUser1(0);
+        match1.setScoreUser1(3);
+        match1.setMatchDate(Calendar.getInstance());
+        match1.setStatusId(1);
+        matchDao.create(match1);
+
+        Match match2 = new Match();
+        match2.setUser1Id(2);
+        match2.setUser2Id(3);
+        match2.setScoreUser1(2);
+        match2.setScoreUser1(1);
+        match2.setMatchDate(Calendar.getInstance());
+        match2.setStatusId(1);
+        matchDao.create(match2);
+
+        final List<Match> retrievedAllMatch = matchDao.retrieveAll();
+        assertTrue(retrievedAllMatch.size()>=2);
+    }
+
+    @Test
+    public void testUpdateMatch() throws Exception {
+        MatchDAO matchDao = new MatchDAOImpl();
+        Match match1 = new Match();
+        match1.setUser1Id(1);
+        match1.setUser2Id(2);
+        match1.setScoreUser1(0);
+        match1.setScoreUser1(3);
+        match1.setMatchDate(Calendar.getInstance());
+        match1.setStatusId(1);
+        matchDao.create(match1);
+
+        final int myStatusId = 3;
+        match1.setStatusId(myStatusId);
+
+        matchDao.update(match1);
+
+        final Match retrievedMatch = matchDao.retrieve(match1.getId());
+        assertTrue(myStatusId == retrievedMatch.getStatusId());
+
+    }
+
+
+    @Test
+    public void testDeleteMatch() throws Exception {
+        MatchDAO matchDao = new MatchDAOImpl();
+        Match match1 = new Match();
+        match1.setUser1Id(1);
+        match1.setUser2Id(2);
+        match1.setScoreUser1(0);
+        match1.setScoreUser1(3);
+        match1.setMatchDate(Calendar.getInstance());
+        match1.setStatusId(1);
+        final Integer id = matchDao.create(match1);
+        matchDao.delete(id);
+        Match retrievedMatches = matchDao.retrieve(id);
+        assertNull(retrievedMatches);
+    }
 
 }
