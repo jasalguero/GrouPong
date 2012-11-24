@@ -13,6 +13,7 @@ public class UserDTO extends BaseDTO {
     private String email;
     private String avatar;
     private Integer score;
+    private String rank;
 
     private List<Integer> achievements = new ArrayList<Integer>();
     private List<MatchDTO> matches = new ArrayList<MatchDTO>();
@@ -63,6 +64,14 @@ public class UserDTO extends BaseDTO {
 
     public void setScore(Integer score) {
         this.score = score;
+    }
+
+    public String getRank() {
+        return rank;
+    }
+
+    public void setRank(String rank) {
+        this.rank = rank;
     }
 
     public List<Integer> getAchievements() {

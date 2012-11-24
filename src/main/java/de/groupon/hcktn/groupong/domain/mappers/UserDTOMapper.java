@@ -29,6 +29,7 @@ public class UserDTOMapper extends BaseDTOMapper {
         userDTO.setScore(user.getScore());
         userDTO.setAchievements(userAchievementService.fetchUserAchievementsByUserId(user.getId()));
         userDTO.setMatches(matchService.fetchMatchesByUserId(user.getId()));
+        userDTO.setRank(getRank(user.getScore()));
 
         return userDTO;
     }
@@ -57,5 +58,21 @@ public class UserDTOMapper extends BaseDTOMapper {
             user.setScore(userDTO.getScore());
         }
         return user;
+    }
+
+    private String getRank(Integer score) {
+        if ( score < 1100) {
+            return "Newbie";
+        } else if (score < 1200) {
+            return "Novice";
+        } else if (score < 1300) {
+            return "Amateur";
+        } else if (score < 1400) {
+            return "Pro";
+        } else if (score < 1500) {
+            return "Elite";
+        } else {
+            return "Master";
+        }
     }
 }
