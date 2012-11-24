@@ -80,6 +80,20 @@ public class UserAchievementDAOImpl implements UserAchievementDAO {
 
     @Override
     public List<UserAchievement> retrieveByUserId(Integer userId) {
-        return null;  //TODO: ZZ
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Query allQuery = session.createSQLQuery("select * from user_achievement where user_id=" + userId);
+        List<Object[]> allUserAchievement = allQuery.list();
+
+        List<UserAchievement> userAchievementToReturn = new ArrayList<UserAchievement>();
+        for (Object[] o : allUserAchievement) {
+            UserAchievement tempUserAchievement = new UserAchievement();
+            tempUserAchievement.setId((Integer) o[0]);
+            tempUserAchievement.setUserId((Integer) o[1]);
+            tempUserAchievement.setAchievementId((Integer) o[2]);
+            userAchievementToReturn.add(tempUserAchievement);
+        }
+        session.close();
+        HibernateUtil.shutdown();
+        return userAchievementToReturn;
     }
 }

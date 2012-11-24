@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
 public class UserAchievementDAOImplTest {
@@ -31,6 +32,16 @@ public class UserAchievementDAOImplTest {
         assertTrue(retrievedAllUserAchiv.get(0) instanceof UserAchievement);
         assertTrue(retrievedAllUserAchiv.contains(ua1));
         assertTrue(retrievedAllUserAchiv.contains(ua2));
-
     }
+
+    @Test
+    public void testRetrieveByUserId() {
+        UserAchievementDAO userAchivDao = new UserAchievementDAOImpl();
+        final Integer userId = 1;
+        final List<UserAchievement> retrievedUserAchiv = userAchivDao.retrieveByUserId(userId);
+        for(UserAchievement ua : retrievedUserAchiv) {
+            assertEquals(userId, ua.getUserId());
+        }
+    }
+
 }
