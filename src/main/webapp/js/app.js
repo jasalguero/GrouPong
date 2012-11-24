@@ -6,7 +6,9 @@ window.GP = Em.Application.create({
 
     ready: function(){
         console.log("Application initialized");
-        GP.gpDevhelper.createUsers(5);
+        //GP.gpDevhelper.createUsers(5);
+        GP.dataSource.getAllAvatars();
+        GP.dataSource.getAllUsers();
 
     }
 });
@@ -17,6 +19,13 @@ window.GP = Em.Application.create({
 /******************************************************/
 
 GP.CONSTANTS = {
+    API:
+    {
+        BASE_URL:'/groupong',
+        AVATARS:'/avatars',
+        USERS:'/users'
+
+    }
 };
 
 /******************************************************/
@@ -63,7 +72,7 @@ GP.User = Em.Object.extend({
     user_name: null,
     password: null,
     email: null,
-    avatar_url: null,
+    avatar: null,
     score: null
 });
 
@@ -86,6 +95,11 @@ GP.Game = Em.Object.extend({
 GP.Status = Em.Object.extend({
     id: null,
     description: null
+});
+
+GP.Avatar = Em.Object.extend({
+    id: null,
+    url: null
 })
 
 
@@ -95,6 +109,12 @@ GP.Status = Em.Object.extend({
 
 //main application controller
 GP.ApplicationController = Em.Controller.extend({
+
+    loggedUser: null,
+
+    isUserLogged: function(){
+        return (!Em.none(this.loggedUser));
+    }.property('loggedUser')
 
 });
 
@@ -109,10 +129,14 @@ GP.ModalController = Em.Controller.extend({
             GP.get('router').get('applicationController').connectOutlet('modal', 'modal', context);
             $('#myModal').reveal();
     }
+});
+
+GP.AvatarController = Em.ArrayController.extend(GP.Clearable,{
 })
 
 GP.UserController = Em.ArrayController.extend(GP.Clearable,{
     sortProperties: ['score'],
+    sortAscending: false,
 
     init: function(){
         this._super();
@@ -246,12 +270,59 @@ GP.Router = Em.Router.extend({
  */
 GP.dataSource = Ember.Object.create({
 
+    getAllAvatars: function(){
+        $.ajax({
+            type:'GET',
+            url: GP.CONSTANTS.API.BASE_URL + GP.CONSTANTS.API.AVATARS,
+            dataType:'json',
+            success: function(data){
+                if (Em.isArray(data)){
+                    data.map(function(item){
+                        var avatar = GP.parseAvatar(item);
+                        GP.get('router.avatarController').addObject(avatar);
+                    })
+                }
+            }
+        });
+    },
+
+    getAllUsers: function(){
+        $.ajax({
+            type:'GET',
+            url: GP.CONSTANTS.API.BASE_URL + GP.CONSTANTS.API.USERS,
+            dataType:'json',
+            success: function(data){
+                if (Em.isArray(data)){
+                    data.map(function(item){
+                        var avatar = GP.parseUser(item);
+                        GP.get('router.userController').addObject(avatar);
+                    })
+                }
+            }
+        });
+    }
+
 });
 
 /******************************************************/
 /*              UTILITY FUNCTIONS                     */
 /******************************************************/
+GP.parseAvatar = function(json){
+    var avatar = GP.Avatar.create();
+    avatar.set('id',json.id);
+    avatar.set('url',json.url);
+    return avatar;
+};
 
+GP.parseUser = function(json){
+    var user = GP.User.create();
+    user.set('id',json.id);
+    user.set('password',json.password);
+    user.set('email',json.email);
+    user.set('avatar',json.avatar);
+    user.set('score',json.score);
+    return user;
+};
 
 GP.initialize();
 

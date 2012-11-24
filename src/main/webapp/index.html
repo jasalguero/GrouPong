@@ -65,7 +65,12 @@
                     <!-- Right Nav Section -->
                     <ul class="right">
                         <li>
-                            <a {{action showProfile}}>User</a>
+                            {{#if GP.router.applicationController.isUserLogged}}
+                                <a {{action showProfile}}>Profile</a>
+                            {{else}}
+                                <a {{action showModalLogin target="GP.router.modalController"}}>Login</a>
+                            {{/if}}
+
                         </li>
                     </ul>
                 </section>
@@ -107,12 +112,7 @@
                     <p>&copy; Copyright no one at all. Go to town.</p>
                 </div>
                 <div class="six columns">
-                    <ul class="link-list right">
-                        <li><a href="#">Link 1</a></li>
-                        <li><a href="#">Link 2</a></li>
-                        <li><a href="#">Link 3</a></li>
-                        <li><a href="#">Link 4</a></li>
-                    </ul>
+
                 </div>
             </div>
         </div>
@@ -206,7 +206,7 @@
                 <div class="twelve columns centered">
                     <div class="panel playerRank shadow">
                         <div class="two columns position">#{{user.index}}</div>
-                        <div class="two columns"><img {{bindAttr src="user.item.avatar_url"}} class="playerImg"/><img src="images/avatars/assassin_avatar.png"/></div>
+                        <div class="two columns"><img {{bindAttr src="user.item.avatar"}} class="playerImg"/></div>
                         <div class="three columns playerInfo">
                             <div class="playerBasic">
                                 <div class="playerName">{{user.item.username}}</div>
@@ -237,7 +237,7 @@
         <div class=" playerProfile" role="content">
             <div class="row">
                 <div class="three columns playerImg">
-                    <img src="images/unknown.png"/>
+                    <img {{bindAttr src="avatar"}}/>
                 </div>
                 <div class="four columns playerInfo">
                     <div class="playerBasic">
