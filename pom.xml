@@ -141,6 +141,12 @@
             <groupId>com.applerao</groupId>
             <artifactId>hibernatesqlite</artifactId>
             <version>1.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- SQLite database JDBC -->
