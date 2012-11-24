@@ -22,13 +22,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO fetchUser(final Integer userId) {
-        final UserDTO user = new UserDTO();
-        user.setUserId(0);
-        user.setUserName("n3on");
-        user.setEmail("bbednarek@groupon.com");
-        user.setAvatar(avatarService.fetchAvatars().get(0).getUrl());
-        user.setScore(1000);
-        return user;
+        for (UserDTO user : fetchUsers()) {
+            if (user.getUserId().equals(userId)) {
+                return user;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -44,7 +43,7 @@ public class UserServiceImpl implements UserService {
         users.add(user);
 
         final UserDTO user2 = new UserDTO();
-        user2.setUserId(0);
+        user2.setUserId(1);
         user2.setUserName("jsalguero");
         user2.setEmail("jsalguero@groupon.com");
         user2.setAvatar(avatarService.fetchAvatars().get(1).getUrl());
@@ -52,7 +51,7 @@ public class UserServiceImpl implements UserService {
         users.add(user2);
 
         final UserDTO user3 = new UserDTO();
-        user3.setUserId(0);
+        user3.setUserId(2);
         user3.setUserName("zzabost");
         user3.setEmail("zzabost@groupon.com");
         user3.setAvatar(avatarService.fetchAvatars().get(2).getUrl());

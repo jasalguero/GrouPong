@@ -1,8 +1,11 @@
 package de.groupon.hcktn.groupong.domain.response;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@XStreamAlias("user")
 public class UserDTO {
 
     private Integer userId;
@@ -12,7 +15,6 @@ public class UserDTO {
     private Integer score;
 
     private List<AchievementDTO> achievements = new ArrayList<AchievementDTO>();
-
 
     public Integer getUserId() {
         return userId;
