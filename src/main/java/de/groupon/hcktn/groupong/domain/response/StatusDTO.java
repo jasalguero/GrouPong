@@ -12,6 +12,11 @@ public class StatusDTO {
         this.description = status.getDescription();
     }
 
+    public StatusDTO(Integer id, String description) {
+        this.id = id;
+        this.description = description;
+    }
+
     public Integer getId() {
         return id;
     }

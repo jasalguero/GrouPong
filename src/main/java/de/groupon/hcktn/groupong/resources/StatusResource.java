@@ -23,4 +23,6 @@ public class StatusResource {
     public List<StatusDTO> fetchStatuses() {
         return statusService.fetchStatuses();
     }
+
+
 }
