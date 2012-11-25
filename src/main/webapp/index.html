@@ -65,7 +65,12 @@
                     <!-- Right Nav Section -->
                     <ul class="right">
                         <li>
-                            <a {{action showProfile}}>User</a>
+                            {{#if GP.router.applicationController.isUserLogged}}
+                                <a class="active" href="#" {{action showProfile GP.router.applicationController.loggedUser}}>Profile</a>
+                            {{else}}
+                                <a class="active" href="#" {{action showLoginModal target="GP.router.modalController"}}>Login</a>
+                            {{/if}}
+
                         </li>
                     </ul>
                 </section>
@@ -107,12 +112,7 @@
                     <p>&copy; Copyright no one at all. Go to town.</p>
                 </div>
                 <div class="six columns">
-                    <ul class="link-list right">
-                        <li><a href="#">Link 1</a></li>
-                        <li><a href="#">Link 2</a></li>
-                        <li><a href="#">Link 3</a></li>
-                        <li><a href="#">Link 4</a></li>
-                    </ul>
+
                 </div>
             </div>
         </div>
@@ -186,7 +186,43 @@
     </div>
     <div class="modalRight">
         <div class="modalImg">
-            <img src="images/challenge.png"/>
+            <img {{bindAttr src="content.imgSrc"}}/>
+        </div>
+    </div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="modalLogin">
+    <div class="row">
+        <div class="one columns centered">
+            <h1>Login</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="ten columns centered alert-box alert" id="incorrectLogin">
+            User not found!
+        </div>
+    </div>
+    <div class="row">
+        <div class="eight columns centered">
+            <div class="row">
+                <div class="two columns">
+                    <label for="loginEmail">Email:</label>
+                </div>
+                <div class="ten columns">
+                    <input type="text" id="loginEmail" />
+                </div>
+            </div>
+                <div class="row">
+                <div class="two columns">
+                    <label for="loginPassword">Password:</label>
+                </div>
+                <div class="ten columns">
+                    <input type="password" id="loginPassword" />
+                </div>
+            </div>
+            <div class="row">
+                <button class="offset-by-two ten centered button" {{action login target="GP.router.modalController"}}>Login</button>
+            </div>
         </div>
     </div>
 </script>
@@ -206,12 +242,12 @@
                 <div class="twelve columns centered">
                     <div class="panel playerRank shadow">
                         <div class="two columns position">#{{user.index}}</div>
-                        <div class="two columns"><img {{bindAttr src="user.item.avatar_url"}} class="playerImg"/><img src="images/avatars/assassin_avatar.png"/></div>
-                        <div class="three columns playerInfo">
+                        <div class="one columns"><img {{bindAttr src="user.item.avatar"}} class="playerImg"/></div>
+                        <div class="five-up columns playerInfo">
                             <div class="playerBasic">
                                 <div class="playerName">{{user.item.username}}</div>
                                 <div class="playerScore">{{user.item.score}}</div>
-                                <div class="playerRanking">Master</div>
+                                <div class="playerRanking">{{user.item.rank}}</div>
                             </div>
                             <div class="playerAchievements">
                                 <img src="images/achievement_32_hot.png"/>
@@ -237,13 +273,13 @@
         <div class=" playerProfile" role="content">
             <div class="row">
                 <div class="three columns playerImg">
-                    <img src="images/unknown.png"/>
+                    <img {{bindAttr src="avatar"}}/>
                 </div>
                 <div class="four columns playerInfo">
                     <div class="playerBasic">
                         <div class="playerName">{{username}}</div>
 
-                        <div class="playerRanking">Master</div>
+                        <div class="playerRanking">{{rank}}</div>
                     </div>
                     <div class="playerAchievements">
                         <img src="images/achievement.png"/>
@@ -257,18 +293,25 @@
             </div>
         </div>
     </div>
+
+    <!-- CHALLENGES -->
+
+
+
+    {{#if challenges}}
     <div class="row">
         <div class="twelve columns matchesList pendingMatches">
             <div class="row">
                 <h3>Challenges</h3>
             </div>
             <hr>
-            <div class="row match" >
-                <div class="two columns offset-by-one against">
-                    <span><strong>vs</strong> player2</span>
+            {{#each match in challenges}}
+            <div class="row match">
+                <div class="three columns offset-by-one against">
+                    <span><strong>vs</strong> {{match.user2.username}}</span>
                 </div>
                 <div class="two columns offset-by-one date">
-                    <span>in 3 days</span>
+                    <span>{{match.fromNow}}</span>
                 </div>
                 <div class="three columns offset-by-one score">
                     <button class="button">Accept</button>
@@ -276,21 +319,13 @@
                 </div>
             </div>
             <hr>
-            <div class="row match" >
-                <div class="two columns offset-by-one against">
-                    <span><strong>vs</strong> player2</span>
-                </div>
-                <div class="two columns offset-by-one date">
-                    <span>in 3 days</span>
-                </div>
-                <div class="three columns offset-by-one score">
-                    <button class="button">Accept</button>
-                    <button class="alert button">Decline</button>
-                </div>
-            </div>
+            {{/each}}
             <hr>
         </div>
     </div>
+    {{/if}}
+
+    {{#if pending}}
     <div class="row">
         <div class="twelve columns matchesList acceptedMatches">
             <div class="row">
@@ -299,10 +334,10 @@
             <hr>
             <div class="row match" >
                 <div class="two columns offset-by-one against">
-                    <span><strong>vs</strong> player2</span>
+                    <span><strong>vs</strong> {{match.user2.username}}</span>
                 </div>
                 <div class="two columns offset-by-one date">
-                    <span>in 3 days</span>
+                    <span>{{match.fromNow}}</span>
                 </div>
                 <div class="three columns offset-by-one score">
                     <button class="button">Input Result</button>
@@ -311,6 +346,7 @@
             <hr>
         </div>
     </div>
+    {{/if pending}}
     <div class="row">
         <div class="twelve columns matchesList finishedMatches">
             <div class="row">
@@ -351,6 +387,7 @@
 <!-- Included JS Files (Compressed) -->
 <script src="js/libs/jquery.js"></script>
 <script src="js/libs/foundation.min.js"></script>
+<script src="js/libs/moment.min.js"></script>
 
 <!-- Initialize JS Plugins -->
 <script src="js/main.js"></script>

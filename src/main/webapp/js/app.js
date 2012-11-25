@@ -6,7 +6,9 @@ window.GP = Em.Application.create({
 
     ready: function(){
         console.log("Application initialized");
-        GP.gpDevhelper.createUsers(5);
+        //GP.gpDevhelper.createUsers(5);
+        GP.dataSource.getAllAvatars();
+        GP.dataSource.getAllUsers();
 
     }
 });
@@ -17,6 +19,15 @@ window.GP = Em.Application.create({
 /******************************************************/
 
 GP.CONSTANTS = {
+    API:
+    {
+        BASE_URL:'/groupong',
+        AVATARS:'/avatars',
+        USERS:'/users',
+        USER:'/user',
+        ACHIEVEMENTS:'/achievements'
+
+    }
 };
 
 /******************************************************/
@@ -63,29 +74,54 @@ GP.User = Em.Object.extend({
     user_name: null,
     password: null,
     email: null,
-    avatar_url: null,
-    score: null
+    avatar: null,
+    score: null,
+    rank: null,
+    matches: [],
+
+    challenges: function(){
+        return this.get('matches').filterProperty('statusId', 1).filterProperty('user1Id',this.get('id'));
+    }.property('matches.@each'),
+
+    pending: function(){
+        return this.get('matches').filterProperty('statusId', 1);
+    }.property('matches.@each')
 });
 
 GP.Achievement = Em.Object.extend({
     id: null,
-    userId: null,
-    achievementId: null
+    title: null,
+    description: null
 });
 
-GP.Game = Em.Object.extend({
+GP.Match = Em.Object.extend({
     id: null,
-    user1: null,
-    user2: null,
-    score_user1: null,
-    score_user2: null,
-    game_date: null,
-    status_id: null
+    user1Id: null,
+    user2Id: null,
+    scoreUser1: null,
+    scoreUser2: null,
+    date: null,
+    statusId: null,
+    status:null,
+
+    user2: function(){
+        return GP.get('router.userController').findProperty('id',this.get('user2Id'));
+    }.property('user2Id'),
+
+    fromNow: function(){
+        console.log("from now ---> " + JSON.stringify(this));
+        return this.get('date').fromNow();
+    }.property('date').cacheable('false')
 });
 
 GP.Status = Em.Object.extend({
     id: null,
     description: null
+});
+
+GP.Avatar = Em.Object.extend({
+    id: null,
+    url: null
 })
 
 
@@ -96,6 +132,12 @@ GP.Status = Em.Object.extend({
 //main application controller
 GP.ApplicationController = Em.Controller.extend({
 
+    loggedUser: null,
+
+    isUserLogged: function(){
+        return (!Em.none(this.loggedUser));
+    }.property('loggedUser')
+
 });
 
 GP.ModalController = Em.Controller.extend({
@@ -104,15 +146,48 @@ GP.ModalController = Em.Controller.extend({
             title: 'Do you want to challenge xxxx?',
             lead: 'If you confirm, he will receive a notification and will confirm the challenge',
             second: '.. if he is not too afraid to accept it',
+            imgSrc: 'images/challenge.png',
             actionChallenge: true
         }
             GP.get('router').get('applicationController').connectOutlet('modal', 'modal', context);
             $('#myModal').reveal();
+    },
+
+    showLoginModal: function(){
+        GP.get('router').get('applicationController').connectOutlet('modal', 'modalLogin');
+        $('#myModal').reveal();
+    },
+
+    login: function(){
+        $('#incorrectLogin').hide('fast');
+        var email = $('#loginEmail').val();
+        var password = $('#loginPassword').val();
+        var result = GP.dataSource.login(email,password);
+        if (result){
+            $('#myModal').trigger('reveal:close')
+        }else{
+           $('#incorrectLogin').show('fast');
+        }
+
     }
-})
+});
+
+GP.AvatarController = Em.ArrayController.extend(GP.Clearable,{
+});
+
+GP.AchievementController = Em.ArrayController.extend(GP.Clearable,{
+    sortProperties: ['id'],
+
+    contentWithIndexes: function(){
+        return this.map(function(i, idx) {
+            return {item: i, index: idx+1};
+        });
+    }.property('content.@each')
+});
 
 GP.UserController = Em.ArrayController.extend(GP.Clearable,{
     sortProperties: ['score'],
+    sortAscending: false,
 
     init: function(){
         this._super();
@@ -145,6 +220,10 @@ GP.ProfileController = Em.Controller.extend({
     user: null
 });
 
+GP.ModalLoginController = Em.Controller.extend({
+
+})
+
 
 
 
@@ -170,6 +249,10 @@ GP.ProfileView = Em.View.extend({
 
 GP.ModalView = Em.View.extend({
     templateName: 'modal'
+});
+
+GP.ModalLoginView = Em.View.extend({
+    templateName: 'modalLogin'
 });
 
 
@@ -246,12 +329,133 @@ GP.Router = Em.Router.extend({
  */
 GP.dataSource = Ember.Object.create({
 
+    getAllAvatars: function(){
+        $.ajax({
+            type:'GET',
+            url: GP.CONSTANTS.API.BASE_URL + GP.CONSTANTS.API.AVATARS,
+            dataType:'json',
+            success: function(data){
+                if (Em.isArray(data)){
+                    data.map(function(item){
+                        var avatar = GP.parseAvatar(item);
+                        GP.get('router.avatarController').addObject(avatar);
+                    })
+                }
+            }
+        });
+    },
+
+    getAllUsers: function(){
+        $.ajax({
+            type:'GET',
+            url: GP.CONSTANTS.API.BASE_URL + GP.CONSTANTS.API.USERS,
+            dataType:'json',
+            success: function(data){
+                if (Em.isArray(data)){
+                    data.map(function(item){
+                        var avatar = GP.parseUser(item);
+                        GP.get('router.userController').addObject(avatar);
+                    })
+                }
+            }
+        });
+    },
+
+    login: function(email, password){
+        var result = null;
+        var data = {
+            email: email,
+            password: password
+        }
+
+        $.ajax({
+            type:'GET',
+            async: false,
+            url: GP.CONSTANTS.API.BASE_URL + GP.CONSTANTS.API.USER,
+            data: data,
+            dataType:'json',
+            success: function(data){
+                if (!Em.none(data)){
+                    var user = GP.get('router.userController').findProperty('id',data.id);
+                    GP.get('router.applicationController').set('loggedUser', user);
+                    result = true;
+                }else{
+                    result = false;
+                }
+            }
+        });
+
+        return result;
+    },
+
+    getAllAchievements: function(){
+        $.ajax({
+            type:'GET',
+            url: GP.CONSTANTS.API.BASE_URL + GP.CONSTANTS.API.ACHIEVEMENTS,
+            dataType:'json',
+            success: function(data){
+                if (Em.isArray(data)){
+                    data.map(function(item){
+                        var achievement = GP.parseAchievement(item);
+                        GP.get('router.achievementController').addObject(achievement);
+                    })
+                }
+            }
+        });
+    }
+
 });
 
 /******************************************************/
 /*              UTILITY FUNCTIONS                     */
 /******************************************************/
+GP.parseAvatar = function(json){
+    var avatar = GP.Avatar.create();
+    avatar.set('id',json.id);
+    avatar.set('url',json.url);
+    return avatar;
+};
 
+GP.parseUser = function(json){
+    var user = GP.User.create();
+    user.set('id',json.id);
+    user.set('password',json.password);
+    user.set('email',json.email);
+    user.set('avatar',json.avatar);
+    user.set('score',json.score);
+    user.set('username',json.userName);
+    user.set('rank',json.rank);
+    user.set('matches',GP.parseMatches(json.matches));
+    return user;
+};
+
+GP.parseMatches = function(json){
+    var matches = [];
+
+    if (Em.isArray(json)){
+        json.map(function(item){
+            var match = GP.Match.create();
+            match.set('id',item.id);
+            match.set('user1Id', item.user1Id);
+            match.set('user2Id', item.user2Id);
+            match.set('scoreUser1', item.scoreUser1);
+            match.set('scoreUser2', item.scoreUser2);
+            match.set('date', moment(item.date, "YYYY-MM-DD HH:mm:ss"));
+            match.set('status', item.status);
+            match.set('statusId', item.statusId);
+            matches.push(match);
+        });
+    }
+    return matches;
+}
+
+GP.parseAchievement = function(json){
+    var achievement = GP.Achievement.create();
+    achievement.set('id',json.id);
+    achievement.set('title',json.title);
+    achievement.set('description',json.description);
+    return achievement;
+}
 
 GP.initialize();
 
