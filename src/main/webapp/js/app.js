@@ -9,6 +9,7 @@ window.GP = Em.Application.create({
         //GP.gpDevhelper.createUsers(5);
         GP.dataSource.getAllAvatars();
         GP.dataSource.getAllUsers();
+        GP.dataSource.getAllAchievements();
 
     }
 });
@@ -79,6 +80,7 @@ GP.User = Em.Object.extend({
     score: null,
     rank: null,
     matches: [],
+    achievements: [],
 
     challenges: function(){
         return this.get('matches').filterProperty('statusId', 1).filterProperty('user2Id',this.get('id'));
@@ -105,7 +107,26 @@ GP.User = Em.Object.extend({
         }else{
             return true;
         }
-    }.property('GP.router.applicationController.loggedUserId')
+    }.property('GP.router.applicationController.loggedUserId'),
+
+    getSmallAchievement1: function(){
+        return this.get('achievements').contains(1)?"images/achievement_32_hot.png":"images/achievement_32_dis.png";
+    }.property('achievements.@each'),
+    getSmallAchievement2: function(){
+        return this.get('achievements').contains(2)?"images/achievement_32_hot.png":"images/achievement_32_dis.png";
+    }.property('achievements.@each'),
+    getSmallAchievement3: function(){
+        return this.get('achievements').contains(3)?"images/achievement_32_hot.png":"images/achievement_32_dis.png";
+    }.property('achievements.@each'),
+    getBigAchievement1: function(){
+        return this.get('achievements').contains(1)?"images/achievement.png":"images/achievement_dis.png";
+    }.property('achievements.@each'),
+    getBigAchievement2: function(){
+        return this.get('achievements').contains(2)?"images/achievement.png":"images/achievement_dis.png";
+    }.property('achievements.@each'),
+    getBigAchievement3: function(){
+        return this.get('achievements').contains(3)?"images/achievement.png":"images/achievement_dis.png";
+    }.property('achievements.@each')
 
 });
 
@@ -292,6 +313,19 @@ GP.AchievementController = Em.ArrayController.extend(GP.Clearable,{
         return this.map(function(i, idx) {
             return {item: i, index: idx+1};
         });
+    }.property('content.@each'),
+
+    getDescriptionAch1: function(){
+        var ach = GP.get('router.achievementController').findProperty('id',1);
+        return ach.get('title') + " : " + ach.get('description');
+    }.property('content.@each'),
+    getDescriptionAch2: function(){
+        var ach = GP.get('router.achievementController').findProperty('id',2);
+        return ach.get('title') + " : " + ach.get('description');
+    }.property('content.@each'),
+    getDescriptionAch3: function(){
+        var ach = GP.get('router.achievementController').findProperty('id',3);
+        return ach.get('title') + " : " + ach.get('description');
     }.property('content.@each')
 });
 
@@ -518,6 +552,7 @@ GP.dataSource = Ember.Object.create({
     getAllAchievements: function(){
         $.ajax({
             type:'GET',
+            async: false,
             url: GP.CONSTANTS.API.BASE_URL + GP.CONSTANTS.API.ACHIEVEMENTS,
             dataType:'json',
             success: function(data){
@@ -651,6 +686,11 @@ GP.parseUser = function(json){
     user.set('username',json.userName);
     user.set('rank',json.rank);
     user.set('matches',GP.parseMatches(json.matches));
+    var achievements = [];
+    json.achievements.map(function(item){
+        achievements.push(GP.parseAchievement(item));
+    });
+    user.set('achievements', json.achievements);
     return user;
 };
 
