@@ -81,7 +81,7 @@ GP.User = Em.Object.extend({
     matches: [],
 
     challenges: function(){
-        return this.get('matches').filterProperty('statusId', 1).filterProperty('user1Id',this.get('id'));
+        return this.get('matches').filterProperty('statusId', 1).filterProperty('user2Id',this.get('id'));
     }.property('matches.@each'),
 
     pending: function(){
@@ -97,7 +97,16 @@ GP.User = Em.Object.extend({
 
     finished: function(){
         return this.get('matches').filterProperty('statusId',6);
-    }.property('matches.@each')
+    }.property('matches.@each'),
+
+    isChallengeDisabled: function(){
+        if (GP.get('router.applicationController.isUserLogged')){
+            return Em.isEqual(this.get('id'),GP.get('router.applicationController.loggedUserId.id'));
+        }else{
+            return true;
+        }
+    }.property('GP.router.applicationController.loggedUserId')
+
 });
 
 GP.Achievement = Em.Object.extend({
@@ -125,18 +134,28 @@ GP.Match = Em.Object.extend({
     }.property('user2Id'),
 
     fromNow: function(){
-        console.log("from now ---> " + JSON.stringify(this));
         return this.get('date').fromNow();
     }.property('date').cacheable('false'),
 
-    toConfirm: function(){
-        return Em.isEqual(this.get('statusId'), 5);
+    isAccepted: function(){
+        return Em.isEqual(this.get('statusId'), 2);
     }.property('statusId'),
 
     isUser1: function(context){
-        debugger;
         return Em.isEqual(this.get('user1Id'));
-    }.property()
+    }.property(),
+
+    toConfirm: function(){
+        if (GP.get('router.applicationController.isUserLogged')){
+            var iAmUser1 = Em.isEqual(this.get('user1'),GP.get('router.applicationController.loggedUser'));
+            var iAmUser2 = Em.isEqual(this.get('user2'),GP.get('router.applicationController.loggedUser'));
+            var caseUser1 =  (iAmUser1 && Em.isEqual(this.get('statusId'),5));
+            var caseUser2 =  (iAmUser2 && Em.isEqual(this.get('statusId'),4));
+            return (caseUser1 || caseUser2);
+        }else{
+            return false;
+        }
+    }.property('GP.router.applicationController.loggedUserId')
 });
 
 GP.Status = Em.Object.extend({
@@ -174,14 +193,17 @@ GP.ApplicationController = Em.Controller.extend({
     createMatch: function(event){
         var targetUser = event.context.target;
         GP.dataSource.createMatch(targetUser);
-        console.log(JSON.stringify(event.context.target));
+    },
+
+    refreshModel: function(){
+        GP.dataSource.getAllUsers();
     }
 });
 
 GP.ModalController = Em.Controller.extend({
     showChallengeModal: function(event){
         var user = event.context;
-        /*if (Em.none(GP.get('router.applicationController.loggedUser'))){
+        if (Em.none(GP.get('router.applicationController.loggedUser'))){
             var message = "You need to be logged in to challenge someone!!";
             GP.get('router').get('applicationController').connectOutlet('smallModal', 'smallModal', message);
             $('#smallModal').reveal();
@@ -190,7 +212,7 @@ GP.ModalController = Em.Controller.extend({
             var message = "You cannot challenge yourself!";
             GP.get('router').get('applicationController').connectOutlet('smallModal', 'smallModal', message);
             $('#smallModal').reveal();
-        }else{*/
+        }else{
             var context = {
                 title: 'Do you want to challenge ' + user.get('username') + '?',
                 lead: 'If you confirm, he will receive a notification and will confirm the challenge',
@@ -201,7 +223,7 @@ GP.ModalController = Em.Controller.extend({
             }
             GP.get('router').get('applicationController').connectOutlet('modal', 'modal', context);
             $('#myModal').reveal();
-        //}
+        }
     },
 
     showLoginModal: function(){
@@ -237,14 +259,28 @@ GP.ModalController = Em.Controller.extend({
         var result = GP.dataSource.login(email,password);
         if (result){
             $('#myModal').trigger('reveal:close')
+            $('.protected').show();
         }else{
            $('#incorrectLogin').show('fast');
         }
+    },
 
+    setResult: function(event){
+        var match = event.context;
+        var data = {
+            username1 : match.get('user1.username'),
+            username2 : match.get('user2.username'),
+            match : match
+        };
+
+        GP.get('router').get('applicationController').connectOutlet('modalResult', 'modalResult', data);
+        $('#modalResult').reveal();
     }
 });
 
 GP.SmallModalController = Em.Controller.extend();
+
+GP.ModalResultController = Em.Controller.extend();
 
 GP.AvatarController = Em.ArrayController.extend(GP.Clearable,{
 });
@@ -329,6 +365,10 @@ GP.ModalLoginView = Em.View.extend({
     templateName: 'modalLogin'
 });
 
+GP.ModalResultView = Em.View.extend({
+    templateName: 'modalResult'
+});
+
 GP.SmallModalView = Em.View.extend({
     templateName: 'smallModal'
 });
@@ -351,6 +391,10 @@ GP.Router = Em.Router.extend({
             },
             connectOutlets: function(router){
                 router.get('applicationController').connectOutlet('ladder');
+                if (router.get('applicationController').get('isUserLogged')){
+                    console.log("showing buttons..");
+                    $('.protected').show();
+                }
             },
             exit: function(router){
                 //router.get('applicationController').disconnectOutlet('ladder');
@@ -365,6 +409,10 @@ GP.Router = Em.Router.extend({
                 console.log("connecting in");
                 //console.log(JSON.stringify(context.id));
                 router.get('applicationController').connectOutlet('profile');
+                if (router.get('applicationController').get('isUserLogged')){
+                    $('.protected').show();
+                }
+
             },
 
             /*serialize: function(router, context){
@@ -430,6 +478,7 @@ GP.dataSource = Ember.Object.create({
             dataType:'json',
             success: function(data){
                 if (Em.isArray(data)){
+                    GP.get('router.userController').removeAll();
                     data.map(function(item){
                         var avatar = GP.parseUser(item);
                         GP.get('router.userController').addObject(avatar);
@@ -484,9 +533,9 @@ GP.dataSource = Ember.Object.create({
 
     createMatch: function(targetUser){
         var data = {
-            "user1Id": 7, //GP.get('router.applicationController.loggedUserId'),
+            "user1Id": GP.get('router.applicationController.loggedUserId'),
             "user2Id": targetUser.get('id'),
-            "date": moment().add('days',3).unix()*1000,
+            "date": moment().add('days',3).format('YYYY-MM-DD HH:mm:ss'),
             "statusId": 1
         }
         $.ajax({
@@ -496,7 +545,86 @@ GP.dataSource = Ember.Object.create({
             dataType:'json',
             contentType:'application/json; charset=UTF-8',
             success: function(data){
-                debugger;
+                GP.get('router.applicationController').refreshModel();
+                var message = "Challenge launched!";
+                GP.get('router').get('applicationController').connectOutlet('smallModal', 'smallModal', message);
+                $('#smallModal').reveal();
+            }
+        })
+    },
+
+    confirmChallenge: function(event){
+        var match = event.context;
+        var data = {
+            "id": match.get('id'),
+            "statusId": 2
+        }
+        $.ajax({
+            type:'PUT',
+            url: GP.CONSTANTS.API.BASE_URL + GP.CONSTANTS.API.MATCH,
+            data: JSON.stringify(data),
+            dataType:'json',
+            contentType:'application/json; charset=UTF-8',
+            success: function(data){
+                GP.get('router.applicationController').refreshModel();
+                var message = "Challenge confirmed!";
+                GP.get('router').get('applicationController').connectOutlet('smallModal', 'smallModal', message);
+                $('#smallModal').reveal();
+            }
+        })
+    },
+
+    confirmMatch: function(event){
+        var match = event.context;
+
+        var loggedUser = GP.get('router.applicationController.loggedUser');
+
+        var statusId = null;
+        debugger;
+        if (Em.isEqual(loggedUser, match.get('user1'))){
+             statusId = 4;
+        }else{
+             statusId = 5;
+        }
+
+        var data = {
+            "id": match.get('id'),
+            "statusId": statusId
+        }
+        $.ajax({
+            type:'PUT',
+            url: GP.CONSTANTS.API.BASE_URL + GP.CONSTANTS.API.MATCH,
+            data: JSON.stringify(data),
+            dataType:'json',
+            contentType:'application/json; charset=UTF-8',
+            success: function(data){
+                GP.get('router.applicationController').refreshModel();
+                var message = "Result set!";
+                GP.get('router').get('applicationController').connectOutlet('smallModal', 'smallModal', message);
+                $('#smallModal').reveal();
+            }
+        })
+    },
+
+    finishMatch: function(event){
+        var match = event.context;
+        var statusId = 6;
+
+        var data = {
+            "id": match.get('id'),
+            "statusId": statusId
+        }
+        $.ajax({
+            type:'PUT',
+            url: GP.CONSTANTS.API.BASE_URL + GP.CONSTANTS.API.MATCH,
+            data: JSON.stringify(data),
+            dataType:'json',
+            contentType:'application/json; charset=UTF-8',
+            success: function(data){
+                GP.get('router.applicationController').refreshModel();
+                var message = "Result set!";
+                GP.get('router').get('applicationController').connectOutlet('smallModal', 'smallModal', message);
+                $('#smallModal').reveal();
             }
         })
     }

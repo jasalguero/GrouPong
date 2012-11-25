@@ -119,7 +119,11 @@
     </footer>
 
     <div id="myModal" class="reveal-modal medium">
-        {{outlet modal}}
+    {{outlet modal}}
+    </div>
+
+    <div id="modalResult" class="reveal-modal medium">
+        {{outlet modalResult}}
     </div>
 
     <div id="smallModal" class="reveal-modal small">
@@ -223,7 +227,7 @@
                     <label for="loginEmail">Email:</label>
                 </div>
                 <div class="ten columns">
-                    <input type="text" id="loginEmail" />
+                    <input type="text" id="loginEmail" value="jose@groupon.com"/>
                 </div>
             </div>
                 <div class="row">
@@ -231,7 +235,7 @@
                     <label for="loginPassword">Password:</label>
                 </div>
                 <div class="ten columns">
-                    <input type="password" id="loginPassword" />
+                    <input type="password" id="loginPassword" value="rollback"/>
                 </div>
             </div>
             <div class="row">
@@ -239,6 +243,44 @@
             </div>
         </div>
     </div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="modalResult">
+    <div class="row">
+        <div class="modalTitle  twelve columns centered">
+            <h2>Add the result to confirm the match</h2>
+        </div>
+    </div>
+    <div class="eight columns centered">
+        <div class="row">
+            <div class="six columns">
+                <label for="scoreUser1">Score {{content.username1}}:</label>
+            </div>
+            <div class="two columns">
+                <input type="text" id="scoreUser1"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="six columns">
+                <label for="scoreUser2">Score {{content.username2}}:</label>
+            </div>
+            <div class="two columns">
+                <input type="text" id="scoreUser2"/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="modalButtons">
+            <div class="six columns">
+                <a class="success radius button" {{action confirmMatch content.match target="GP.dataSource"}}>Confirm!</a>
+            </div>
+            <div class="pull-one columns">
+                <a class="alert radius button" onclick="$('#myModal').trigger('reveal:close');">Let me think about it...</a>
+            </div>
+
+        </div>
+    </div>
+    <a class="close-reveal-modal" onclick="$('#myModal').trigger('reveal:close');">&#215;</a>
 </script>
 
 <script type="text/x-handlebars" data-template-name="smallModal">
@@ -279,8 +321,8 @@
                             </div>
                         </div>
                         <div class="two columns actionButtons">
-                            <div class="actionButton"><a class="alert button" {{action showChallengeModal user.item target="GP.router.modalController"}}>Challenge!</a></div>
-                            <div class="actionButton"><a class="button" {{action showProfile user.item}}>Profile</a></div>
+                            <div class="actionButton"><button {{bindAttr disabled="user.isChallengeDisabled"}} class="alert button" {{action showChallengeModal user.item target="GP.router.modalController"}}>Challenge!</a></div>
+                            <div class="actionButton"><button class="button" {{action showProfile user.item}}>Profile</a></div>
                         </div>
                     </div>
                 </div>
@@ -336,9 +378,9 @@
                 <div class="two columns date">
                     <span>{{match.fromNow}}</span>
                 </div>
-                <div class="three columns offset-by-one actionButtons">
-                    <button class="button" {{action showAccept match target="GP.router.modalController"}}>Accept</button>
-                    <button class="alert button">Decline</button>
+                <div class="three columns offset-by-one actionButtons" >
+                    <button class=" button protected" {{action confirmChallenge match target="GP.dataSource"}}>Accept</button>
+                    <button class="alert protected button">Decline</button>
                 </div>
             </div>
             <hr>
@@ -364,18 +406,21 @@
                         <span>{{match.fromNow}}</span>
                     </div>
                     <div class="two columns offset-by-one score">
+                        {{#if match.isAccepted}}
+                            <span> <strong>-</strong> </span>
+                        {{/if}}
                         {{#if match.toConfirm}}
-                            <span>{{match.scoreUser1}} <strong>-</strong> {{match.scoreUser2}}</span>
-                        {{else}}
-                            <span>- <strong>vs</strong> -</span>
+                         <span>{{match.scoreUser1}} <strong>-</strong> {{match.scoreUser2}}</span>
                         {{/if}}
                     </div>
                     <div class="three columns offset-by-one actionButtons">
-                        {{#if match.toConfirm}}
-                            <button class="button">Confirm Result</button>
-                        {{else}}
-                            <button class="button">Input Result</button>
-                        {{/if}}
+                            {{#if match.isAccepted}}
+                                <button class="button" {{action setResult match target="GP.router.modalController"}}>Set Result</button>
+                            {{/if}}
+
+                            {{#if match.toConfirm}}
+                                <button class="button" {{action finishMatch match target="GP.dataSource"}}>Confirm</button>
+                            {{/if}}
                     </div>
                 </div>
             {{/each}}
