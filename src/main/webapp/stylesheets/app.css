@@ -280,7 +280,7 @@ footer{
 }
 
 .modalRight{
-    float:right;
+
 }
 
 .modalImg{
@@ -289,13 +289,4 @@ footer{
 }
 
 .modalMessage{
-    height: 400px;
-}
-
-.modalButtons .buttonLeft{
-    float:left;
-}
-
-.modalButtons .buttonRight{
-    float:right;
 }

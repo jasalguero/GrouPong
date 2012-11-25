@@ -118,17 +118,12 @@
         </div>
     </footer>
 
-    <div id="myModal" class="reveal-modal large">
+    <div id="myModal" class="reveal-modal medium">
         {{outlet modal}}
     </div>
 
-    <div id="autoChallenge" class="reveal-modal small">
-        <h4>You cannot challenge yourself!</h4>
-        <a class="close-reveal-modal" onclick="$('#myModal').trigger('reveal:close');">&#215;</a>
-    </div>
-
-    <div id="invalidUser" class="reveal-modal small">
-        <h4>You are not authorised for this action!</h4>
+    <div id="smallModal" class="reveal-modal small">
+        {{outlet smallModal}}
         <a class="close-reveal-modal" onclick="$('#myModal').trigger('reveal:close');">&#215;</a>
     </div>
 
@@ -175,30 +170,39 @@
 
 <!-- MODAL TEMPLATE -->
 <script type="text/x-handlebars" data-template-name="modal">
-    <div class="modalLeft">
-        <div class="modalTitle">
+    <div class="row">
+        <div class="modalTitle  twelve columns centered">
             <h2>{{content.title}}</h2>
         </div>
-        <div class="modalMessage">
-            <p class="lead">{{content.lead}}</p><p>{{content.second}}</p>
-        </div>
-        <div class="modalButtons">
-            <div class="buttonLeft">
+    </div>
+    <div class="row">
+        <div class=" twelve columns centered">
+            <div class="modalMessage">
+                <p class="lead">{{content.lead}}</p><p>{{content.second}}</p>
                 {{#if content.actionChallenge}}
-                <a class="success radius button" >GO FOR IT!</a>
                 {{/if}}
             </div>
-            <div class="buttonRight">
-                <a class="alert radius button" onclick="$('#myModal').trigger('reveal:close');">Let me think about it...</a>
-            </div>
-            <a class="close-reveal-modal" onclick="$('#myModal').trigger('reveal:close');">&#215;</a>
         </div>
     </div>
-    <div class="modalRight">
-        <div class="modalImg">
+    <div class="row">
+        <div class="six columns centered modalImg">
             <img {{bindAttr src="content.imgSrc"}}/>
         </div>
     </div>
+    <div class="row">
+        <div class="modalButtons">
+            <div class="six columns">
+                {{#if content.actionChallenge}}
+                    <a class="success radius button" {{action createMatch content target="GP.router.applicationController"}}>GO FOR IT!</a>
+                {{/if}}
+            </div>
+            <div class="pull-one columns">
+                <a class="alert radius button" onclick="$('#myModal').trigger('reveal:close');">Let me think about it...</a>
+            </div>
+
+        </div>
+    </div>
+    <a class="close-reveal-modal" onclick="$('#myModal').trigger('reveal:close');">&#215;</a>
 </script>
 
 <script type="text/x-handlebars" data-template-name="modalLogin">
@@ -235,6 +239,15 @@
             </div>
         </div>
     </div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="smallModal">
+    <div class="row">
+        <div class="centered">
+            <h3>{{content}}</h3>
+        </div>
+    </div>
+    <a class="close-reveal-modal" onclick="$('#myModal').trigger('reveal:close');">&#215;</a>
 </script>
 
 <script type="text/x-handlebars" data-template-name="ladder">

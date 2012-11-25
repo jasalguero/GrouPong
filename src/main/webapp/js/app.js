@@ -25,7 +25,8 @@ GP.CONSTANTS = {
         AVATARS:'/avatars',
         USERS:'/users',
         USER:'/user',
-        ACHIEVEMENTS:'/achievements'
+        ACHIEVEMENTS:'/achievements',
+        MATCH:'/match'
 
     }
 };
@@ -168,15 +169,53 @@ GP.ApplicationController = Em.Controller.extend({
         }else{
             return null;
         }
-    }.property('loggedUser').cacheable(false)
+    }.property('loggedUser').cacheable(false),
+
+    createMatch: function(event){
+        var targetUser = event.context.target;
+        GP.dataSource.createMatch(targetUser);
+        console.log(JSON.stringify(event.context.target));
+    }
 });
 
 GP.ModalController = Em.Controller.extend({
     showChallengeModal: function(event){
         var user = event.context;
+        /*if (Em.none(GP.get('router.applicationController.loggedUser'))){
+            var message = "You need to be logged in to challenge someone!!";
+            GP.get('router').get('applicationController').connectOutlet('smallModal', 'smallModal', message);
+            $('#smallModal').reveal();
+        }
+        else if (Em.isEqual(user.get('id'), GP.get('router.applicationController.loggedUser').get('id'))){
+            var message = "You cannot challenge yourself!";
+            GP.get('router').get('applicationController').connectOutlet('smallModal', 'smallModal', message);
+            $('#smallModal').reveal();
+        }else{*/
+            var context = {
+                title: 'Do you want to challenge ' + user.get('username') + '?',
+                lead: 'If you confirm, he will receive a notification and will confirm the challenge',
+                second: '.. if he is not too afraid to accept it',
+                imgSrc: 'images/challenge.png',
+                target: user,
+                actionChallenge: true
+            }
+            GP.get('router').get('applicationController').connectOutlet('modal', 'modal', context);
+            $('#myModal').reveal();
+        //}
+    },
+
+    showLoginModal: function(){
+        GP.get('router').get('applicationController').connectOutlet('modal', 'modalLogin');
+        $('#myModal').reveal();
+    },
+
+    showAccept: function(event){
+        var user = event.context;
 
         if (!Em.none(GP.get('router.applicationController.loggedUser')) && Em.isEqual(user.get('id'), GP.get('router.applicationController.loggedUser').get('id'))){
-            $('#autoChallenge').reveal();
+            var message = "You cannot challenge yourself!";
+            GP.get('router').get('applicationController').connectOutlet('smallModal', 'smallModal', context);
+            $('#smallModal').reveal();
         }else{
             var context = {
                 title: 'Do you want to challenge ' + user.get('username') + '?',
@@ -188,14 +227,6 @@ GP.ModalController = Em.Controller.extend({
             GP.get('router').get('applicationController').connectOutlet('modal', 'modal', context);
             $('#myModal').reveal();
         }
-    },
-
-    showLoginModal: function(){
-        GP.get('router').get('applicationController').connectOutlet('modal', 'modalLogin');
-        $('#myModal').reveal();
-    },
-
-    showAccept: function(match){
 
     },
 
@@ -212,6 +243,8 @@ GP.ModalController = Em.Controller.extend({
 
     }
 });
+
+GP.SmallModalController = Em.Controller.extend();
 
 GP.AvatarController = Em.ArrayController.extend(GP.Clearable,{
 });
@@ -294,6 +327,10 @@ GP.ModalView = Em.View.extend({
 
 GP.ModalLoginView = Em.View.extend({
     templateName: 'modalLogin'
+});
+
+GP.SmallModalView = Em.View.extend({
+    templateName: 'smallModal'
 });
 
 
@@ -443,6 +480,24 @@ GP.dataSource = Ember.Object.create({
                 }
             }
         });
+    },
+
+    createMatch: function(targetUser){
+        var data = {
+            user1Id: 7, //GP.get('router.applicationController.loggedUserId'),
+            user2Id: targetUser.get('id'),
+            date: moment().add('days',3).unix()*1000
+        }
+        $.ajax({
+            type:'POST',
+            url: GP.CONSTANTS.API.BASE_URL + GP.CONSTANTS.API.MATCH,
+            data: data,
+            dataType:'text',
+            contentType:'application/json; charset=UTF-8',
+            success: function(data){
+                debugger;
+            }
+        })
     }
 
 });
