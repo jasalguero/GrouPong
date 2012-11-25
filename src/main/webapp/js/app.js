@@ -486,7 +486,8 @@ GP.Router = Em.Router.extend({
         },
         showProfile: function(router, event){
             var user = event.context;
-            router.get('profileController').set('user',user);
+            //router.get('profileController').set('user',user);
+            GP.dataSource.refreshProfile(user.id);
             router.transitionTo('profile', user);
         }
     })
@@ -533,6 +534,25 @@ GP.dataSource = Ember.Object.create({
             }
         });
     },
+
+    refreshProfile: function(userId){
+        $.ajax({
+            type:'GET',
+            url: GP.CONSTANTS.API.BASE_URL + GP.CONSTANTS.API.USER + '/' + userId,
+            dataType:'json',
+            success: function(data){
+                    var user = GP.parseUser(data);
+                    GP.get('router.profileController').set('user',user);
+
+                    /*GP.get('router.userController').removeAll();
+                    data.map(function(item){
+                        var avatar = GP.parseUser(item);
+                        GP.get('router.userController').addObject(avatar);
+                    })*/
+                }
+        });
+    },
+
 
     login: function(email, password){
         var result = null;
@@ -613,7 +633,9 @@ GP.dataSource = Ember.Object.create({
             dataType:'json',
             contentType:'application/json; charset=UTF-8',
             success: function(data){
-                GP.get('router.applicationController').refreshModel();
+                debugger;
+                match.set('statusId',data.statusId);
+                //GP.get('router.applicationController').refreshModel();
                 var message = "Challenge confirmed!";
                 GP.get('router').get('applicationController').connectOutlet('smallModal', 'smallModal', message);
                 $('#smallModal').reveal();
