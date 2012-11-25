@@ -159,7 +159,10 @@ GP.Match = Em.Object.extend({
     }.property('date').cacheable('false'),
 
     isAccepted: function(){
-        return Em.isEqual(this.get('statusId'), 2);
+        var iAmUser1 = Em.isEqual(this.get('user1'),GP.get('router.applicationController.loggedUser'));
+        var iAmUser2 = Em.isEqual(this.get('user2'),GP.get('router.applicationController.loggedUser'));
+        var status =    Em.isEqual(this.get('statusId'), 2);
+        return status && (iAmUser1 || iAmUser2)
     }.property('statusId'),
 
     isUser1: function(context){
