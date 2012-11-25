@@ -247,7 +247,7 @@
                             <div class="playerBasic">
                                 <div class="playerName">{{user.item.username}}</div>
                                 <div class="playerScore">{{user.item.score}}</div>
-                                <div class="playerRanking">Master</div>
+                                <div class="playerRanking">{{user.item.rank}}</div>
                             </div>
                             <div class="playerAchievements">
                                 <img src="images/achievement_32_hot.png"/>
@@ -279,7 +279,7 @@
                     <div class="playerBasic">
                         <div class="playerName">{{username}}</div>
 
-                        <div class="playerRanking">Master</div>
+                        <div class="playerRanking">{{rank}}</div>
                     </div>
                     <div class="playerAchievements">
                         <img src="images/achievement.png"/>
@@ -293,18 +293,25 @@
             </div>
         </div>
     </div>
+
+    <!-- CHALLENGES -->
+
+
+
+    {{#if challenges}}
     <div class="row">
         <div class="twelve columns matchesList pendingMatches">
             <div class="row">
                 <h3>Challenges</h3>
             </div>
             <hr>
-            <div class="row match" >
-                <div class="two columns offset-by-one against">
-                    <span><strong>vs</strong> player2</span>
+            {{#each match in challenges}}
+            <div class="row match">
+                <div class="three columns offset-by-one against">
+                    <span><strong>vs</strong> {{match.user2.username}}</span>
                 </div>
                 <div class="two columns offset-by-one date">
-                    <span>in 3 days</span>
+                    <span>{{match.fromNow}}</span>
                 </div>
                 <div class="three columns offset-by-one score">
                     <button class="button">Accept</button>
@@ -312,21 +319,13 @@
                 </div>
             </div>
             <hr>
-            <div class="row match" >
-                <div class="two columns offset-by-one against">
-                    <span><strong>vs</strong> player2</span>
-                </div>
-                <div class="two columns offset-by-one date">
-                    <span>in 3 days</span>
-                </div>
-                <div class="three columns offset-by-one score">
-                    <button class="button">Accept</button>
-                    <button class="alert button">Decline</button>
-                </div>
-            </div>
+            {{/each}}
             <hr>
         </div>
     </div>
+    {{/if}}
+
+    {{#if pending}}
     <div class="row">
         <div class="twelve columns matchesList acceptedMatches">
             <div class="row">
@@ -335,10 +334,10 @@
             <hr>
             <div class="row match" >
                 <div class="two columns offset-by-one against">
-                    <span><strong>vs</strong> player2</span>
+                    <span><strong>vs</strong> {{match.user2.username}}</span>
                 </div>
                 <div class="two columns offset-by-one date">
-                    <span>in 3 days</span>
+                    <span>{{match.fromNow}}</span>
                 </div>
                 <div class="three columns offset-by-one score">
                     <button class="button">Input Result</button>
@@ -347,6 +346,7 @@
             <hr>
         </div>
     </div>
+    {{/if pending}}
     <div class="row">
         <div class="twelve columns matchesList finishedMatches">
             <div class="row">
@@ -387,6 +387,7 @@
 <!-- Included JS Files (Compressed) -->
 <script src="js/libs/jquery.js"></script>
 <script src="js/libs/foundation.min.js"></script>
+<script src="js/libs/moment.min.js"></script>
 
 <!-- Initialize JS Plugins -->
 <script src="js/main.js"></script>

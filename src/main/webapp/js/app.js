@@ -75,7 +75,17 @@ GP.User = Em.Object.extend({
     password: null,
     email: null,
     avatar: null,
-    score: null
+    score: null,
+    rank: null,
+    matches: [],
+
+    challenges: function(){
+        return this.get('matches').filterProperty('statusId', 1).filterProperty('user1Id',this.get('id'));
+    }.property('matches.@each'),
+
+    pending: function(){
+        return this.get('matches').filterProperty('statusId', 1);
+    }.property('matches.@each')
 });
 
 GP.Achievement = Em.Object.extend({
@@ -84,14 +94,24 @@ GP.Achievement = Em.Object.extend({
     description: null
 });
 
-GP.Game = Em.Object.extend({
+GP.Match = Em.Object.extend({
     id: null,
-    user1: null,
-    user2: null,
-    score_user1: null,
-    score_user2: null,
-    game_date: null,
-    status_id: null
+    user1Id: null,
+    user2Id: null,
+    scoreUser1: null,
+    scoreUser2: null,
+    date: null,
+    statusId: null,
+    status:null,
+
+    user2: function(){
+        return GP.get('router.userController').findProperty('id',this.get('user2Id'));
+    }.property('user2Id'),
+
+    fromNow: function(){
+        console.log("from now ---> " + JSON.stringify(this));
+        return this.get('date').fromNow();
+    }.property('date').cacheable('false')
 });
 
 GP.Status = Em.Object.extend({
@@ -153,7 +173,17 @@ GP.ModalController = Em.Controller.extend({
 });
 
 GP.AvatarController = Em.ArrayController.extend(GP.Clearable,{
-})
+});
+
+GP.AchievementController = Em.ArrayController.extend(GP.Clearable,{
+    sortProperties: ['id'],
+
+    contentWithIndexes: function(){
+        return this.map(function(i, idx) {
+            return {item: i, index: idx+1};
+        });
+    }.property('content.@each')
+});
 
 GP.UserController = Em.ArrayController.extend(GP.Clearable,{
     sortProperties: ['score'],
@@ -361,13 +391,13 @@ GP.dataSource = Ember.Object.create({
     getAllAchievements: function(){
         $.ajax({
             type:'GET',
-            url: GP.CONSTANTS.API.BASE_URL + GP.CONSTANTS.API.USERS,
+            url: GP.CONSTANTS.API.BASE_URL + GP.CONSTANTS.API.ACHIEVEMENTS,
             dataType:'json',
             success: function(data){
                 if (Em.isArray(data)){
                     data.map(function(item){
-                        var avatar = GP.parseUser(item);
-                        GP.get('router.userController').addObject(avatar);
+                        var achievement = GP.parseAchievement(item);
+                        GP.get('router.achievementController').addObject(achievement);
                     })
                 }
             }
@@ -394,8 +424,38 @@ GP.parseUser = function(json){
     user.set('avatar',json.avatar);
     user.set('score',json.score);
     user.set('username',json.userName);
+    user.set('rank',json.rank);
+    user.set('matches',GP.parseMatches(json.matches));
     return user;
 };
+
+GP.parseMatches = function(json){
+    var matches = [];
+
+    if (Em.isArray(json)){
+        json.map(function(item){
+            var match = GP.Match.create();
+            match.set('id',item.id);
+            match.set('user1Id', item.user1Id);
+            match.set('user2Id', item.user2Id);
+            match.set('scoreUser1', item.scoreUser1);
+            match.set('scoreUser2', item.scoreUser2);
+            match.set('date', moment(item.date, "YYYY-MM-DD HH:mm:ss"));
+            match.set('status', item.status);
+            match.set('statusId', item.statusId);
+            matches.push(match);
+        });
+    }
+    return matches;
+}
+
+GP.parseAchievement = function(json){
+    var achievement = GP.Achievement.create();
+    achievement.set('id',json.id);
+    achievement.set('title',json.title);
+    achievement.set('description',json.description);
+    return achievement;
+}
 
 GP.initialize();
 
