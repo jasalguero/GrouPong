@@ -8,6 +8,7 @@ import de.groupon.hcktn.groupong.model.dao.MatchDAO;
 import de.groupon.hcktn.groupong.model.entity.Match;
 import de.groupon.hcktn.groupong.service.MatchService;
 import de.groupon.hcktn.groupong.service.ScoreService;
+import de.groupon.hcktn.groupong.service.UserAchievementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +27,13 @@ public class MatchServiceImpl implements MatchService {
     @Autowired
     private ScoreService scoreService;
 
+    @Autowired
+    private UserAchievementService userAchievementService;
+
     @Override
     public BaseDTO createMatch(final MatchDTO matchDTO) {
         matchDTO.setId(null);
+        matchDTO.setStatusId(1);
         Match match = matchDTOMapper.mapToMatch(matchDTO);
         match = matchDAO.create(match);
         return matchDTOMapper.mapToMatchDTO(match);
@@ -42,6 +47,7 @@ public class MatchServiceImpl implements MatchService {
         }
 
         scoreService.score(match, matchDTO);
+        userAchievementService.processUserAchievements(match, matchDTO);
 
         match = matchDTOMapper.update(match, matchDTO);
         match = matchDAO.update(match);
