@@ -84,7 +84,18 @@ GP.User = Em.Object.extend({
     }.property('matches.@each'),
 
     pending: function(){
-        return this.get('matches').filterProperty('statusId', 1);
+        var filteredArray = [];
+        this.get('matches').map(function(i) {
+            if (Em.isEqual(i.statusId,2) || Em.isEqual(i.statusId,5)){
+                filteredArray.push(i);
+            }
+        });
+        return filteredArray;
+
+    }.property('matches.@each'),
+
+    finished: function(){
+        return this.get('matches').filterProperty('statusId',6);
     }.property('matches.@each')
 });
 
@@ -104,6 +115,10 @@ GP.Match = Em.Object.extend({
     statusId: null,
     status:null,
 
+    user1: function(){
+        return GP.get('router.userController').findProperty('id',this.get('user1Id'));
+    }.property('user1Id'),
+
     user2: function(){
         return GP.get('router.userController').findProperty('id',this.get('user2Id'));
     }.property('user2Id'),
@@ -111,7 +126,16 @@ GP.Match = Em.Object.extend({
     fromNow: function(){
         console.log("from now ---> " + JSON.stringify(this));
         return this.get('date').fromNow();
-    }.property('date').cacheable('false')
+    }.property('date').cacheable('false'),
+
+    toConfirm: function(){
+        return Em.isEqual(this.get('statusId'), 5);
+    }.property('statusId'),
+
+    isUser1: function(context){
+        debugger;
+        return Em.isEqual(this.get('user1Id'));
+    }.property()
 });
 
 GP.Status = Em.Object.extend({
