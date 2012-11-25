@@ -160,22 +160,34 @@ GP.ApplicationController = Em.Controller.extend({
 
     isUserLogged: function(){
         return (!Em.none(this.loggedUser));
-    }.property('loggedUser')
+    }.property('loggedUser'),
 
+    loggedUserId: function(){
+        if (GP.get('router.applicationController.isUserLogged')){
+            return this.loggedUser.get('id');
+        }else{
+            return null;
+        }
+    }.property('loggedUser').cacheable(false)
 });
 
 GP.ModalController = Em.Controller.extend({
     showChallengeModal: function(event){
         var user = event.context;
-        var context = {
-            title: 'Do you want to challenge ' + user.get('username') + '?',
-            lead: 'If you confirm, he will receive a notification and will confirm the challenge',
-            second: '.. if he is not too afraid to accept it',
-            imgSrc: 'images/challenge.png',
-            actionChallenge: true
-        }
+
+        if (!Em.none(GP.get('router.applicationController.loggedUser')) && Em.isEqual(user.get('id'), GP.get('router.applicationController.loggedUser').get('id'))){
+            $('#autoChallenge').reveal();
+        }else{
+            var context = {
+                title: 'Do you want to challenge ' + user.get('username') + '?',
+                lead: 'If you confirm, he will receive a notification and will confirm the challenge',
+                second: '.. if he is not too afraid to accept it',
+                imgSrc: 'images/challenge.png',
+                actionChallenge: true
+            }
             GP.get('router').get('applicationController').connectOutlet('modal', 'modal', context);
             $('#myModal').reveal();
+        }
     },
 
     showLoginModal: function(){

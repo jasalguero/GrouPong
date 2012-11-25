@@ -283,6 +283,11 @@ footer{
     float:right;
 }
 
+.modalImg{
+    width:350px;
+    heigth:450px:
+}
+
 .modalMessage{
     height: 400px;
 }
