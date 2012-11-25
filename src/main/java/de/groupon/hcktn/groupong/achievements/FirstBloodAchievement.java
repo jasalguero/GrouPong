@@ -26,8 +26,6 @@ public class FirstBloodAchievement implements Achievement {
 
     @Override
     public Boolean isAchieved(User user, Match match) {
-//        Integer scoreUser = match.getUser1Id() == user.getId() ? match.getScoreUser1() : match.getScoreUser2();
-//        Integer scoreOponent = match.getUser1Id() == user.getId() ? match.getScoreUser2() : match.getScoreUser1();
         List<MatchDTO> oldMatches = matchService.fetchMatchesByUserIdStatusId(user.getId(), 6);
 
         if (oldMatches == null || oldMatches.isEmpty()) {

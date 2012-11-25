@@ -23,8 +23,19 @@ public class UserAchievementServiceImpl implements UserAchievementService {
     private UserAchievementDAO userAchievementDAO;
 
     @Autowired
+    private UserDAO userDAO;
+
+    @Autowired
     @Qualifier(value = "firstBloodAchievement")
     private Achievement firstBloodAchievement;
+
+    @Autowired
+    @Qualifier(value = "threeToZeroAchievement")
+    private Achievement threeToZeroAchievement;
+
+    @Autowired
+    @Qualifier(value = "twoInARowAchievement")
+    private Achievement twoInARowAchievement;
 
 
     @Override
@@ -70,9 +81,6 @@ public class UserAchievementServiceImpl implements UserAchievementService {
         }
     }
 
-    @Autowired
-    private UserDAO userDAO;
-
     @Override
     public List<Integer> fetchUserAchievementsByUserId(final Integer userId) {
         final List<Integer> achievementsIds = new ArrayList<Integer>();
@@ -88,6 +96,8 @@ public class UserAchievementServiceImpl implements UserAchievementService {
     private List<Achievement> getAllAchievements() {
         final List<Achievement> achievements = new ArrayList<Achievement>();
         achievements.add(firstBloodAchievement);
+        achievements.add(threeToZeroAchievement);
+        achievements.add(twoInARowAchievement);
         return achievements;
     }
 
