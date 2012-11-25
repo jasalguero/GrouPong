@@ -92,7 +92,7 @@ GP.User = Em.Object.extend({
     pending: function(){
         var filteredArray = [];
         this.get('matches').map(function(i) {
-            if (Em.isEqual(i.statusId,2) || Em.isEqual(i.statusId,5)){
+            if (Em.isEqual(i.statusId,2) || Em.isEqual(i.statusId,5) || Em.isEqual(i.statusId,4)){
                 filteredArray.push(i);
             }
         });
@@ -636,7 +636,9 @@ GP.dataSource = Ember.Object.create({
 
         var data = {
             "id": match.get('id'),
-            "statusId": statusId
+            "statusId": statusId,
+            "scoreUser1" : $('#scoreUser1').val(),
+            "scoreUser2" : $('#scoreUser2').val()
         }
         $.ajax({
             type:'PUT',
