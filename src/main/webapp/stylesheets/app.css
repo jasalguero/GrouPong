@@ -262,6 +262,11 @@ footer{
     font-size: 23px;
 }
 
+.match .against img{
+    width: 60px;
+    height: 60px;
+}
+
 .match .score{
     font-size: 25px;
 }

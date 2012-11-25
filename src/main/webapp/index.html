@@ -256,7 +256,7 @@
                             </div>
                         </div>
                         <div class="two columns actionButtons">
-                            <div class="actionButton"><a class="alert button" {{action showChallengeModal user target="GP.router.modalController"}}>Challenge!</a></div>
+                            <div class="actionButton"><a {{bindAttr}} class="alert button" {{action showChallengeModal user.item target="GP.router.modalController"}}>Challenge!</a></div>
                             <div class="actionButton"><a class="button" {{action showProfile user.item}}>Profile</a></div>
                         </div>
                     </div>
@@ -307,14 +307,14 @@
             <hr>
             {{#each match in challenges}}
             <div class="row match">
-                <div class="three columns offset-by-one against">
-                    <span><strong>vs</strong> {{match.user2.username}}</span>
+                <div class="three columns against">
+                    <img {{bindAttr src="match.user1.avatar"}} class="has-tip" data-width="210" {{bindAttr title="match.user1.username"}}/><span><strong>vs</strong></span><img {{bindAttr src="match.user2.avatar"}} class="has-tip" data-width="210" {{bindAttr title="match.user2.username"}}/>
                 </div>
-                <div class="two columns offset-by-one date">
+                <div class="two columns date">
                     <span>{{match.fromNow}}</span>
                 </div>
-                <div class="three columns offset-by-one score">
-                    <button class="button">Accept</button>
+                <div class="three columns offset-by-one actionButtons">
+                    <button class="button" {{action showAccept match target="GP.router.modalController"}}>Accept</button>
                     <button class="alert button">Decline</button>
                 </div>
             </div>
@@ -332,53 +332,60 @@
                 <h3>Pending Matches</h3>
             </div>
             <hr>
-            <div class="row match" >
-                <div class="two columns offset-by-one against">
-                    <span><strong>vs</strong> {{match.user2.username}}</span>
+            {{#each match in pending}}
+                <div class="row match">
+                    <div class="three columns against">
+                        <img {{bindAttr src="match.user1.avatar"}} class="has-tip" data-width="210" {{bindAttr title="match.user1.username"}}/><span><strong>vs</strong></span><img {{bindAttr src="match.user2.avatar"}} class="has-tip" data-width="210" {{bindAttr title="match.user2.username"}}/>
+                    </div>
+                    <div class="two columns date">
+                        <span>{{match.fromNow}}</span>
+                    </div>
+                    <div class="two columns offset-by-one score">
+                        {{#if match.toConfirm}}
+                            <span>{{match.scoreUser1}} <strong>-</strong> {{match.scoreUser2}}</span>
+                        {{else}}
+                            <span>- <strong>vs</strong> -</span>
+                        {{/if}}
+                    </div>
+                    <div class="three columns offset-by-one actionButtons">
+                        {{#if match.toConfirm}}
+                            <button class="button">Confirm Result</button>
+                        {{else}}
+                            <button class="button">Input Result</button>
+                        {{/if}}
+                    </div>
                 </div>
-                <div class="two columns offset-by-one date">
-                    <span>{{match.fromNow}}</span>
-                </div>
-                <div class="three columns offset-by-one score">
-                    <button class="button">Input Result</button>
-                </div>
-            </div>
+            {{/each}}
             <hr>
         </div>
     </div>
-    {{/if pending}}
+    {{/if}}
+
+    {{#if finished}}
     <div class="row">
         <div class="twelve columns matchesList finishedMatches">
             <div class="row">
                 <h3>History</h3>
             </div>
             <hr>
+            {{#each match in finished}}
             <div class="row match" >
-                <div class="two columns offset-by-one against">
-                    <span><strong>vs</strong> player2</span>
+                <div class="three columns against">
+                    <img {{bindAttr src="match.user1.avatar"}} class="has-tip" data-width="210" {{bindAttr title="match.user1.username"}}/><span><strong>vs</strong></span><img {{bindAttr src="match.user2.avatar"}} class="has-tip" data-width="210" {{bindAttr title="match.user2.username"}}/>
                 </div>
-                <div class="two columns offset-by-one score">
-                    <span>2 <strong>-</strong> 1</span>
+                <div class="two columns date">
+                    <span>{{match.fromNow}}</span>
                 </div>
-                <div class="three columns offset-by-one date">
-                    <span>in 3 days</span>
+                <div class="six columns offset-by-one score">
+                    <span>{{match.scoreUser1}} <strong>-</strong> {{match.scoreUser2}}</span>
                 </div>
             </div>
-            <hr>
-            <div class="row match" >
-                <div class="two columns offset-by-one against">
-                    <span><strong>vs</strong> player2</span>
-                </div>
-                <div class="two columns offset-by-one score">
-                    <span>2 <strong>-</strong> 1</span>
-                </div>
-                <div class="three columns offset-by-one date">
-                    <span>in 3 days</span>
-                </div>
-            </div>
+            {{/each}}
             <hr>
         </div>
     </div>
+    {{/if}}
+
     {{/with}}
 </script>
 
