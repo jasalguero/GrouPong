@@ -7,6 +7,7 @@ import de.groupon.hcktn.groupong.domain.response.MatchDTO;
 import de.groupon.hcktn.groupong.model.dao.MatchDAO;
 import de.groupon.hcktn.groupong.model.entity.Match;
 import de.groupon.hcktn.groupong.service.MatchService;
+import de.groupon.hcktn.groupong.service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,9 @@ public class MatchServiceImpl implements MatchService {
     @Autowired
     private MatchDTOMapper matchDTOMapper;
 
+    @Autowired
+    private ScoreService scoreService;
+
     @Override
     public BaseDTO createMatch(final MatchDTO matchDTO) {
         matchDTO.setId(null);
@@ -36,8 +40,12 @@ public class MatchServiceImpl implements MatchService {
         if (match == null) {
             throw new NotFoundException("Match found with id: " + matchDTO.getId() + " not found");
         }
+
+        scoreService.score(match, matchDTO);
+
         match = matchDTOMapper.update(match, matchDTO);
         match = matchDAO.update(match);
+
         return matchDTOMapper.mapToMatchDTO(match);
     }
 

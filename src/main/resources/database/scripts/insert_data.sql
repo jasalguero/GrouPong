@@ -16,9 +16,9 @@ INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) 
 INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (2, 3, 3, 0, '1353765248620', 6);
 INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (3, 2, 2, 1, '1353765249620', 6);
 
-INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (1, 2, 1, 2, '1353765251620', 1);
-INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (1, 3, 1, 2, '1353765251620', 2);
-INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (2, 3, 1, 2, '1353765251620', 3);
+INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (1, 2, 1, 2, '1354235483000', 1);
+INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (1, 3, 1, 2, '1354235483000', 2);
+INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (2, 3, 1, 2, '1354235483000', 3);
 INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (2, 1, 3, 0, '1353765251620', 5);
 
 INSERT INTO game (user1, user2, score_user1, score_user2, game_date, status_id) VALUES (3, 4, 2, 1, '1353765246620', 6);
