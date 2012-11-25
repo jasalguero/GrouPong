@@ -315,9 +315,9 @@
                                 <div class="playerRanking">{{user.item.rank}}</div>
                             </div>
                             <div class="playerAchievements">
-                                <img src="images/achievement_32_hot.png"/>
-                                <img src="images/achievement_32_hot.png"/>
-                                <img src="images/achievement_32_dis.png"/>
+                                <img {{bindAttr src="user.item.getSmallAchievement1"}} class="has-tip" data-width="210" {{bindAttr title="GP.router.achievementController.getDescriptionAch1"}}/>
+                                <img {{bindAttr src="user.item.getSmallAchievement2"}} class="has-tip" data-width="210" {{bindAttr title="GP.router.achievementController.getDescriptionAch2"}}/>
+                                <img {{bindAttr src="user.item.getSmallAchievement3"}} class="has-tip" data-width="210" {{bindAttr title="GP.router.achievementController.getDescriptionAch3"}}/>
                             </div>
                         </div>
                         <div class="two columns actionButtons">
@@ -347,9 +347,9 @@
                         <div class="playerRanking">{{rank}}</div>
                     </div>
                     <div class="playerAchievements">
-                        <img src="images/achievement.png"/>
-                        <img src="images/achievement.png"/>
-                        <img src="images/achievement_dis.png"/>
+                        <img {{bindAttr src="getBigAchievement1"}} class="has-tip" data-width="210" {{bindAttr title="GP.router.achievementController.getDescriptionAch1"}}/>
+                        <img {{bindAttr src="getBigAchievement2"}} class="has-tip" data-width="210" {{bindAttr title="GP.router.achievementController.getDescriptionAch2"}}/>
+                        <img {{bindAttr src="getBigAchievement3"}} class="has-tip" data-width="210" {{bindAttr title="GP.router.achievementController.getDescriptionAch3"}}/>
                     </div>
                 </div>
                 <div class="three columns score">
