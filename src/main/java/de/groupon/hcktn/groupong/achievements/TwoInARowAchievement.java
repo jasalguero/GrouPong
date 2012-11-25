@@ -30,11 +30,11 @@ public class TwoInARowAchievement implements Achievement {
 
 
     private MatchDTO findLastMatch(List<MatchDTO> matches) {
-        Long lastDate = Long.parseLong(matches.get(0).getDate());
+        Long lastDate = matchDTOMapper.formatTime(matches.get(0).getDate());
         MatchDTO lastMatch = matches.get(0);
         for (MatchDTO thisMatch : matches) {
-            Long thisDate = Long.parseLong(thisMatch.getDate());
-            if (thisDate > lastDate) {
+            Long thisDate = matchDTOMapper.formatTime(thisMatch.getDate());
+            if (thisDate >= lastDate) {
                 lastDate = thisDate;
                 lastMatch = thisMatch;
             }
@@ -50,12 +50,12 @@ public class TwoInARowAchievement implements Achievement {
 
     private Boolean isUserWinner(MatchDTO match, User user) {
         if (match.getScoreUser1() > match.getScoreUser2()) {
-            if (user.getId() == match.getUser1Id()) {
+            if (user.getId().equals(match.getUser1Id())) {
                 return true;
             }
         }
         if (match.getScoreUser2() > match.getScoreUser1()) {
-            if (user.getId() == match.getUser2Id()) {
+            if (user.getId().equals(match.getUser2Id())) {
                 return true;
             }
         }
@@ -67,7 +67,7 @@ public class TwoInARowAchievement implements Achievement {
     public Boolean isAchieved(final User user, final Match match) {
         if (isUserWinner(match, user)) {
             List<MatchDTO> oldMatches = matchService.fetchMatchesByUserIdStatusId(user.getId(), 6);
-            if ((oldMatches == null) || (oldMatches.size() == 0)) {
+            if ( (oldMatches == null) || (oldMatches.isEmpty() )) {
                 return false;
             }
             MatchDTO lastMatch = findLastMatch(oldMatches);
