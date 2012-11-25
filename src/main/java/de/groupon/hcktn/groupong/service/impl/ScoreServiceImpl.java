@@ -20,15 +20,15 @@ public class ScoreServiceImpl implements ScoreService {
     @Override
     public void score(Match match, MatchDTO matchDTO) {
         if ((match.getStatusId()==4 || match.getStatusId()==5) && matchDTO.getStatusId()==6) {
-            User user1 = myUserDAO.retrieve(matchDTO.getUser1Id());
-            User user2 = myUserDAO.retrieve(matchDTO.getUser2Id());
+            User user1 = myUserDAO.retrieve(match.getUser1Id());
+            User user2 = myUserDAO.retrieve(match.getUser2Id());
             Integer user1ActualScore = user1.getScore();
             Integer user2ActualScore = user2.getScore();
-            Integer user1NewScore = user1ActualScore + (matchDTO.getScoreUser1() * scoreMultiplier);
-            Integer user2NewScore = user2ActualScore + (matchDTO.getScoreUser2() * scoreMultiplier);
-            if (matchDTO.getScoreUser1() > matchDTO.getScoreUser2()) {
+            Integer user1NewScore = user1ActualScore + (match.getScoreUser1() * scoreMultiplier);
+            Integer user2NewScore = user2ActualScore + (match.getScoreUser2() * scoreMultiplier);
+            if (match.getScoreUser1() > match.getScoreUser2()) {
                 user1NewScore += winBonus;
-            } else if (matchDTO.getScoreUser1() < matchDTO.getScoreUser2()) {
+            } else if (match.getScoreUser1() < match.getScoreUser2()) {
                 user2NewScore += winBonus;
             }
             user1.setScore(user1NewScore);
