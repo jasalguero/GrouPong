@@ -29,6 +29,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public BaseDTO createUser(final UserDTO userDTO) {
         userDTO.setId(null);
+        userDTO.setScore(1000);
         User user = userDTOMapper.mapToUser(userDTO);
         user = userDAO.create(user);
         return userDTOMapper.mapToUserDTO(user);

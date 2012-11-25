@@ -1,1 +1,1 @@
-curl -i -X POST -H "Content-Type:application/json" -d '{ "userName":"test", "password":"rollback", "email":"test@groupon.com", "avatar":"http://www.avatarsdb.com/avatars/acrobat.gif",  "score":1000 }' http://localhost:8080/groupong/user
+curl -i -X POST -H "Content-Type:application/json" -d '{ "userName":"test", "password":"rollback", "email":"test@groupon.com", "avatar":"images/avatars/commissar_avatar.png" }' http://localhost:8080/groupong/user
