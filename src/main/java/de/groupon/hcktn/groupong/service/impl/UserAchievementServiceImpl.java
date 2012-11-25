@@ -27,6 +27,15 @@ public class UserAchievementServiceImpl implements UserAchievementService {
     private Achievement firstBloodAchievement;
 
 
+
+
+
+    @Autowired
+    @Qualifier(value = "twoInARowAchievement")
+    private Achievement twoInARowAchievement;
+
+
+
     @Override
     public void processUserAchievements(Match match, MatchDTO matchDTO) {
         // if we change from Confirmed user1 / Confirmed user 2 => Finished
@@ -88,6 +97,8 @@ public class UserAchievementServiceImpl implements UserAchievementService {
     private List<Achievement> getAllAchievements() {
         final List<Achievement> achievements = new ArrayList<Achievement>();
         achievements.add(firstBloodAchievement);
+
+        achievements.add(twoInARowAchievement);
         return achievements;
     }
 
