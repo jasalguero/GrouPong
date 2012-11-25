@@ -89,4 +89,37 @@ public class UserDTO extends BaseDTO {
     public void setMatches(List<MatchDTO> matches) {
         this.matches = matches;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserDTO)) return false;
+
+        UserDTO userDTO = (UserDTO) o;
+
+        if (achievements != null ? !achievements.equals(userDTO.achievements) : userDTO.achievements != null)
+            return false;
+        if (avatar != null ? !avatar.equals(userDTO.avatar) : userDTO.avatar != null) return false;
+        if (email != null ? !email.equals(userDTO.email) : userDTO.email != null) return false;
+        if (matches != null ? !matches.equals(userDTO.matches) : userDTO.matches != null) return false;
+        if (password != null ? !password.equals(userDTO.password) : userDTO.password != null) return false;
+        if (rank != null ? !rank.equals(userDTO.rank) : userDTO.rank != null) return false;
+        if (score != null ? !score.equals(userDTO.score) : userDTO.score != null) return false;
+        if (userName != null ? !userName.equals(userDTO.userName) : userDTO.userName != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = userName != null ? userName.hashCode() : 0;
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (avatar != null ? avatar.hashCode() : 0);
+        result = 31 * result + (score != null ? score.hashCode() : 0);
+        result = 31 * result + (rank != null ? rank.hashCode() : 0);
+        result = 31 * result + (achievements != null ? achievements.hashCode() : 0);
+        result = 31 * result + (matches != null ? matches.hashCode() : 0);
+        return result;
+    }
 }

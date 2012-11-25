@@ -75,4 +75,34 @@ public class MatchDTO extends BaseDTO {
     public void setStatusId(Integer statusId) {
         this.statusId = statusId;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof MatchDTO)) return false;
+
+        MatchDTO matchDTO = (MatchDTO) o;
+
+        if (date != null ? !date.equals(matchDTO.date) : matchDTO.date != null) return false;
+        if (scoreUser1 != null ? !scoreUser1.equals(matchDTO.scoreUser1) : matchDTO.scoreUser1 != null) return false;
+        if (scoreUser2 != null ? !scoreUser2.equals(matchDTO.scoreUser2) : matchDTO.scoreUser2 != null) return false;
+        if (status != null ? !status.equals(matchDTO.status) : matchDTO.status != null) return false;
+        if (statusId != null ? !statusId.equals(matchDTO.statusId) : matchDTO.statusId != null) return false;
+        if (user1Id != null ? !user1Id.equals(matchDTO.user1Id) : matchDTO.user1Id != null) return false;
+        if (user2Id != null ? !user2Id.equals(matchDTO.user2Id) : matchDTO.user2Id != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = user1Id != null ? user1Id.hashCode() : 0;
+        result = 31 * result + (user2Id != null ? user2Id.hashCode() : 0);
+        result = 31 * result + (scoreUser1 != null ? scoreUser1.hashCode() : 0);
+        result = 31 * result + (scoreUser2 != null ? scoreUser2.hashCode() : 0);
+        result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (statusId != null ? statusId.hashCode() : 0);
+        return result;
+    }
 }
