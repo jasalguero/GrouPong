@@ -4,6 +4,8 @@
 window.GP = Em.Application.create({
     gpDevhelper : GPDevHelper.create(),
 
+    pinger: null,
+
     ready: function(){
         console.log("Application initialized");
         //GP.gpDevhelper.createUsers(5);
@@ -27,7 +29,8 @@ GP.CONSTANTS = {
         USERS:'/users',
         USER:'/user',
         ACHIEVEMENTS:'/achievements',
-        MATCH:'/match'
+        MATCH:'/match',
+        NEW_MATCHES: '/newmatch'
 
     }
 };
@@ -89,7 +92,7 @@ GP.User = Em.Object.extend({
     pending: function(){
         var filteredArray = [];
         this.get('matches').map(function(i) {
-            if (Em.isEqual(i.statusId,2) || Em.isEqual(i.statusId,5)){
+            if (Em.isEqual(i.statusId,2) || Em.isEqual(i.statusId,5) || Em.isEqual(i.statusId,4)){
                 filteredArray.push(i);
             }
         });
@@ -208,6 +211,7 @@ GP.ApplicationController = Em.Controller.extend({
 
     logout: function(){
         GP.get('router.applicationController').set('loggedUser',null)
+        GP.stopWebsocket();
     },
 
     loggedUserId: function(){
@@ -288,6 +292,7 @@ GP.ModalController = Em.Controller.extend({
         if (result){
             $('#myModal').trigger('reveal:close')
             $('.protected').show();
+            GP.startWebsocket();
         }else{
            $('#incorrectLogin').show('fast');
         }
@@ -631,7 +636,9 @@ GP.dataSource = Ember.Object.create({
 
         var data = {
             "id": match.get('id'),
-            "statusId": statusId
+            "statusId": statusId,
+            "scoreUser1" : $('#scoreUser1').val(),
+            "scoreUser2" : $('#scoreUser2').val()
         }
         $.ajax({
             type:'PUT',
@@ -669,6 +676,26 @@ GP.dataSource = Ember.Object.create({
                 $('#smallModal').reveal();
             }
         })
+    },
+
+    ping: function(){
+            $.ajax({
+                type:'GET',
+                async: false,
+                data:{
+                    userId: GP.get('router.applicationController.loggedUserId')
+                },
+                url: GP.CONSTANTS.API.BASE_URL + GP.CONSTANTS.API.NEW_MATCHES,
+                dataType:'json',
+                success: function(data){
+                    if (!Em.none(data)){
+                        var message = "You have new challenges, check them in your profile";
+                        GP.get('router').get('applicationController').connectOutlet('smallModal', 'smallModal', message);
+                        $('#smallModal').reveal();
+                        GP.get('router.applicationController').refreshModel();
+                    }
+                }
+            });
     }
 
 });
@@ -728,6 +755,18 @@ GP.parseAchievement = function(json){
     achievement.set('description',json.description);
     return achievement;
 }
+
+GP.startWebsocket = function(){
+    console.log("starting websocket...");
+
+    GP.set('pinger', setInterval(GP.dataSource.ping, 5000));
+    //this.set('_checkInterval',setInterval(this.get('checkFunction'), recurrence));
+}
+GP.stopWebsocket = function(){
+    console.log("stoping websocket...");
+    window.clearInterval(GP.get('pinger'));
+    GP.set('pinger', null);
+};
 
 GP.initialize();
 
