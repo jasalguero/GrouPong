@@ -203,6 +203,10 @@ GP.ApplicationController = Em.Controller.extend({
         return (!Em.none(this.loggedUser));
     }.property('loggedUser'),
 
+    logout: function(){
+        GP.get('router.applicationController').set('loggedUser',null)
+    },
+
     loggedUserId: function(){
         if (GP.get('router.applicationController.isUserLogged')){
             return this.loggedUser.get('id');

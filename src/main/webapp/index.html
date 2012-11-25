@@ -72,6 +72,11 @@
                             {{/if}}
 
                         </li>
+                        <li>
+                            {{#if GP.router.applicationController.isUserLogged}}
+                            <a class="active" href="#" {{action logout target="GP.router.applicationController"}}>Logout</a>
+                            {{/if}}
+                        </li>
                     </ul>
                 </section>
             </nav>
@@ -321,7 +326,7 @@
                             </div>
                         </div>
                         <div class="two columns actionButtons">
-                            <div class="actionButton"><button {{bindAttr disabled="user.isChallengeDisabled"}} class="alert button" {{action showChallengeModal user.item target="GP.router.modalController"}}>Challenge!</a></div>
+                            <div class="actionButton"><button {{bindAttr disabled="user.item.isChallengeDisabled"}} class="alert button" {{action showChallengeModal user.item target="GP.router.modalController"}}>Challenge!</a></div>
                             <div class="actionButton"><button class="button" {{action showProfile user.item}}>Profile</a></div>
                         </div>
                     </div>
