@@ -165,9 +165,10 @@ GP.ApplicationController = Em.Controller.extend({
 });
 
 GP.ModalController = Em.Controller.extend({
-    showChallengeModal: function(){
+    showChallengeModal: function(event){
+        var user = event.context;
         var context = {
-            title: 'Do you want to challenge xxxx?',
+            title: 'Do you want to challenge ' + user.get('username') + '?',
             lead: 'If you confirm, he will receive a notification and will confirm the challenge',
             second: '.. if he is not too afraid to accept it',
             imgSrc: 'images/challenge.png',
@@ -180,6 +181,10 @@ GP.ModalController = Em.Controller.extend({
     showLoginModal: function(){
         GP.get('router').get('applicationController').connectOutlet('modal', 'modalLogin');
         $('#myModal').reveal();
+    },
+
+    showAccept: function(match){
+
     },
 
     login: function(){
