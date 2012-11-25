@@ -484,15 +484,16 @@ GP.dataSource = Ember.Object.create({
 
     createMatch: function(targetUser){
         var data = {
-            user1Id: 7, //GP.get('router.applicationController.loggedUserId'),
-            user2Id: targetUser.get('id'),
-            date: moment().add('days',3).unix()*1000
+            "user1Id": 7, //GP.get('router.applicationController.loggedUserId'),
+            "user2Id": targetUser.get('id'),
+            "date": moment().add('days',3).unix()*1000,
+            "statusId": 1
         }
         $.ajax({
             type:'POST',
             url: GP.CONSTANTS.API.BASE_URL + GP.CONSTANTS.API.MATCH,
-            data: data,
-            dataType:'text',
+            data: JSON.stringify(data),
+            dataType:'json',
             contentType:'application/json; charset=UTF-8',
             success: function(data){
                 debugger;
