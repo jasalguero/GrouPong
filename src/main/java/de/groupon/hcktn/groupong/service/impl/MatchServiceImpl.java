@@ -7,6 +7,7 @@ import de.groupon.hcktn.groupong.domain.response.MatchDTO;
 import de.groupon.hcktn.groupong.model.dao.MatchDAO;
 import de.groupon.hcktn.groupong.model.entity.Match;
 import de.groupon.hcktn.groupong.service.MatchService;
+import de.groupon.hcktn.groupong.service.NewMatchService;
 import de.groupon.hcktn.groupong.service.ScoreService;
 import de.groupon.hcktn.groupong.service.UserAchievementService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +31,18 @@ public class MatchServiceImpl implements MatchService {
     @Autowired
     private UserAchievementService userAchievementService;
 
+    @Autowired
+    private NewMatchService newMatchService;
+
     @Override
-    public BaseDTO createMatch(final MatchDTO matchDTO) {
-        matchDTO.setId(null);
-        matchDTO.setStatusId(1);
-        Match match = matchDTOMapper.mapToMatch(matchDTO);
+    public BaseDTO createMatch(final MatchDTO matchToCreate) {
+        matchToCreate.setId(null);
+        matchToCreate.setStatusId(1);
+        Match match = matchDTOMapper.mapToMatch(matchToCreate);
         match = matchDAO.create(match);
-        return matchDTOMapper.mapToMatchDTO(match);
+        MatchDTO createdMatch = matchDTOMapper.mapToMatchDTO(match);
+        newMatchService.putNewMatch(match.getUser2Id(), createdMatch);
+        return createdMatch;
     }
 
     @Override

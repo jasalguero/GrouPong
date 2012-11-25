@@ -28,4 +28,22 @@ public class StatusDTO extends BaseDTO {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof StatusDTO)) return false;
+
+        StatusDTO statusDTO = (StatusDTO) o;
+
+        if (description != null ? !description.equals(statusDTO.description) : statusDTO.description != null)
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return description != null ? description.hashCode() : 0;
+    }
 }
